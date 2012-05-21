@@ -14,6 +14,11 @@ var PictureCollection = Backbone.Collection.extend({
 
 
 /*******************Views Definitions*************************/
+
+var LoginPanel = Backbone.View.extend({
+
+});
+
 var TabPanel = Backbone.View.extend({
     
 });
@@ -25,4 +30,5 @@ var PictureWall = Backbone.View.extend({
 var PictureTile = Backbone.View.extend({
     
 });
+
 
