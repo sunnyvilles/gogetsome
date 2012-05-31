@@ -1,5 +1,6 @@
-/*****************Model Definitions*******************/
+//"use strict"
 
+/*****************Model Definitions*******************/
 var Picture = Backbone.Model.extend({
 	initialize : function(config){
         
@@ -26,10 +27,11 @@ var PictureCollection = Backbone.Collection.extend({
 
 /*******************Views Definitions*************************/
 var Header = Backbone.View.extend({
-	updateHeader : function(){
+	updateHeader : function(config){
 		var that = this;
 		this.el.fadeOut('fast',function(){
-			that.el.html(that.loggedInTemplate());
+			console.log(config.authResponse);
+			that.el.html(that.loggedInTemplate(config.authResponse));
 			that.el.fadeIn('slow');
 		})
 	},
@@ -102,8 +104,7 @@ var Header = Backbone.View.extend({
 				'<li class="ownerDetails">',
 					'<div class="updatedBy box morphing-glowing floatLeft">',
 					'<a href="javascript:void(0);">',
-						'<span class="image-wrap " style="position:relative; display:inline-block; background:url(http://graph.facebook.com/609682707/picture) no-repeat center center; width: 35px; height: 35px;">',
-							'<img width="35" height="35" src="http://graph.facebook.com/609682707/picture/" style="opacity: 0; ">',
+						'<span class="image-wrap " style="position:relative; display:inline-block; background:url(http://graph.facebook.com/<%=userID%>/picture) no-repeat center center; width: 35px; height: 35px;">',
 						'</span>',
 					'</a>',
 					'<div class="subNav displayNone  subNavForth" style="right: -2px;top: 32px;z-index: -1;">',
@@ -188,48 +189,38 @@ var PictureWall = Backbone.View.extend({
 		$.ajax({
 			url : '/get-data.json',
 			success : function(res){
-				setTimeout(function(){
-					$('.mainWrapper').activity(false);
-					app.getStore().reset(res.data);
-					for(var i=0,len=app.getStore().length;i<len;i++){
-						var item = new PictureTile(app.getStore().at(i));
-						item.render();
-						$('.mainWrapper').append(item.el);
-						that.items.push(item);
-					}
-					$('.mainWrapper').masonry({
-						// options
-						itemSelector : '.tile',
-						columnWidth : 270
-					});
-				},2000);
-				
+				that.populateWall(res);
 			},
 			error : function(){
 				//TODO show error message
 			}
 		});
 	},
+	populateWall : function(res){
+		var that = this;
+		setTimeout(function(){
+				$('.mainWrapper').activity(false);
+				app.getStore().reset(res.data);
+				for(var i=0,len=app.getStore().length;i<len;i++){
+					var item = new PictureTile(app.getStore().at(i));
+					item.render();
+					$('.mainWrapper').append(item.el);
+					that.items.push(item);
+				}
+				$('.mainWrapper').masonry({
+					// options
+					itemSelector : '.tile',
+					columnWidth : 270
+				});
+			},2000);
+	},
 	showGuestWall : function(){
+		var that = this;
 		$('.mainWrapper').activity();
 		$.ajax({
 			url : '/get-data.json',
 			success : function(res){
-				setTimeout(function(){
-					$('.mainWrapper').activity(false);
-					app.getStore().reset(res.data);
-					for(var i=0,len=app.getStore().length;i<len;i++){
-						var item = new PictureTile(app.getStore().getAtIndex(i));
-						item.render();
-						$('.mainWrapper').append(item.el);
-						this.items.push(item);
-					}
-					$('.mainWrapper').masonry({
-						// options
-						itemSelector : '.tile',
-						columnWidth : 270
-					});
-				},2000);
+				that.populateWall(res);
 			},
 			error : function(){
 				//TODO show error message
@@ -263,7 +254,7 @@ var PictureTile = Backbone.View.extend({
               '<span class="updatedBy box morphing-glowing floatLeft"  style="width: 111px;">',
                 '<a href="javascript:void(0);">',
                   '<span class="image-wrap " style="position:relative; display:inline-block; background:url(file:///Users/saorabhkumar/Desktop/testPic/images/sao.jpg) no-repeat center center; width: 40px; height: 40px;">',
-                    '<img width="40" height="40" src="file:///Users/saorabhkumar/Desktop/testPic/images/sao.jpg" style="opacity: 0; ">',
+                    '<img width="40" height="40" src="" style="opacity: 0; ">',
                   '</span>',
                 '</a>',
                 '<a href="javascript:void(0);" class="profilePic floatRight" style="margin: 10px 0 0 5px;"><span class="font11" style="color:#999">by</span> <span class="font12">saorabh</span></a>',
