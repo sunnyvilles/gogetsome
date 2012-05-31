@@ -197,7 +197,13 @@ var PictureWall = Backbone.View.extend({
 						$('.mainWrapper').append(item.el);
 						that.items.push(item);
 					}
+					$('.mainWrapper').masonry({
+						// options
+						itemSelector : '.tile',
+						columnWidth : 270
+					});
 				},2000);
+				
 			},
 			error : function(){
 				//TODO show error message
@@ -218,6 +224,11 @@ var PictureWall = Backbone.View.extend({
 						$('.mainWrapper').append(item.el);
 						this.items.push(item);
 					}
+					$('.mainWrapper').masonry({
+						// options
+						itemSelector : '.tile',
+						columnWidth : 270
+					});
 				},2000);
 			},
 			error : function(){
@@ -272,7 +283,6 @@ var PictureTile = Backbone.View.extend({
 		return this;
 	},
 	render : function(){
-		console.log(this.template);
 		$(this.el).html(this.template(this.model.toJSON()));
 		return this;
 	}
