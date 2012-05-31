@@ -45,4 +45,21 @@ ActiveRecord::Schema.define(:version => 20120525180347) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "users", :force => true do |t|
+    t.string   "primary_email"
+    t.integer  "fb_user_id"
+    t.integer  "instagram_id"
+    t.integer  "twitter_id"
+    t.integer  "flickr_id"
+    t.integer  "picasa_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "users", ["fb_user_id"], :name => "UNIQUE_FB_USER_ID", :unique => true
+  add_index "users", ["flickr_id"], :name => "UNIQUE_FLICKR_ID", :unique => true
+  add_index "users", ["instagram_id"], :name => "UNIQUE_INSTAGRAM_ID", :unique => true
+  add_index "users", ["picasa_id"], :name => "UNIQUE_PICASA_ID", :unique => true
+  add_index "users", ["twitter_id"], :name => "UNIQUE_TWITTER_ID", :unique => true
+
 end
