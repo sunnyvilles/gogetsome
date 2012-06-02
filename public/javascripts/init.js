@@ -30,13 +30,12 @@ var Header = Backbone.View.extend({
 	updateHeader : function(config){
 		var that = this;
 		this.el.fadeOut('fast',function(){
-			console.log(config.authResponse);
 			that.el.html(that.loggedInTemplate(config.authResponse));
 			that.el.fadeIn('slow');
 		})
 	},
 	initialize : function(config){
-		hub.on('authed',this.updateHeader,this);
+		hub.bind('authed',this.updateHeader,this);
 		this.el = $('header');
 		this.loggedInTemplate = _.template(['<div class="navigation sticky">',
 			'<h1 class="logo floatLeft"><a href="#">XXX</a></h1>',
@@ -148,7 +147,7 @@ var Header = Backbone.View.extend({
 });
 var LoginPanel = Backbone.View.extend({
 	initialize : function(){
-		hub.on('authed',this.destroy,this);
+		hub.bind('authed',this.destroy,this);
 		var that = this;
 		this.template = _.template(["<div class='loginPanel'>",
 			"<div class='fb-login-button'>Login with Facebook</div>",
@@ -176,8 +175,8 @@ var TabPanel = Backbone.View.extend({
 var PictureWall = Backbone.View.extend({
 	
 	initialize : function(){
-		hub.on('authed',this.showCustomWall,this);
-		hub.on('guestInit',this.showGuestWall,this);
+		hub.bind('authed',this.showCustomWall,this);
+		hub.bind('guestInit',this.showGuestWall,this);
 		this.items = [];
 	},
 	render : function(){
@@ -207,10 +206,11 @@ var PictureWall = Backbone.View.extend({
 					$('.mainWrapper').append(item.el);
 					that.items.push(item);
 				}
-				$('.mainWrapper').masonry({
-					// options
-					itemSelector : '.tile',
-					columnWidth : 270
+				$('.mainWrapper').imagesLoaded(function(){
+					$('.mainWrapper').masonry({
+						itemSelector : '.tile',
+						columnWidth : 270
+					});
 				});
 			},2000);
 	},
@@ -236,32 +236,46 @@ var PictureTile = Backbone.View.extend({
 	initialize : function(config){
 		this.template = _.template([
 			'<div itemtype="javascript:void(0)" itemscope="" class="item photo">',
-        '<div class="modal-media wrapper cboxElement">',
-          '<a data-main-img="" href="javascript:void" onclick="">',
-            '<img width="240" src="http://25.media.tumblr.com/tumblr_llgnx3XlDx1qjrdlbo1_250.jpg" alt="">',
-            '<span class="displayNone type searchIcon"></span>',
+        '<div class="modal-media wrapper cboxElement  view second-effect">',
+          '<a class="imgContent" href="#">',
+            '<img width="240" src="<%=imageUrl%>" alt="">',
           '</a>',
-          '<div class="socialToolbar socialLinks forLiveFeeds showtoolbar displayNone" style="">',
-            '<span class="floatLeft" style="margin-top: 8px;margin-left: 5px;background: green">',
-              '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://picsfustion.com" data-via="picsfusion" data-hashtags="pics">Tweet</a>',
-            '</span>',
-            '<span class="floatLeft flike" style="margin-top: 8px;margin-left: 5px;background: green">',
-              '<fb:like allowtransparency="true" frameborder="0" scrolling="no" colorscheme="light" action="like" show-faces="false" layout="button_count" href="http://fab.com/sale/6370/product/141752/?fref=fb-like" class=" fb_edge_widget_with_comment fb_iframe_widget"><span style="height: 0px; width: 90px;">',
-                  '<iframe scrolling="no" id="f2d26674652832" name="f77b5062c4bfac" style="border: medium none; overflow: hidden; height: 0px; width: 90px;" title="Like this content on Facebook." class="fb_ltr   " src=""></iframe></span></fb:like></span></span>',
+
+          '<div class="mask">',
+            '<div class="itemDisc">',
+              '<span class="itemName">Arrow New York</span>',
+              '<span class="itemNameDesc">Men Check Navy Blue Shirt</span>',
+              '<div class="priceDetails">',
+                '<div class="floatLeft">',
+                  '<span class="discountedPrice red">Rs. 810 <span class="strike gray originalPrice">899</span></span>',
+                  '<div class="perOff red fontBold">(10% OFF)</div>',
+                '</div>',
+                '<div class="floatRight">',
+                  '<a class="grabIt " target="_self" href="#"><span class="left"> Grab It! </span></a>',
+                '</div>',
+              '</div>',
+            '</div>',
+            '<div class="socialToolbar socialLinks forLiveFeeds showtoolbar" style="">',
+              '<span class="floatLeft" style="margin-top: 8px;margin-left: 5px;background: green">',
+              '</span>',
+              '<span class="floatLeft flike" style="margin-top: 8px;margin-left: 5px;background: green"></span>',
+            '</div>',
           '</div>',
+
+        '</div>',
+        '<div class="modal-media wrapper cboxElement">',
           '<div class="typeInfo clear">',
             '<div class="floatLeft">',
-              '<span class="updatedBy box morphing-glowing floatLeft"  style="width: 111px;">',
+              '<span class="updatedBy box morphing-glowing floatLeft"  style="width: 100%;">',
                 '<a href="javascript:void(0);">',
-                  '<span class="image-wrap " style="position:relative; display:inline-block; background:url(file:///Users/saorabhkumar/Desktop/testPic/images/sao.jpg) no-repeat center center; width: 40px; height: 40px;">',
-                    '<img width="40" height="40" src="" style="opacity: 0; ">',
+                  '<span class="image-wrap " style="position:relative; display:inline-block; background:url(images/logo-myntra.png) no-repeat center center; background-size: 47px 55px;width: 40px; height: 40px;">',
+                    '<img width="40" height="40" src="images/logo-myntra.png" style="opacity: 0; ">',
                   '</span>',
                 '</a>',
-                '<a href="javascript:void(0);" class="profilePic floatRight" style="margin: 10px 0 0 5px;"><span class="font11" style="color:#999">by</span> <span class="font12">saorabh</span></a>',
+                '<a href="javascript:void(0);" class="profilePic floatRight" style="margin: 10px 0 0 5px;"><span class="font11" style="color:#999">by</span> <span class="font12">Myntra</span></a>',
               '</span>',
             '</div>',
             '<div class="floatRight font12" style="margin-top: 14px;">',
-              '<span class="updatedAt color3 floatLeft" style="margin-right: 5px"><span class="font11" style="color:#999">on </span>May,12 2012</span>',
               '<span class="howMayLicks color3 floatRight">',
                 '<span class="heartIconGray floatLeft" style="margin-right: 3px"></span>',
                 '<span class="favCount floatRight">12</span>',
@@ -269,12 +283,18 @@ var PictureTile = Backbone.View.extend({
             '</div>',
           '</div>',
         '</div>',
-      '</div>'].join(""));
+      '</div>'
+		].join(""));
 		this.model = config;
 		return this;
 	},
 	render : function(){
 		$(this.el).html(this.template(this.model.toJSON()));
+		$(this.el).draggable({
+			stop : function(){
+				$('.mainWrapper').masonry('reload');
+			}
+		});
 		return this;
 	}
 });
@@ -319,7 +339,9 @@ $(function(){
 							}
 						});
 					}
+					
 				},100);
+
 			};
 			d.getElementsByTagName('head')[0].appendChild(js);
 		}(document));
@@ -351,6 +373,34 @@ $(function(){
 		};
 	})();
 	
-	hub.on('guestInit',app.showGuestContent,app);
+	hub.bind('guestInit',app.showGuestContent,app);
 })
+
+/*
+ ,{
+			'itemId' : '13',
+			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
+		},{
+			'itemId' : '14',
+			'imageUrl' : 'http://media-cache2.pinterest.com/upload/130393351681631158_yHNNc324_b.jpg'
+		},{
+			'itemId' : '15',
+			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
+		},{
+			'itemId' : '16',
+			'imageUrl' : 'http://media-cache2.pinterest.com/upload/130393351681631158_yHNNc324_b.jpg'
+		},{
+			'itemId' : '17',
+			'imageUrl' : 'http://media-cache1.pinterest.com/upload/194006696418196817_Pl6q6rwf_b.jpg'
+		},{
+			'itemId' : '18',
+			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
+		},{
+			'itemId' : '19',
+			'imageUrl' : 'http://media-cache5.pinterest.com/upload/139611657168867043_LJVIuqfY_b.jpg'
+		},{
+			'itemId' : '20',
+			'imageUrl' : 'http://media-cache8.pinterest.com/upload/159314905538663633_OXKg3W1o_b.jpg'
+		}
+ **/
 
