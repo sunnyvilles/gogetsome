@@ -3,7 +3,7 @@
 /*****************Model Definitions*******************/
 var Picture = Backbone.Model.extend({
 	initialize : function(config){
-
+        
 	}
 });
 var User = Backbone.Model.extend({
@@ -20,7 +20,7 @@ var User = Backbone.Model.extend({
 /*******************Collection Definitins********************/
 var PictureCollection = Backbone.Collection.extend({
 	initialize : function(config){
-
+        
 	}
 });
 
@@ -169,18 +169,18 @@ var LoginPanel = Backbone.View.extend({
 });
 
 var TabPanel = Backbone.View.extend({
-
+    
 	});
 
 var PictureWall = Backbone.View.extend({
-
+	
 	initialize : function(){
 		hub.bind('authed',this.showCustomWall,this);
 		hub.bind('guestInit',this.showGuestWall,this);
 		this.items = [];
 	},
 	render : function(){
-
+			
 	},
 	showCustomWall : function(){
 		var that = this;
@@ -232,7 +232,7 @@ var PictureWall = Backbone.View.extend({
 var PictureTile = Backbone.View.extend({
 	tagName : 'div',
 	className : 'tile',
-
+	
 	initialize : function(config){
 		this.template = _.template([
 			'<div itemtype="javascript:void(0)" itemscope="" class="item photo">',
@@ -272,6 +272,7 @@ var PictureTile = Backbone.View.extend({
                     '<img height="40" src="images/logo-myntra.png" style="opacity: 0; ">',
                   '</span>',
                 '</a>',
+                '<a href="javascript:void(0);" class="profilePic floatRight" style="margin: 10px 0 0 5px;"><span class="font11" style="color:#999">by</span> <span class="font12">Myntra</span></a>',
               '</span>',
             '</div>',
             '<div class="floatRight font12" style="margin-top: 14px;">',
@@ -338,13 +339,13 @@ $(function(){
 							}
 						});
 					}
-
+					
 				},100);
 
 			};
 			d.getElementsByTagName('head')[0].appendChild(js);
 		}(document));
-
+		
 		var user,loginPanel,header,pictureWall,store;
 		header = new Header({
 			user : user
@@ -364,14 +365,14 @@ $(function(){
 				return store;
 			},
 			showUserContent : function(){
-
+				
 			},
 			showGuestContent : function(){
-
+				
 			}
 		};
 	})();
-
+	
 	hub.bind('guestInit',app.showGuestContent,app);
 })
 
