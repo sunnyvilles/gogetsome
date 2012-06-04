@@ -303,7 +303,6 @@ var PictureTile = Backbone.View.extend({
 			'<span class="floatLeft flike" style="margin-top: 8px;margin-left: 5px;background: green"></span>',
 			'</div>',
 			'</div>',
-
 			'</div>',
 			'<div class="modal-media wrapper cboxElement">',
 			'<div class="typeInfo clear">',
@@ -327,6 +326,7 @@ var PictureTile = Backbone.View.extend({
 			'</div>',
 			'</div>'
 			].join(""));
+
 		this.model = config;
 		return this;
 	},
