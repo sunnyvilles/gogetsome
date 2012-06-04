@@ -457,6 +457,20 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   border-bottom: 3px solid #000;
   outline: none;
 }
+
+.wishList{
+	width: 210px;
+	height: 600px;
+	padding: 10px;
+	margin: 10px 20px;
+	float: right;
+	background:red;
+	color:white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	position: relative;
+}
 /*.cboxElement a.imgContent{
   border: none;
   background: url("../images/bg-hr.png") repeat scroll 0 0 transparent;
@@ -465,7 +479,13 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 }*/
 
 /**** Transitions ****/
-
+.noAnimation{
+	-webkit-transition-duration: 0 !important;
+	-moz-transition-duration: 0 !important;
+	-ms-transition-duration: 0 !important;
+	-o-transition-duration: 0 !important;
+	transition-duration: 0 !important;
+}
 .masonry,
 .masonry .masonry-brick {
   -webkit-transition-duration: 1s;
