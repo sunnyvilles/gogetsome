@@ -274,7 +274,7 @@ ul.navigationLinks li{
   border: none;
 }
 .phantomDiv{
-  height: 60px;
+  height: 48px;
   position: relative;
 }
 .logo a{
@@ -466,7 +466,6 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 
 .wishList{
 	width: 210px;
-	height: 600px;
 	padding: 10px;
 	margin: 10px 20px;
 	float: right;
@@ -528,7 +527,32 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
     vertical-align: middle;
     width: 100%;
 }
+.noAuthBox{
+	height: 32px;
+	width: 512px;
+	background: #FFFDC1;
+	margin: 0 auto;
+	padding: 10px 20px;
+	border: 1px solid rgba(34, 25, 25, 0.25);
+	border-radius : 0 0 5px 5px;
+}
+.noAuthBox .desc{
+	width: 288px;
+	display: inline-block;
+}
+.noAuthBox .btn{
+	margin-right: 10px;
+	cursor: pointer;
+}
 
+.loginPanel{
+	position: relative;
+	width: 462px;
+	height: 262px;
+	margin: 0 auto;
+	background: #FFFDC1;
+	z-index: 10;
+}
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {
     .mainWrapper{

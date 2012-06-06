@@ -62,7 +62,7 @@ var Header = Backbone.View.extend({
 		hub.bind('authed',this.updateHeader,this);
 		this.el = $('header');
 		this.loggedInTemplate = _.template(['<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><a href="#">XXX</a></h1>',
+			'<h1 class="logo floatLeft"><a href="#">Graboard</a></h1>',
 			'<ul class="navigationLinks floatRight">',
 			'<li class="recentPic">',
 			'<a href="">PHOTOS </a>',
@@ -158,7 +158,7 @@ var Header = Backbone.View.extend({
 			'</div>'].join(''));
 		this.loggedOutTemplate = _.template([
 			'<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><a href="#">XXX</a></h1>',
+			'<h1 class="logo floatLeft"><a href="#">Graboard</a></h1>',
 			'</div>'].join(''));
 	},
 	render : function(config){
@@ -166,7 +166,33 @@ var Header = Backbone.View.extend({
 			$('header').html(this.loggedInTemplate(config.user));
 		}else{
 			$('header').html(this.loggedOutTemplate());
+			$('.noAuthBox .login').click(function(){
+				var loginPanel = new LoginPanel();
+				loginPanel.render();
+				FB.XFBML.parse();
+			});
+
+			$('.noAuthBox .invite').click(function(){
+				alert(1);
+				var invitePanel = new InvitePanel();
+				invitePanel.render();
+				FB.XFBML.parse();
+			});
 		}
+	}
+});
+
+var InvitePanel = Backbone.View.extend({
+	initialize : function(){
+		this.template = _.template(["<div class='loginPanel'>",
+			"<div>Sign up for an invite to join Pinterest</div>",
+			"<span>or <em>login</em> to your account.</span>",
+			"<input type='email' />",
+			"</div>"].join(""));
+		return this;
+	},
+	render : function(){
+		$('.mainWrapper').append(this.template({}));
 	}
 });
 var LoginPanel = Backbone.View.extend({
@@ -179,7 +205,7 @@ var LoginPanel = Backbone.View.extend({
 		return this;
 	},
 	render : function(){
-		$('.mainWrapper').html(this.template({
+		$('.mainWrapper').append(this.template({
 			fbLogin : true,
 			gLogin : true,
 			signUp : true
