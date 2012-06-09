@@ -23,11 +23,11 @@ $.Mason.prototype._reLayout = function( callback ) {
 	}
 	// apply layout logic to all bricks
 	this.layout( this.$bricks, callback );
-}; 
+};
 /*****************Model Definitions*******************/
 var Picture = Backbone.Model.extend({
 	initialize : function(config){
-        
+
 	}
 });
 var User = Backbone.Model.extend({
@@ -44,7 +44,7 @@ var User = Backbone.Model.extend({
 /*******************Collection Definitins********************/
 var PictureCollection = Backbone.Collection.extend({
 	initialize : function(config){
-        
+
 	}
 });
 
@@ -62,7 +62,7 @@ var Header = Backbone.View.extend({
 		hub.bind('authed',this.updateHeader,this);
 		this.el = $('header');
 		this.loggedInTemplate = _.template(['<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><a href="#">Graboard</a></h1>',
+			'<h1 class="logo floatLeft"><asvn  href="#">Graboard</a></h1>',
 			'<ul class="navigationLinks floatRight">',
 			'<li class="recentPic">',
 			'<a href="">PHOTOS </a>',
@@ -182,6 +182,39 @@ var Header = Backbone.View.extend({
 	}
 });
 
+var filterPanel = Backbone.View.extend({
+  initialize : function(config){
+      this.loggedOutTemplate = _.template([
+        '<div id="filterSale" class="bar">',
+        '<div class="bar-section bar-section-view">',
+					'<label>View:</label>',
+					'<ul>',
+						'<li><a class="no-icon on" href="#type=all">All</a></li>',
+            '<li><a class="price" href="#type=price"><span></span>Price</a></li>',
+						'<li>',
+              '<label>Category:</label>',
+              '<div class="mainCategory" href="#type=all"><span class="mainCatList"></span>All',
+                '<em class="tringle"></em>',
+                '<ul class="subCatLists displayNone">',
+                  '<li><a class="cat1" href="#type=shoes"><span></span>shoes</a></li>',
+                  '<li><a class="cat2" href="#type=house"><span></span>house</a></li>',
+                  '<li><a class="cat3" href="#type=elsectronics"><span></span>elsectronics</a></li>',
+                  '<li><a class="cat4" href="#type=mobile"><span></span>mobile</a></li>',
+                  '<li><a class="cat5" href="#type=books"><span></span>books</a></li>',
+                  '<li><a class="cat6" href="#type=jewellery"><span></span>jewellery</a></li>',
+                  '<li><a class="cat7" href="#type=Jeans"><span></span>Jeans</a></li>',
+                '</ul>',
+              '</div>',
+            '</li>',
+					'</ul>',
+				'</div>',
+      '</div>'].join(''));
+  },
+  render : function (){
+    $('.mainWrapper').append(this.template({}));
+  }
+})
+
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
 		this.template = _.template(["<div class='loginPanel'>",
@@ -219,19 +252,19 @@ var LoginPanel = Backbone.View.extend({
 });
 
 var TabPanel = Backbone.View.extend({
-    
+
 	});
 
 var PictureWall = Backbone.View.extend({
-	
+
 	initialize : function(){
 		hub.bind('authed',this.showCustomWall,this);
 		hub.bind('guestInit',this.showGuestWall,this);
-		
+
 		this.items = [];
 	},
 	render : function(){
-			
+
 	},
 	showCustomWall : function(){
 		var that = this;
@@ -271,9 +304,9 @@ var PictureWall = Backbone.View.extend({
 				$('.mainWrapper').append(item.el);
 				that.items.push(item);
 			}
-			
+
 			$('.mainWrapper').imagesLoaded(function(){
-				
+
 				$('.mainWrapper').masonry({
 					itemSelector : '.tile',
 					columnWidth : 270,
@@ -300,7 +333,7 @@ var PictureWall = Backbone.View.extend({
 var PictureTile = Backbone.View.extend({
 	tagName : 'div',
 	className : 'tile',
-	
+
 	initialize : function(config){
 		this.template = _.template([
 			'<div itemtype="javascript:void(0)" itemscope="" class="item photo">',
@@ -390,7 +423,7 @@ var PictureTile = Backbone.View.extend({
 		$('.mainWrapper').masonry('reload');
 	},
 	addToWishList : function(){
-		
+
 	}
 });
 $(function(){
@@ -434,13 +467,13 @@ $(function(){
 							}
 						});
 					}
-					
+
 				},100);
 
 			};
 			d.getElementsByTagName('head')[0].appendChild(js);
 		}(document));
-		
+
 		var user,loginPanel,header,pictureWall,store;
 		header = new Header({
 			user : user
@@ -449,6 +482,9 @@ $(function(){
 			user : user
 		});
 		pictureWall = new PictureWall({
+			user : user
+		});
+		filterPanel = new FilterPanel({
 			user : user
 		});
 		store = new PictureCollection();
@@ -460,14 +496,14 @@ $(function(){
 				return store;
 			},
 			showUserContent : function(){
-				
+
 			},
 			showGuestContent : function(){
-				
+
 			}
 		};
 	})();
-	
+
 	hub.bind('guestInit',app.showGuestContent,app);
 })
 
