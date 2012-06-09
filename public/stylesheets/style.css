@@ -714,6 +714,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 }
 .loginPanel> form.authForm li{
 	position: relative;
+	 margin-bottom: 10px;
 }
 .loginPanel> form.authForm li input[type="text"],.loginPanel> form.authForm li input[type="password"]{
 	border: 1px solid #AD9C9C;
@@ -732,10 +733,16 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	color:#221919;
 	width: 232px;
 }
+.loginPanel> form.authForm li input[type="text"]:focus,.loginPanel> form.authForm li input[type="password"]:focus{
+	border-color: #fff;
+	-webkit-box-shadow: 0 0px rgba(34,25,25,.15), inset 0 1px rgba(255,255,255,0.8), 0 0 14px rgba(235,82,82, 0.35);
+  -moz-box-shadow: 0 0px rgba(34,25,25,.15), inset 0 1px rgba(255,255,255,0.8), 0 0 14px rgba(235,82,82, 0.35);
+  box-shadow: 0 0px rgba(34,25,25,.15), inset 0 1px rgba(255,255,255,0.8), 0 0 14px rgba(235,82,82, 0.35);
+}
 .loginPanel> form.authForm li>label{
 	position: absolute;
 	position: absolute;
-	top: 11px;
+	top: 8px;
 	left: 16px;
 	font-size: 18px;
 }
