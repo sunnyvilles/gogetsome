@@ -232,19 +232,76 @@ var LoginPanel = Backbone.View.extend({
 	initialize : function(){
 		hub.bind('authed',this.destroy,this);
 		var that = this;
-		this.template = _.template(["<div class='loginPanel'>",
-			"<div class='fb-login-button'>Login with Facebook</div>",
+		this.template = _.template(['<div class="loginPanel border5">',
+				'<div class="socialButtons">',
+					'<div class="btn fbBtn">',
+							'<a class="fb loginButton border5">',
+									'<div class="logoWrapper"><span class="logo"></span></div>',
+									'<span>Login with Facebook</span>',
+							'</a>',
+					'</div>',
+					'<div class="btn">',
+							'<a class="tw loginButton border5">',
+									'<div class="logoWrapper"><span class="logo"></span></div>',
+									'<span>Login with Twitter</span>',
+							'</a>',
+					'</div>',
+				'</div>',
+				'<form class="authForm" method="POST" action="/login">',
+						'<ul>',
+								'<li>',
+										'<input type="text" name="email" id="email">',
+										'<label for="email">Email</label>',
+										'<span class="fff"></span>',
+								'</li>',
+								'<li>',
+										'<input type="password" name="password" id="password">',
+										'<label for="password">Password</label>',
+										'<span class="fff"></span>',
+								'</li>',
+								'<input type="hidden">',
+						'</ul>',
+						'<div class="buttons">',
+								'<button class="loginBtn" type="submit">Login</button>',
+								'<a href="/password/reset/">Forgot your password?</a>',
+						'</div>',
+				'</form>',
 			"</div>"].join(""));
 		return this;
 	},
 	render : function(){
-		$('.mainWrapper').append(this.template({
+		$('body').prepend(this.template({
 			fbLogin : true,
 			gLogin : true,
 			signUp : true
 		}));
 		this.el = $('.mainWrapper .loginPanel');
+		$(function(){ 
+			$("label").inFieldLabels();
+		});
+		this.addListeners();
 		return this;
+	},
+	addListeners : function(){
+		var that = this;
+		$(".social_buttons .fb").click(function(){
+			that.loginWithFB();
+		});
+		$(".social_buttons .tw").click(function(){
+			that.loginWithTw();
+		});
+	},
+	loginWithFB : function(){
+		FB.login(function(resp){
+			if(resp.authResponse){
+				//signed in, send this fb ID to server and login user associated with this fb account, if no user is associated with this fb ID ask him to request invite or get an invite from his friends
+			}else{
+				//cancelled sign in
+			}
+		});
+	},
+	loginWithTw : function(){
+		console.log('connect with twitter for email');
 	},
 	destroy : function(){
 		$('.mainWrapper .loginPanel').remove();
