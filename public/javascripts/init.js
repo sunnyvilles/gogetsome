@@ -173,7 +173,6 @@ var Header = Backbone.View.extend({
 			});
 
 			$('.noAuthBox .invite').click(function(){
-				alert(1);
 				var invitePanel = new InvitePanel();
 				invitePanel.render();
 				FB.XFBML.parse();
@@ -185,6 +184,7 @@ var Header = Backbone.View.extend({
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
 		this.template = _.template(["<div class='loginPanel'>",
+			"<div class='close'></div>",
 			"<div>Sign up for an invite to join Pinterest</div>",
 			"<span>or <em>login</em> to your account.</span>",
 			"<input type='email' />",
@@ -192,7 +192,25 @@ var InvitePanel = Backbone.View.extend({
 		return this;
 	},
 	render : function(){
-		$('.mainWrapper').append(this.template({}));
+		if($('.loginPanel').length){
+			return;
+		}
+		$('body').prepend(this.template({}));
+		this.el = $('body .loginPanel');
+		this.el.fadeIn('fast');
+		$(function(){
+			$("label").inFieldLabels();
+		});
+		this.addListeners();
+		return this;
+	},
+	addListeners : function(){
+		var that = this;
+		$('.close',this.el).click(function(){
+			that.el.fadeOut('fast',function(){
+				that.el.remove();
+			})
+		});
 	}
 });
 var LoginPanel = Backbone.View.extend({
@@ -200,6 +218,7 @@ var LoginPanel = Backbone.View.extend({
 		hub.bind('authed',this.destroy,this);
 		var that = this;
 		this.template = _.template(['<div class="loginPanel border5">',
+				"<div class='close'></div>",
 				'<div class="socialButtons">',
 					'<div class="btn fbBtn">',
 							'<a class="fb loginButton border5">',
@@ -237,12 +256,16 @@ var LoginPanel = Backbone.View.extend({
 		return this;
 	},
 	render : function(){
+		if($('.loginPanel').length){
+			return;
+		}
 		$('body').prepend(this.template({
 			fbLogin : true,
 			gLogin : true,
 			signUp : true
 		}));
-		this.el = $('.mainWrapper .loginPanel');
+		this.el = $('body .loginPanel');
+		this.el.fadeIn('fast');
 		$(function(){ 
 			$("label").inFieldLabels();
 		});
@@ -256,6 +279,11 @@ var LoginPanel = Backbone.View.extend({
 		});
 		$(".social_buttons .tw").click(function(){
 			that.loginWithTw();
+		});
+		$(".loginPanel .close").click(function(){
+			that.el.fadeOut('fast',function(){
+				that.el.remove();
+			});
 		});
 	},
 	loginWithFB : function(){
@@ -271,7 +299,7 @@ var LoginPanel = Backbone.View.extend({
 		console.log('connect with twitter for email');
 	},
 	destroy : function(){
-		$('.mainWrapper .loginPanel').remove();
+		$('.loginPanel').remove();
 	}
 });
 
