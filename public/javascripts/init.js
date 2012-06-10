@@ -217,11 +217,11 @@ var filterPanel = Backbone.View.extend({
 
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
-		this.template = _.template(["<div class='loginPanel'>",
+		this.template = _.template(["<div class='loginPanel'><div class='tape'></div>",
 			"<div>Sign up for an invite to join Pinterest</div>",
 			"<span>or <em>login</em> to your account.</span>",
 			"<input type='email' />",
-			"</div>"].join(""));
+			"<div class='left-shadow'></div><div class='right-shadow'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){
@@ -232,7 +232,7 @@ var LoginPanel = Backbone.View.extend({
 	initialize : function(){
 		hub.bind('authed',this.destroy,this);
 		var that = this;
-		this.template = _.template(['<div class="loginPanel border5">',
+		this.template = _.template(['<div class="loginPanel border5"><div class="tape"></div>',
 				'<div class="socialButtons">',
 					'<div class="btn fbBtn">',
 							'<a class="fb loginButton border5">',
@@ -266,7 +266,7 @@ var LoginPanel = Backbone.View.extend({
 								'<a href="/password/reset/">Forgot your password?</a>',
 						'</div>',
 				'</form>',
-			"</div>"].join(""));
+			"<div class='left-shadow'></div><div class='right-shadow'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){

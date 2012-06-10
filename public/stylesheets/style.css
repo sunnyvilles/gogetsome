@@ -573,11 +573,11 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   height: 232px;
   margin-left: -232px;
   left: 50%;
-  top: 128px;
-  background: url("/images/paper.jpg") repeat scroll 0 0 #EAEAEA;
-  z-index: 10;
-  border: thin solid black;
+  top: 170px;
   padding: 32px;
+  background-color: #FAF8E5;
+  border: 1px solid #E3E3E3;
+  
 }
 .loginPanel .btn{
   float: left;
@@ -624,6 +624,56 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	-webkit-box-shadow: 0px 3px 0px
 		#213B6D;*/
 }
+.tape{
+	position:absolute;
+	top:-15px; right:160px;
+	width: 130px;
+	height: 35px;
+	background-color:#fff;
+	opacity:0.6;
+	border-left: 1px dashed rgba(0, 0, 0, 0.1);
+	border-right: 1px dashed rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 0px 0px 1px 0px #cccccc;
+	-moz-box-shadow: 0px 0px 1px 0px #cccccc;
+	box-shadow: 0px 0px 1px 0px #cccccc;
+	-webkit-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+	-moz-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+	-o-transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+	transform: rotate(-2deg) skew(0,0) translate(0%,-5px);
+}
+.left-shadow{
+	width: 140px;
+	height: 140px;
+	bottom:-5px; left:-12px;
+	position:absolute;
+	z-index:-6;
+	display: inline-block;
+	-webkit-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	-moz-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+	-webkit-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+	-o-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+	-ms-transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+	transform: scale(1) rotate(274deg) translate(20px, 25px) skew(9deg, 0deg);
+}
+.right-shadow{
+	width: 140px;
+	height: 140px;
+	bottom:-13px; right:-4px;
+	position:absolute;
+	z-index:-6;
+	display: inline-block;
+	-webkit-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	box-shadow: -10px -10px 10px rgba(0, 0, 0, 0.4);
+	-moz-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+	-webkit-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+	-o-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+	-ms-transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+	transform: scale(1) rotate(184deg) translate(20px, 25px) skew(9deg, 0deg);
+}
+
 .fb>span{
   border-left: 1px solid #627BA8;
 }
@@ -902,6 +952,8 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 
 }
 .onMainSaleWall .grabButton:hover span{color: #fff}
+
+
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {
   .mainWrapper{
