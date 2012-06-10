@@ -23,11 +23,11 @@ $.Mason.prototype._reLayout = function( callback ) {
 	}
 	// apply layout logic to all bricks
 	this.layout( this.$bricks, callback );
-}; 
+};
 /*****************Model Definitions*******************/
 var Picture = Backbone.Model.extend({
 	initialize : function(config){
-        
+
 	}
 });
 var User = Backbone.Model.extend({
@@ -44,7 +44,7 @@ var User = Backbone.Model.extend({
 /*******************Collection Definitins********************/
 var PictureCollection = Backbone.Collection.extend({
 	initialize : function(config){
-        
+
 	}
 });
 
@@ -62,7 +62,7 @@ var Header = Backbone.View.extend({
 		hub.bind('authed',this.updateHeader,this);
 		this.el = $('header');
 		this.loggedInTemplate = _.template(['<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><a href="#">Graboard</a></h1>',
+			'<h1 class="logo floatLeft"><asvn  href="#">Graboard</a></h1>',
 			'<ul class="navigationLinks floatRight">',
 			'<li class="recentPic">',
 			'<a href="">PHOTOS </a>',
@@ -181,22 +181,101 @@ var Header = Backbone.View.extend({
 	}
 });
 
+var FilterPanel = Backbone.View.extend({
+	initialize : function(config){
+		this.template = _.template([
+			'<div id="filterSale" class="bar">',
+			'<div class="bar-section bar-section-view">',
+			'<label>View:</label>',
+			'<ul>',
+			'<li><a class="no-icon on" href="#type=all">All</a></li>',
+			'<li><a class="price" href="#type=price"><span></span>Price</a></li>',
+			'<li>',
+			'<label>Category:</label>',
+			'<div class="mainCategory" href="#type=all"><span class="mainCatList"></span>All',
+			'<em class="tringle"></em>',
+			'<ul class="subCatLists displayNone">',
+			'<li><a class="cat1" href="#type=shoes"><span></span>shoes</a></li>',
+			'<li><a class="cat2" href="#type=house"><span></span>house</a></li>',
+			'<li><a class="cat3" href="#type=elsectronics"><span></span>elsectronics</a></li>',
+			'<li><a class="cat4" href="#type=mobile"><span></span>mobile</a></li>',
+			'<li><a class="cat5" href="#type=books"><span></span>books</a></li>',
+			'<li><a class="cat6" href="#type=jewellery"><span></span>jewellery</a></li>',
+			'<li><a class="cat7" href="#type=Jeans"><span></span>Jeans</a></li>',
+			'</ul>',
+			'</div>',
+			'</li>',
+			'</ul>',
+			'<div class="showhide" title="Hide"><em class="rightArrow"></em></div>',
+			'</div>',
+			'</div>'].join(''));
+	},
+	render : function (){
+		$('.mainWrapper').append(this.template({}));
+		this.el = $('#filterSale');
+		this.addListeners();
+	},
+	addListeners : function(){
+		var that = this;
+		$('.showhide',this.el).click(function(){
+			that.showHide();
+		});
+	},
+	showHide : function(){
+		if(this.collapsed){
+			this.show();
+		}else{
+			this.hide();
+		}
+		this.collapsed = !this.collapsed;
+	},
+	show : function(){
+		var that = this;
+		$('label,ul',this.el).show();
+		$('.showhide',that.el).css({
+			'float' : 'right'
+		});
+		this.el.animate({
+			right : '0'
+		},400,function(){
+			
+			});
+	},
+	hide : function(){
+		var that = this;
+		this.el.animate({
+			right : '-78%'
+		},400,function(){
+			$('label,ul',this.el).hide();
+			$('.showhide',that.el).css({
+				'float' : 'left'
+			})
+		});
+	}
+})
+
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
-		this.template = _.template(["<div class='loginPanel'>",
+		this.template = _.template(["<div class='invitePanel lightBox'>",
 			"<div class='close'></div>",
-			"<div>Sign up for an invite to join Pinterest</div>",
+			"<h1>Sign up for an invite to join Graboard</h1>",
 			"<span>or <em>login</em> to your account.</span>",
 			"<input type='email' />",
 			"</div>"].join(""));
 		return this;
 	},
 	render : function(){
+		var that = this;
 		if($('.loginPanel').length){
 			return;
 		}
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27) {
+				$('.close',that.el).trigger('click');
+			}
+		});
 		$('body').prepend(this.template({}));
-		this.el = $('body .loginPanel');
+		this.el = $('body .invitePanel');
 		this.el.fadeIn('fast');
 		$(function(){
 			$("label").inFieldLabels();
@@ -217,41 +296,41 @@ var LoginPanel = Backbone.View.extend({
 	initialize : function(){
 		hub.bind('authed',this.destroy,this);
 		var that = this;
-		this.template = _.template(['<div class="loginPanel border5">',
-				"<div class='close'></div>",
-				'<div class="socialButtons">',
-					'<div class="btn fbBtn">',
-							'<a class="fb loginButton border5">',
-									'<div class="logoWrapper"><span class="logo"></span></div>',
-									'<span>Login with Facebook</span>',
-							'</a>',
-					'</div>',
-					'<div class="btn">',
-							'<a class="tw loginButton border5">',
-									'<div class="logoWrapper"><span class="logo"></span></div>',
-									'<span>Login with Twitter</span>',
-							'</a>',
-					'</div>',
-				'</div>',
-				'<form class="authForm" method="POST" action="/login">',
-						'<ul>',
-								'<li>',
-										'<input type="text" name="email" id="email">',
-										'<label for="email">Email</label>',
-										'<span class="fff"></span>',
-								'</li>',
-								'<li>',
-										'<input type="password" name="password" id="password">',
-										'<label for="password">Password</label>',
-										'<span class="fff"></span>',
-								'</li>',
-								'<input type="hidden">',
-						'</ul>',
-						'<div class="buttons">',
-								'<button class="loginBtn" type="submit">Login</button>',
-								'<a href="/password/reset/">Forgot your password?</a>',
-						'</div>',
-				'</form>',
+		this.template = _.template(['<div class="loginPanel lightBox border5">',
+			"<div class='close'></div>",
+			'<div class="socialButtons">',
+			'<div class="btn fbBtn">',
+			'<a class="fb loginButton border5">',
+			'<div class="logoWrapper"><span class="logo"></span></div>',
+			'<span>Login with Facebook</span>',
+			'</a>',
+			'</div>',
+			'<div class="btn">',
+			'<a class="tw loginButton border5">',
+			'<div class="logoWrapper"><span class="logo"></span></div>',
+			'<span>Login with Twitter</span>',
+			'</a>',
+			'</div>',
+			'</div>',
+			'<form class="authForm" method="POST" action="/login">',
+			'<ul>',
+			'<li>',
+			'<input type="text" name="email" id="email">',
+			'<label for="email">Email</label>',
+			'<span class="fff"></span>',
+			'</li>',
+			'<li>',
+			'<input type="password" name="password" id="password">',
+			'<label for="password">Password</label>',
+			'<span class="fff"></span>',
+			'</li>',
+			'<input type="hidden">',
+			'</ul>',
+			'<div class="buttons">',
+			'<button class="loginBtn" type="submit">Login</button>',
+			'<a href="/password/reset/">Forgot your password?</a>',
+			'</div>',
+			'</form>',
 			"</div>"].join(""));
 		return this;
 	},
@@ -274,6 +353,11 @@ var LoginPanel = Backbone.View.extend({
 	},
 	addListeners : function(){
 		var that = this;
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27) {
+				$('.loginPanel .close').trigger('click');
+			}
+		});
 		$(".social_buttons .fb").click(function(){
 			that.loginWithFB();
 		});
@@ -289,10 +373,10 @@ var LoginPanel = Backbone.View.extend({
 	loginWithFB : function(){
 		FB.login(function(resp){
 			if(resp.authResponse){
-				//signed in, send this fb ID to server and login user associated with this fb account, if no user is associated with this fb ID ask him to request invite or get an invite from his friends
+			//signed in, send this fb ID to server and login user associated with this fb account, if no user is associated with this fb ID ask him to request invite or get an invite from his friends
 			}else{
-				//cancelled sign in
-			}
+		//cancelled sign in
+		}
 		});
 	},
 	loginWithTw : function(){
@@ -304,19 +388,19 @@ var LoginPanel = Backbone.View.extend({
 });
 
 var TabPanel = Backbone.View.extend({
-    
+
 	});
 
 var PictureWall = Backbone.View.extend({
-	
+
 	initialize : function(){
 		hub.bind('authed',this.showCustomWall,this);
 		hub.bind('guestInit',this.showGuestWall,this);
-		
+
 		this.items = [];
 	},
 	render : function(){
-			
+
 	},
 	showCustomWall : function(){
 		var that = this;
@@ -356,9 +440,9 @@ var PictureWall = Backbone.View.extend({
 				$('.mainWrapper').append(item.el);
 				that.items.push(item);
 			}
-			
+
 			$('.mainWrapper').imagesLoaded(function(){
-				
+
 				$('.mainWrapper').masonry({
 					itemSelector : '.tile',
 					columnWidth : 270,
@@ -385,7 +469,7 @@ var PictureWall = Backbone.View.extend({
 var PictureTile = Backbone.View.extend({
 	tagName : 'div',
 	className : 'tile',
-	
+
 	initialize : function(config){
 		this.template = _.template([
 			'<div itemtype="javascript:void(0)" itemscope="" class="item photo">',
@@ -475,7 +559,7 @@ var PictureTile = Backbone.View.extend({
 		$('.mainWrapper').masonry('reload');
 	},
 	addToWishList : function(){
-		
+
 	}
 });
 $(function(){
@@ -519,13 +603,13 @@ $(function(){
 							}
 						});
 					}
-					
+
 				},100);
 
 			};
 			d.getElementsByTagName('head')[0].appendChild(js);
 		}(document));
-		
+
 		var user,loginPanel,header,pictureWall,store;
 		header = new Header({
 			user : user
@@ -536,6 +620,10 @@ $(function(){
 		pictureWall = new PictureWall({
 			user : user
 		});
+		filterPanel = new FilterPanel({
+			user : user
+		});
+		filterPanel.render();
 		store = new PictureCollection();
 		return {
 			getUser : function(){
@@ -545,14 +633,14 @@ $(function(){
 				return store;
 			},
 			showUserContent : function(){
-				
+
 			},
 			showGuestContent : function(){
-				
+
 			}
 		};
 	})();
-	
+
 	hub.bind('guestInit',app.showGuestContent,app);
 })
 

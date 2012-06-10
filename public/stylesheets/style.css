@@ -566,26 +566,36 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	margin-right: 10px;
 	cursor: pointer;
 }
-
-.loginPanel{
+.lightBox{
 	position: absolute;
-	width: 400px;
-	height: 232px;
-	margin-left: -232px;
-	left: 50%;
-	top: 128px;
 	background: url("/images/paper.jpg") repeat scroll 0 0 #EAEAEA;
 	z-index: 10;
 	border: thin solid black;
-	padding: 32px;
-	display: none;
-
 	-webkit-box-shadow: 10px 10px 20px rgba(100,100,100,.6);
   -moz-box-shadow: 10px 10px 20px rgba(100,100,100,.6);
   box-shadow: 10px 10px 20px rgba(100,100,100,.6);
 }
 
-.loginPanel .close{
+.invitePanel{
+	width: 400px;
+	height: 200px;
+	margin-left: -232px;
+	left: 50%;
+	top: 128px;
+	display: none;
+	padding: 32px;
+}
+.loginPanel{
+	width: 400px;
+	height: 232px;
+	margin-left: -232px;
+	left: 50%;
+	top: 128px;
+	display: none;
+	padding: 32px;
+}
+
+.lightBox .close{
 	height: 22px;
 	width: 22px;
 	position: absolute;
@@ -782,6 +792,155 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	margin-right: 10px;
 
 	cursor: pointer;
+}
+#filterSale{
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 80%;
+  right: 0;
+  position: fixed;
+  bottom: 50px;
+  z-index: 10;
+}
+
+.bar .bar-section-view {
+    background-color: rgba(55, 55, 55, 0.95);
+    border-left: 1px solid #2D2D2E;
+    border-right: 1px solid #2D2D2E;
+}
+.bar label {
+    color: #F38080;
+    float: left;
+    font-family: 'AllerBold',Helvetica,Arial,Sans-Serif;
+    font-size: 18px;
+    padding: 12px 10px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+}
+.bar .bar-section ul {
+    float: left;
+}
+.bar .bar-section li {
+    float: left;
+    list-style-type: none;
+}
+.bar .bar-section li a.no-icon {
+    padding-left: 12px;
+}
+.bar .bar-section li a:hover, .bar .bar-section li a.on {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+}
+.bar .bar-section li a,.mainCategory{
+    border-radius: 1px 1px 1px 1px;
+    padding: 0 2px;
+    padding: 12px 12px 12px 41px;
+    position: relative;
+}
+.bar a,.mainCategory {
+    color: #E1E1E1;
+    float: left;
+    font-size: 15px;
+    line-height: 19px;
+    text-decoration: none;
+}
+.mainCategory span,.mainCatList{
+  border-color:#fff;
+}
+.bar a span,.mainCatList {
+  background: none repeat scroll 0 0 transparent;
+  border-radius: 16px 16px 16px 16px;
+  border-style: solid;
+  border-width: 3px;
+  display: block;
+  height: 16px;
+  left: 15px;
+  position: absolute;
+  top: 9px;
+  width: 16px;
+}
+
+.bar .showhide{
+	float: right;
+	height: 32px;
+	width: 32px;
+	cursor: pointer;
+	position: relative;
+}
+.bar .rightArrow{
+	border-color: #FFFFFF transparent;
+	border-style: solid;
+	border-width: 9px 8px 0;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+}
+
+.bar .leftArrow{
+	border-color: #FFFFFF transparent;
+	border-style: solid;
+	border-width: 9px 8px 0;
+	position: absolute;
+	right: 10px;
+	top: 20px;
+}
+.subCatLists{
+  bottom: 43px;
+  position: absolute;
+  width: 326px;
+  background: rgba(0, 0, 0, 0.5);
+  left:0;
+}
+.subCatLists li{
+  float: left;
+  list-style-type: none;
+}
+.subCatLists span{
+
+}
+.subCatLists li a{
+  width: 110px;
+}
+.mainCategory:hover .subCatLists{
+  display: block;
+
+}
+.mainCategory:hover{
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+
+}
+.bar em.tringle {
+    border-color: #FFFFFF transparent;
+    border-style: solid;
+    border-width: 9px 8px 0;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+}
+.mainCategory{
+  position: relative;
+  width: 110px;
+}
+.cat1 span{
+  border-color: #537B9C;
+}
+.cat2 span{
+  border-color: #8DBCDD;
+}
+.cat3 span{
+  border-color: #EEE66D;
+}
+.cat4 span{
+  border-color: #AC9BE1;
+}
+.cat5 span{
+  border-color: #E1ABAB;
+}
+.cat6 span{
+  border-color: #F3B760;
+}
+.cat7 span{
+  border-color: #A5D280;
 }
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {
