@@ -256,14 +256,10 @@ var FilterPanel = Backbone.View.extend({
 
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
-<<<<<<< HEAD
+
 		this.template = _.template(["<div class='invitePanel lightBox'>",
 			"<div class='close'></div>",
 			"<h1>Sign up for an invite to join Graboard</h1>",
-=======
-		this.template = _.template(["<div class='loginPanel'><div class='tape'></div>",
-			"<div>Sign up for an invite to join Pinterest</div>",
->>>>>>> 5ff892a18485a6688099b7923aa5cedc8000ab6e
 			"<span>or <em>login</em> to your account.</span>",
 			"<input type='email' />",
 			"<div class='left-shadow'></div><div class='right-shadow'></div></div>"].join(""));
@@ -301,7 +297,7 @@ var LoginPanel = Backbone.View.extend({
 	initialize : function(){
 		hub.bind('authed',this.destroy,this);
 		var that = this;
-<<<<<<< HEAD
+
 		this.template = _.template(['<div class="loginPanel lightBox border5">',
 			"<div class='close'></div>",
 			'<div class="socialButtons">',
@@ -338,43 +334,6 @@ var LoginPanel = Backbone.View.extend({
 			'</div>',
 			'</form>',
 			"</div>"].join(""));
-=======
-		this.template = _.template(['<div class="loginPanel border5"><div class="tape"></div>',
-				'<div class="socialButtons">',
-					'<div class="btn fbBtn">',
-							'<a class="fb loginButton border5">',
-									'<div class="logoWrapper"><span class="logo"></span></div>',
-									'<span>Login with Facebook</span>',
-							'</a>',
-					'</div>',
-					'<div class="btn">',
-							'<a class="tw loginButton border5">',
-									'<div class="logoWrapper"><span class="logo"></span></div>',
-									'<span>Login with Twitter</span>',
-							'</a>',
-					'</div>',
-				'</div>',
-				'<form class="authForm" method="POST" action="/login">',
-						'<ul>',
-								'<li>',
-										'<input type="text" name="email" id="email">',
-										'<label for="email">Email</label>',
-										'<span class="fff"></span>',
-								'</li>',
-								'<li>',
-										'<input type="password" name="password" id="password">',
-										'<label for="password">Password</label>',
-										'<span class="fff"></span>',
-								'</li>',
-								'<input type="hidden">',
-						'</ul>',
-						'<div class="buttons">',
-								'<button class="loginBtn" type="submit">Login</button>',
-								'<a href="/password/reset/">Forgot your password?</a>',
-						'</div>',
-				'</form>',
-			"<div class='left-shadow'></div><div class='right-shadow'></div></div>"].join(""));
->>>>>>> 5ff892a18485a6688099b7923aa5cedc8000ab6e
 		return this;
 	},
 	render : function(){
