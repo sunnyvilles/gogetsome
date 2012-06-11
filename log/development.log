@@ -21089,3 +21089,183 @@ Served asset /graboard.js - 304 Not Modified (0ms)
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-10 12:55:31 +0530
 Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (0.0ms)
+Completed 200 OK in 39ms (Views: 38.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /graboard.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /graboard.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-10 12:59:32 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (0.0ms)
+Completed 200 OK in 46ms (Views: 45.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /application.css - 200 OK (0ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /graboard.css - 200 OK (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /jquery.js - 200 OK (0ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /graboard.js - 200 OK (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /jquery_ujs.js - 200 OK (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:12 +0530
+Served asset /application.js - 200 OK (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (0.0ms)
+Completed 200 OK in 64ms (Views: 63.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /graboard.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /graboard.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-11 00:38:47 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (0.0ms)
+Completed 200 OK in 52ms (Views: 52.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /graboard.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /graboard.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-11 15:11:35 +0530
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-11 20:19:29 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (7.4ms)
+Completed 200 OK in 234ms (Views: 233.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /application.css - 304 Not Modified (8ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /graboard.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /jquery.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /graboard.js - 304 Not Modified (2ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-11 20:19:30 +0530
+Served asset /application.js - 304 Not Modified (4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Processing by GraboardController#index as HTML
+  Rendered graboard/index.erb within layouts/application (0.1ms)
+Completed 200 OK in 47ms (Views: 46.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /application.css - 304 Not Modified (12ms)
+
+
+Started GET "/assets/graboard.css?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /graboard.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/graboard.js?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /graboard.js - 304 Not Modified (18ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-06-11 20:47:12 +0530
+Served asset /application.js - 304 Not Modified (0ms)
