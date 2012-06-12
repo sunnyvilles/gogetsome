@@ -10,6 +10,8 @@ Picshub::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 	root :to => "web/graboard#index"
+  match '/twitter-connect' => "web/users#twitter_connect"
+  match '/twitter-cb' => "web/users#twitter_callback"
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
