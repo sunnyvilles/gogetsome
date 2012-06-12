@@ -36,8 +36,7 @@ $(function(){
     });
 
     //if close button is clicked
-    $('.window .closeMe').click(function (e) {
-     alert(1);
+    $('.window .closeMe').live('click',function (e) {
       //Cancel the link behavior
       e.preventDefault();
 
@@ -46,7 +45,7 @@ $(function(){
     });
 
     //if mask is clicked
-    $('#mask').click(function () {
+    $('#mask').live('click',function (e) {
       $(this).hide();
       $('.window').hide();
     });
@@ -56,7 +55,7 @@ $(function(){
       var box = $('#boxes .window');
 
       //Get the screen height and width
-      var maskHeight = $(document).height();
+      var maskHeight = $(window).height();
       var maskWidth = $(window).width();
 
       //Set height and width to mask to fill up the whole screen
