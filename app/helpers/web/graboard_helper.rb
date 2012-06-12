@@ -1,0 +1,2 @@
+module Web::GraboardHelper
+end

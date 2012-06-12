@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GraboardControllerTest < ActionController::TestCase
+class Web::MainControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end
