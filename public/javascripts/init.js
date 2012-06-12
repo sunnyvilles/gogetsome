@@ -300,10 +300,10 @@ var InvitePanel = Backbone.View.extend({
 
 		this.template = _.template(['<div id="boxes"><div id="invitePanel" class="window lightBox border5">',
 			"<h1 style='display:block'>Sign up for an invite to join Graboard</h1>",
-			"<span class='infoBlock' style='display:block'>or <em class='redText'>login</em> to your account.</span>",
+			"<span class='infoBlock' style='display:block'>or <a href='#loginPanel' name='modal'><em class='redText'>LOGIN</em></a> to your account.</span>",
 			'<div class="inviteWrap"><input style="display:block" id="email" name="email" type="text" placeholder="Enter Your Email" required autofocus tabindex="1">',
       '<input style="display:block" class="loginBtn inviteMe submit" id="loginBtn" name="submitButton" type="button" tabindex="2" value="Invite Me!"></div>',
-			"<a href='#' class='closeMe'>X</a></div><div id='mask'></div></div>"].join(""));
+			"<a href='javascrip:void(0);' class='closeMe'>X</a></div><div id='mask'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){
