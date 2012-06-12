@@ -856,13 +856,14 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   cursor: pointer;
 }
 #filterSale{
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   position: relative;
-  width: 80%;
+  width: 775px;
   right: 0;
   position: fixed;
   bottom: 50px;
   z-index: 10;
+	height: 44px;
 }
 
 .bar .bar-section-view {
@@ -929,21 +930,21 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	position: relative;
 }
 .bar .rightArrow{
-	border-color: #FFFFFF transparent;
+	border-color: transparent transparent transparent white;
 	border-style: solid;
-	border-width: 9px 8px 0;
+	border-width:8px;
 	position: absolute;
 	right: 10px;
-	top: 20px;
+	top: 16px;
 }
 
 .bar .leftArrow{
-	border-color: #FFFFFF transparent;
+	border-color: transparent white transparent transparent ;
 	border-style: solid;
-	border-width: 9px 8px 0;
+	border-width:8px;
 	position: absolute;
 	right: 10px;
-	top: 20px;
+	top: 16px;
 }
 .subCatLists{
   bottom: 43px;
@@ -951,6 +952,9 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   width: 326px;
   background: rgba(0, 0, 0, 0.5);
   left:0;
+}
+.priceList{
+	width: 153px;
 }
 .subCatLists li{
   float: left;
@@ -961,6 +965,10 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 }
 .subCatLists li a{
   width: 110px;
+	cursor: pointer;
+}
+.price .subCatLists li a{
+	width: 100px;
 }
 .mainCategory:hover .subCatLists{
   display: block;
@@ -974,34 +982,39 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 .bar em.tringle {
   border-color: #FFFFFF transparent;
   border-style: solid;
-  border-width: 9px 8px 0;
+  border-width: 0 8px 9px;
   position: absolute;
   right: 10px;
-  top: 20px;
+  top: 16px;
 }
 .mainCategory{
   position: relative;
-  width: 110px;
 }
-.cat1 span{
+.category{
+	width: 125px;
+}
+.price{
+	width :100px;
+}
+.cat1 > span{
   border-color: #537B9C;
 }
-.cat2 span{
+.cat2 > span{
   border-color: #8DBCDD;
 }
-.cat3 span{
+.cat3 > span{
   border-color: #EEE66D;
 }
-.cat4 span{
+.cat4 > span{
   border-color: #AC9BE1;
 }
-.cat5 span{
+.cat5 > span{
   border-color: #E1ABAB;
 }
-.cat6 span{
+.cat6 > span{
   border-color: #F3B760;
 }
-.cat7 span{
+.cat7 > span{
   border-color: #A5D280;
 }
 .onMainSaleWall:hover{

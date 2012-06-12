@@ -188,20 +188,32 @@ var FilterPanel = Backbone.View.extend({
 			'<div class="bar-section bar-section-view">',
 			'<label>View:</label>',
 			'<ul>',
-			'<li><a class="no-icon on" href="#type=all">All</a></li>',
-			'<li><a class="price" href="#type=price"><span></span>Price</a></li>',
 			'<li>',
-			'<label>Category:</label>',
-			'<div class="mainCategory" href="#type=all"><span class="mainCatList"></span>All',
+			'<div class="mainCategory category">',
+			'<span class="mainCatList"></span><div>All</div>',
 			'<em class="tringle"></em>',
 			'<ul class="subCatLists displayNone">',
-			'<li><a class="cat1" href="#type=shoes"><span></span>shoes</a></li>',
-			'<li><a class="cat2" href="#type=house"><span></span>house</a></li>',
-			'<li><a class="cat3" href="#type=elsectronics"><span></span>elsectronics</a></li>',
-			'<li><a class="cat4" href="#type=mobile"><span></span>mobile</a></li>',
-			'<li><a class="cat5" href="#type=books"><span></span>books</a></li>',
-			'<li><a class="cat6" href="#type=jewellery"><span></span>jewellery</a></li>',
-			'<li><a class="cat7" href="#type=Jeans"><span></span>Jeans</a></li>',
+			'<li><a class="cat cat1" data-category="shoes"><span></span><div>Shoes</div></a></li>',
+			'<li><a class="cat cat2" data-category="home"><span></span><div>Home & Decor</div></a></li>',
+			'<li><a class="cat cat3" data-category="electronics"><span></span><div>Gadgets</div></a></li>',
+			'<li><a class="cat cat4" data-category="mobile"><span></span><div>Accessories</div></a></li>',
+			'<li><a class="cat cat5" data-category="books"><span></span><div>Books</div></a></li>',
+			'<li><a class="cat cat6" data-category="jewellery"><span></span><div>Watches</div></a></li>',
+			'<li><a class="cat cat7" data-category="apprel"><span></span><div>Apparel</div></a></li>',
+			'<li><a class="cat cat7" data-category="kids"><span></span><div>Kids</div></a></li>',
+			'</ul>',
+			'</div>',
+			'</li>',
+			'<li>',
+			'<div class="mainCategory price">',
+			'<span class="mainCatList"></span>',
+			'<div>Price</div>',
+			'<em class="tringle"></em>',
+			'<ul class="subCatLists priceList displayNone">',
+			'<li><a class="cat1" data-category="1"><span></span><div>0-50</div></a></li>',
+			'<li><a class="cat2" data-category="2"><span></span><div>50-250</div></a></li>',
+			'<li><a class="cat3" data-category="3"><span></span><div>250-1000</div></a></li>',
+			'<li><a class="cat4" data-category="4"><span></span><div>1000+</div></a></li>',
 			'</ul>',
 			'</div>',
 			'</li>',
@@ -220,6 +232,10 @@ var FilterPanel = Backbone.View.extend({
 		$('.showhide',this.el).click(function(){
 			that.showHide();
 		});
+		$('.subCatLists a').click(function(e){
+			that.filter(e,this);
+		});
+		$('.category')
 	},
 	showHide : function(){
 		if(this.collapsed){
@@ -231,26 +247,51 @@ var FilterPanel = Backbone.View.extend({
 	},
 	show : function(){
 		var that = this;
-		$('label,ul',this.el).show();
+		$('label,ul:not(.subCatLists)',this.el).show();
 		$('.showhide',that.el).css({
 			'float' : 'right'
 		});
 		this.el.animate({
 			right : '0'
 		},400,function(){
-			
-			});
+			$('.showhide em',that.el).removeClass('leftArrow').addClass('rightArrow');
+		});
 	},
 	hide : function(){
 		var that = this;
 		this.el.animate({
-			right : '-78%'
+			right : -740
 		},400,function(){
-			$('label,ul',this.el).hide();
+			$('label,ul:not(.subCatLists)',this.el).hide();
+			$('.showhide em',that.el).removeClass('rightArrow').addClass('leftArrow');
 			$('.showhide',that.el).css({
 				'float' : 'left'
 			})
 		});
+	},
+	filter : function(event,el){
+		if($(el).hasClass('cat')){
+			$('.category > div').html($('div',el).html());
+			$('.category').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory category');
+			$('.category div').after('<span class="remove"></remove>');
+		}else{
+			$('.price > div').html($('div',el).html());
+			$('.price').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory price');
+		}
+
+		var items = [];
+		for(var i = 0, len = Math.random()*20;i<len;i++){
+			items.push($('#'+ Math.floor(Math.random()*20)).detach());
+		}
+		$('.mainWrapper').masonry('reload');
+
+		for( i = 0, len = items.length;i<len;i++){
+			$('.mainWrapper').append(items[i]);
+		}
+		$('.mainWrapper').masonry('reload');
+	},
+	removeFilter : function(filterId,scope){
+		
 	}
 })
 
@@ -519,19 +560,19 @@ var PictureTile = Backbone.View.extend({
 			'<span class="favCount floatRight">12</span>',
 			'</span>',
 			'</div>',
-      '<div class="clear"></div>',
-      '<div class="itemDisc onMainSaleWall" style="padding: 0 5px 10px;">',
-      '<span class="itemName" style="display: block">Arrow New York</span>',
-      '<span class="itemNameDesc"  style="display: block">Men Check Navy Blue Shirt</span>',
-      '<div class="priceDetails" style="height: 25px;padding-top: 4px;">',
-      '<div class="floatLeft">',
-      '<div class="perOff red fontBold">(10% OFF) Rs. 810 </div>',
-      '</div>',
-      '<div class="floatRight displayNone grabButton">',
-      '<a class="grabIt " style="height: 10px;line-height: 8px;"target="_self" href="#"><span class="left"> Grab It! </span></a>',
-      '</div>',
-      '</div>',
-      '</div>',
+			'<div class="clear"></div>',
+			'<div class="itemDisc onMainSaleWall" style="padding: 0 5px 10px;">',
+			'<span class="itemName" style="display: block">Arrow New York</span>',
+			'<span class="itemNameDesc"  style="display: block">Men Check Navy Blue Shirt</span>',
+			'<div class="priceDetails" style="height: 25px;padding-top: 4px;">',
+			'<div class="floatLeft">',
+			'<div class="perOff red fontBold">(10% OFF) Rs. 810 </div>',
+			'</div>',
+			'<div class="floatRight displayNone grabButton">',
+			'<a class="grabIt " style="height: 10px;line-height: 8px;"target="_self" href="#"><span class="left"> Grab It! </span></a>',
+			'</div>',
+			'</div>',
+			'</div>',
 			'</div>',
 			'</div>',
 			'</div>'
