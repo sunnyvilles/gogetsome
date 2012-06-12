@@ -62,7 +62,7 @@ var Header = Backbone.View.extend({
 		hub.bind('authed',this.updateHeader,this);
 		this.el = $('header');
 		this.loggedInTemplate = _.template(['<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><asvn  href="#">Graboard</a></h1>',
+			'<h1 class="logo floatLeft"><a>Graboard</a></h1>',
 			'<ul class="navigationLinks floatRight">',
 			'<li class="recentPic">',
 			'<a href="">PHOTOS </a>',
@@ -158,7 +158,7 @@ var Header = Backbone.View.extend({
 			'</div>'].join(''));
 		this.loggedOutTemplate = _.template([
 			'<div class="navigation sticky">',
-			'<h1 class="logo floatLeft"><a href="#">Graboard</a></h1>',
+			'<h1 class="logo floatLeft"><a>Graboard</a></h1>',
 			'</div>'].join(''));
 	},
 	render : function(config){
@@ -184,14 +184,19 @@ var Header = Backbone.View.extend({
 			var that = this;
 			$(this).parent().animate({
 				top : this.collapsed ? 10 : 60
-			},500,function(){
-				if(that.collapsed){
-					$(that).removeClass('downCircle').addClass('upCircle');
-					
-				}else{
-					$(that).removeClass('upCircle').addClass('downCircle');
+			},{
+				duration : 500,
+				specialEasing :{
+					top : 'easeOutBounce'
+				},
+				complete : function(){
+					if(that.collapsed){
+						$(that).removeClass('downCircle').addClass('upCircle');
+
+					}else{
+						$(that).removeClass('upCircle').addClass('downCircle');
+					}
 				}
-				
 			});
 		})
 	}
@@ -290,7 +295,7 @@ var FilterPanel = Backbone.View.extend({
 		this.el.animate({
 			right : -740
 		},400,function(){
-			$('label,ul:not(.subCatLists)',this.el).hide();
+			$('#filterSale label,#filterSale ul:not(.subCatLists)',this.el).hide();
 			$('.showhide em',that.el).removeClass('rightArrow').addClass('leftArrow');
 			$('.showhide',that.el).css({
 				'float' : 'left'

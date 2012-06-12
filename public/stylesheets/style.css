@@ -1072,6 +1072,9 @@ input.submit  {
   width: 24px;
   border-radius: 16px 16px 0 0px;
 }
+.pullBtn:hover{
+	background-color: rgba(84, 195, 209, 1);
+}
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {
   .mainWrapper{
