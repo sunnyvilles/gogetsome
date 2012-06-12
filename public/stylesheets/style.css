@@ -824,8 +824,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	width: 100px;
 }
 .mainCategory:hover .subCatLists{
-  display: block;
-
+  
 }
 .mainCategory:hover{
   background-color: #1E1E1E;
@@ -844,7 +843,16 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   position: relative;
 }
 .category{
-	width: 125px;
+	width: 128px;
+}
+.category .remove{
+	display: inline-block;
+	float: right;
+	height: 16px;
+	width: 16px;
+	position: absolute;
+	left: 18px;
+	background-color: red;
 }
 .price{
 	width :100px;

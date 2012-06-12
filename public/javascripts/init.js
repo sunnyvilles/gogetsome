@@ -235,7 +235,19 @@ var FilterPanel = Backbone.View.extend({
 		$('.subCatLists a').click(function(e){
 			that.filter(e,this);
 		});
-		$('.category')
+		$('.category').on('mouseover',function(){
+			$('.category .subCatLists').show();
+		});
+		$('.category').on('mouseout',function(){
+			$('.category .subCatLists').hide();
+		});
+
+		$('.price').on('mouseover',function(){
+			$('.price .subCatLists').show();
+		});
+		$('.price').on('mouseout',function(){
+			$('.price .subCatLists').hide();
+		});
 	},
 	showHide : function(){
 		if(this.collapsed){
@@ -270,15 +282,30 @@ var FilterPanel = Backbone.View.extend({
 		});
 	},
 	filter : function(event,el){
+		var that = this;
 		if($(el).hasClass('cat')){
 			$('.category > div').html($('div',el).html());
 			$('.category').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory category');
-			$('.category div').after('<span class="remove"></remove>');
+			if(!$('.category > .remove').length){
+				$('.category > div').before('<span class="remove"></remove>');
+				$('.category > .remove').click(function(){
+					that.removeFilter(1,2,this);
+				});
+			}
 		}else{
 			$('.price > div').html($('div',el).html());
 			$('.price').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory price');
 		}
-
+		this.updateWall();
+		$('.mainCategory .subCatLists').hide();
+	},
+	removeFilter : function(filterId,scope,el){
+		$(el).remove();
+		$('.category > div').html("All");
+		$('.category').removeClass().addClass('mainCategory category');
+		this.updateWall();
+	},
+	updateWall : function(){
 		var items = [];
 		for(var i = 0, len = Math.random()*20;i<len;i++){
 			items.push($('#'+ Math.floor(Math.random()*20)).detach());
@@ -289,9 +316,6 @@ var FilterPanel = Backbone.View.extend({
 			$('.mainWrapper').append(items[i]);
 		}
 		$('.mainWrapper').masonry('reload');
-	},
-	removeFilter : function(filterId,scope){
-		
 	}
 })
 
