@@ -175,7 +175,7 @@ var Header = Backbone.View.extend({
 			$('.noAuthBox .invite').click(function(){
 				var invitePanel = new InvitePanel();
 				invitePanel.render();
-				FB.XFBML.parse();
+				//FB.XFBML.parse();
 			});
 		}
 	}
@@ -298,12 +298,12 @@ var FilterPanel = Backbone.View.extend({
 var InvitePanel = Backbone.View.extend({
 	initialize : function(){
 
-		this.template = _.template(["<div class='invitePanel lightBox'>",
-			"<div class='close'></div>",
-			"<h1>Sign up for an invite to join Graboard</h1>",
-			"<span>or <em>login</em> to your account.</span>",
-			"<input type='email' />",
-			"<div class='left-shadow'></div><div class='right-shadow'></div></div>"].join(""));
+		this.template = _.template(['<div id="boxes"><div id="invitePanel" class="window lightBox border5">',
+			"<h1 style='display:block'>Sign up for an invite to join Graboard</h1>",
+			"<span class='infoBlock' style='display:block'>or <em class='redText'>login</em> to your account.</span>",
+			'<div class="inviteWrap"><input style="display:block" id="email" name="email" type="text" placeholder="Enter Your Email" required autofocus tabindex="1">',
+      '<input style="display:block" class="loginBtn inviteMe submit" id="loginBtn" name="submitButton" type="button" tabindex="2" value="Invite Me!"></div>',
+			"<a href='#' class='closeMe'>X</a></div><div id='mask'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){
@@ -339,42 +339,35 @@ var LoginPanel = Backbone.View.extend({
 		hub.bind('authed',this.destroy,this);
 		var that = this;
 
-		this.template = _.template(['<div class="loginPanel lightBox border5">',
-			"<div class='close'></div>",
+		this.template = _.template(['<div id="boxes"><div id="loginPanel" class="window lightBox border5">',
 			'<div class="socialButtons">',
 			'<div class="btn fbBtn">',
-			'<a class="fb loginButton border5">',
-			'<div class="logoWrapper"><span class="logo"></span></div>',
-			'<span>Login with Facebook</span>',
+			'<a class="fb loginButton facebookButton border5">',
+			'<div class="logoWrapper"></div>',
 			'</a>',
 			'</div>',
 			'<div class="btn">',
-			'<a class="tw loginButton border5">',
-			'<div class="logoWrapper"><span class="logo"></span></div>',
-			'<span>Login with Twitter</span>',
+			'<a class="tw loginButton twitterButton border5">',
+			'<div class="logoWrapper"></div>',
 			'</a>',
 			'</div>',
 			'</div>',
-			'<form class="authForm" method="POST" action="/login">',
+			'<div class="clear"></div><form class="authForm" method="POST" action="/login">',
 			'<ul>',
 			'<li>',
-			'<input type="text" name="email" id="email">',
-			'<label for="email">Email</label>',
-			'<span class="fff"></span>',
+			'<input id="email" name="email" type="text" placeholder="Enter Your Email" required autofocus tabindex="1">',
 			'</li>',
 			'<li>',
-			'<input type="password" name="password" id="password">',
-			'<label for="password">Password</label>',
-			'<span class="fff"></span>',
+			'<input id="password" name="password" type="text" placeholder="Enter Your Password" required autofocus tabindex="1">',
 			'</li>',
 			'<input type="hidden">',
 			'</ul>',
 			'<div class="buttons">',
-			'<button class="loginBtn" type="submit">Login</button>',
-			'<a href="/password/reset/">Forgot your password?</a>',
+      '<input class="loginBtn submit" id="loginBtn" name="submitButton" type="button" tabindex="3" value="login!">',
+			'<a href="/password/reset/" style="color:#dd0017;margin-left:10px;">Forgot your password?</a>',
 			'</div>',
 			'</form>',
-			"</div>"].join(""));
+			"<a href='#' class='closeMe'>X</a></div><div id='mask'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){
@@ -388,9 +381,7 @@ var LoginPanel = Backbone.View.extend({
 		}));
 		this.el = $('body .loginPanel');
 		this.el.fadeIn('fast');
-		$(function(){ 
-			$("label").inFieldLabels();
-		});
+		
 		this.addListeners();
 		return this;
 	},
@@ -560,19 +551,20 @@ var PictureTile = Backbone.View.extend({
 			'<span class="favCount floatRight">12</span>',
 			'</span>',
 			'</div>',
-			'<div class="clear"></div>',
-			'<div class="itemDisc onMainSaleWall" style="padding: 0 5px 10px;">',
-			'<span class="itemName" style="display: block">Arrow New York</span>',
-			'<span class="itemNameDesc"  style="display: block">Men Check Navy Blue Shirt</span>',
-			'<div class="priceDetails" style="height: 25px;padding-top: 4px;">',
-			'<div class="floatLeft">',
-			'<div class="perOff red fontBold">(10% OFF) Rs. 810 </div>',
-			'</div>',
-			'<div class="floatRight displayNone grabButton">',
-			'<a class="grabIt " style="height: 10px;line-height: 8px;"target="_self" href="#"><span class="left"> Grab It! </span></a>',
-			'</div>',
-			'</div>',
-			'</div>',
+
+      '<div class="clear"></div>',
+      '<div class="itemDisc onMainSaleWall" style="padding: 0 5px 10px;">',
+      '<span class="itemName" style="display: block;font-size:13px;">Arrow New York</span>',
+      '<span class="itemNameDesc"  style="display: block;font-size:12px;">Men Check Navy Blue Shirt</span>',
+      '<div class="priceDetails" style="height: 25px;padding-top: 4px;">',
+      '<div class="floatLeft">',
+      '<div class="perOff red fontBold" style="font-size:11px;">(10% OFF) Rs. 810 </div>',
+      '</div>',
+      '<div class="floatRight displayNone grabButton">',
+      '<a class="grabIt " style="height: 10px;line-height: 8px;"target="_self" href="#"><span class="left"> Grab It! </span></a>',
+      '</div>',
+      '</div>',
+      '</div>',
 			'</div>',
 			'</div>',
 			'</div>'
