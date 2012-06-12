@@ -1,0 +1,11 @@
+<%content_for :meta do%>
+  <meta name="ROBOTS" content="noindex, nofollow" />
+<%end%>
+<%= render :partial => "layouts/web/shared/graboardHTMLHeader" %>
+<div id="header">
+  <%= render :partial => "layouts/web/shared/graboardHeaderMenu" %>
+</div>
+Actual File Buddy
+<%= yield %>
+<%= render :partial => "layouts/web/shared/footer" %>
+<%= render :partial => "layouts/web/shared/graboardHTMLFooter" %>
