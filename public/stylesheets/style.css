@@ -743,11 +743,11 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   height: 44px;
 }
 
-.bar .bar-section-view {
+/*.bar .bar-section-view {
   background-color: rgba(55, 55, 55, 0.95);
   border-left: 1px solid #2D2D2E;
   border-right: 1px solid #2D2D2E;
-}
+}*/
 .bar label {
   color: #F38080;
   float: left;
