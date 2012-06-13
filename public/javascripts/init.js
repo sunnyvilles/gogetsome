@@ -405,7 +405,7 @@ var LoginPanel = Backbone.View.extend({
 			'</a>',
 			'</div>',
 			'<div class="btn">',
-			'<a class="tw loginButton twitterButton border5">',
+			'<a class="tw loginButton twitterButton border5" href="/twitter-connect">',
 			'<div class="logoWrapper"></div>',
 			'</a>',
 			'</div>',
