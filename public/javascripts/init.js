@@ -178,7 +178,7 @@ var Header = Backbone.View.extend({
 				//FB.XFBML.parse();
 			});
 		}
-		
+
 		$('.noAuthBox .pullBtn').click(function(){
 			this.collapsed = !this.collapsed;
 			var that = this;
@@ -207,7 +207,7 @@ var FilterPanel = Backbone.View.extend({
 		this.template = _.template([
 			'<div id="filterSale" class="bar">',
 			'<div class="bar-section bar-section-view">',
-			'<label>View:</label>',
+			'<label style="margin-top: 5px;">View:</label>',
 			'<ul>',
 			'<li>',
 			'<div class="mainCategory category">',
@@ -239,6 +239,9 @@ var FilterPanel = Backbone.View.extend({
 			'</div>',
 			'</li>',
 			'</ul>',
+      '<label style="margin-top: 5px;">Filter by:</label>',
+      '<div class="filterByPrice grabIt"><a style="line-height: 19px;" href="javascript:void(0);">Price</a></div>',
+      '<div class="filterByPop grabIt"><a style="line-height: 19px;" href="javascript:void(0);">popularity</a></div>',
 			'<div class="showhide" title="Hide"><em class="rightArrow"></em></div>',
 			'</div>',
 			'</div>'].join(''));
@@ -306,7 +309,7 @@ var FilterPanel = Backbone.View.extend({
 		var that = this;
 		if($(el).hasClass('cat')){
 			$('.category > div').html($('div',el).html());
-			$('.category').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory category');
+			$('.category').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory category selected');
 			if(!$('.category > .remove').length){
 				$('.category > div').before('<span class="remove"></remove>');
 				$('.category > .remove').click(function(){
@@ -315,7 +318,7 @@ var FilterPanel = Backbone.View.extend({
 			}
 		}else{
 			$('.price > div').html($('div',el).html());
-			$('.price').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory price');
+			$('.price').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory price selected');
 		}
 		this.updateWall();
 		$('.mainCategory .subCatLists').hide();
@@ -386,7 +389,16 @@ var LoginPanel = Backbone.View.extend({
 		var that = this;
 
 		this.template = _.template(['<div id="boxes"><div id="loginPanel" class="window lightBox border5">',
-			'<div class="socialButtons">',
+			'<div id="container_demo" >',
+
+      '<a class="hiddenanchor" id="toregister"></a>',
+      '<a class="hiddenanchor" id="tologin"></a>',
+      '<div id="wrapper">',
+      '<div id="login" class="animate form">',
+      '<form  action="" autocomplete="on"> ',
+      '<a href="#" class="closeMe">X</a>',
+      '<h1>Log in</h1> ',
+      '<div class="socialButtons">',
 			'<div class="btn fbBtn">',
 			'<a class="fb loginButton facebookButton border5">',
 			'<div class="logoWrapper"></div>',
@@ -398,22 +410,63 @@ var LoginPanel = Backbone.View.extend({
 			'</a>',
 			'</div>',
 			'</div>',
-			'<div class="clear"></div><form class="authForm" method="POST" action="/login">',
-			'<ul>',
-			'<li>',
-			'<input id="email" name="email" type="text" placeholder="Enter Your Email" required autofocus tabindex="1">',
-			'</li>',
-			'<li>',
-			'<input id="password" name="password" type="text" placeholder="Enter Your Password" required autofocus tabindex="1">',
-			'</li>',
-			'<input type="hidden">',
-			'</ul>',
-			'<div class="buttons">',
-      '<input class="loginBtn submit" id="loginBtn" name="submitButton" type="button" tabindex="3" value="login!">',
-			'<a href="/password/reset/" style="color:#dd0017;margin-left:10px;">Forgot your password?</a>',
-			'</div>',
-			'</form>',
-			"<a href='#' class='closeMe'>X</a></div><div id='mask'></div></div>"].join(""));
+			'<div class="clear"></div>',
+      
+      '<p> ',
+      '<label for="username" class="uname" data-icon="u" > Your email or username </label>',
+      '<input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>',
+      '</p>',
+      '<p> ',
+      '<label for="password" class="youpasswd" data-icon="p"> Your password </label>',
+      '<input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> ',
+      '</p>',
+      '<p class="keeplogin"> ',
+      '<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> ',
+      '<label for="loginkeeping">Keep me logged in</label>',
+      '</p>',
+      '<p class="login button"> ',
+      '<input type="submit" value="Login" /> ',
+      '</p>',
+      '<p class="change_link">',
+      'Not a member yet ?',
+      '<a href="#toregister" class="to_register">Join us</a>',
+      '</p>',
+      '</form>',
+      '</div>',
+
+      '<div id="register" class="animate form">',
+      '<form  action="mysuperscript.php" autocomplete="on"> ',
+      '<a href="#" class="closeMe">X</a>',
+      '<h1> Sign up </h1> ',
+      '<p> ',
+      '<label for="usernamesignup" class="uname" data-icon="u">Your username</label>',
+      '<input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="mysuperusername690" />',
+      '</p>',
+      '<p> ',
+      '<label for="emailsignup" class="youmail" data-icon="e" > Your email</label>',
+      '<input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> ',
+      '</p>',
+      '<p> ',
+      '<label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>',
+      '<input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>',
+      '</p>',
+      '<p> ',
+      '<label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>',
+      '<input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>',
+      '</p>',
+      '<p class="signin button"> ',
+      '<input type="submit" value="Sign up"/> ',
+      '</p>',
+      '<p class="change_link">  ',
+      'Already a member ?',
+      '<a href="#tologin" class="to_register"> Go and log in </a>',
+      '</p>',
+      '</form>',
+      '</div>',
+
+      '</div>',
+      '</div>  ',
+			"</div><div id='mask'></div></div>"].join(""));
 		return this;
 	},
 	render : function(){
@@ -427,7 +480,7 @@ var LoginPanel = Backbone.View.extend({
 		}));
 		this.el = $('body .loginPanel');
 		this.el.fadeIn('fast');
-		
+
 		this.addListeners();
 		return this;
 	},
@@ -765,5 +818,3 @@ $(function(){
 			'imageUrl' : 'http://media-cache8.pinterest.com/upload/159314905538663633_OXKg3W1o_b.jpg'
 		}
  **/
-
-
