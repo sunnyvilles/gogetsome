@@ -695,28 +695,8 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   -o-user-select: none;
   -webkit-user-select: none;
 }
-#invitePanel{
-  text-align: center;
-  display: block;
-  margin: 0 auto;
 
-}
-.inviteWrap{
-  margin: 0 auto;
-  text-align: center;
-  display: block;
-  width: 276px;
-  padding: 15px 0;
-}
-.inviteWrap >input{
-  margin: 10px 0;
-}
-#invitePanel h1{
-  font-size: 20px;
-}
-#invitePanel span.infoBlock{
-  font-size: 16px;
-}
+
 .redText{
   font-size: 16px;
   color: #dd0017;
@@ -824,7 +804,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   top: 16px;
 }
 .subCatLists{
-  bottom: 43px;
+  bottom: 44px;
   position: absolute;
   width: 326px;
   background: rgba(0, 0, 0, 0.5);
