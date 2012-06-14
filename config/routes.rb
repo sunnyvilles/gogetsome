@@ -12,6 +12,8 @@ Picshub::Application.routes.draw do
 	root :to => "web/graboard#index"
   match '/twitter-connect' => "web/users#twitter_connect"
   match '/twitter-cb' => "web/users#twitter_callback"
+  match '/request-invite' => "web/users#request_invite"
+  match '/invite' => "web/users#invite"
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

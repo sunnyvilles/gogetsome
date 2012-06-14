@@ -11,15 +11,19 @@
 development:
   consumer_key: WS8hAKtAxKcvEx216Z9QA
   consumer_secret_key: jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc
+  call_back_url: "/twitter-cb"
 
 test:
-  consumer_key: WS8hAKtAxKcvEx216Z9QA
-  consumer_secret_key: jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc
+  consumer_key: 'WS8hAKtAxKcvEx216Z9QA'
+  consumer_secret_key: 'jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc'
+  call_back_url: "/twitter-cb"
 
 staging:
-  consumer_key: WS8hAKtAxKcvEx216Z9QA
-  consumer_secret_key: jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc
+  consumer_key: 'WS8hAKtAxKcvEx216Z9QA'
+  consumer_secret_key: 'jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc'
+  call_back_url: "/twitter-cb"
 
 production:
-  consumer_key: WS8hAKtAxKcvEx216Z9QA
-  consumer_secret_key: jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc
+  consumer_key: 'WS8hAKtAxKcvEx216Z9QA'
+  consumer_secret_key: 'jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc'
+  call_back_url: "/twitter-cb"

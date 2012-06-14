@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525180347) do
+ActiveRecord::Schema.define(:version => 20120614182715) do
 
   create_table "media", :force => true do |t|
     t.integer  "user_id",                      :default => 0,   :null => false
@@ -26,6 +26,21 @@ ActiveRecord::Schema.define(:version => 20120525180347) do
   end
 
   add_index "media", ["user_id"], :name => "primary_index"
+
+  create_table "requested_invites", :force => true do |t|
+    t.string   "email",                :limit => 80,  :null => false
+    t.string   "ip_address",                          :null => false
+    t.string   "city",                 :limit => 150
+    t.string   "state",                :limit => 150
+    t.string   "country",              :limit => 50
+    t.string   "zipcode",              :limit => 30
+    t.datetime "signedup_at"
+    t.integer  "total_reminders_sent"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "requested_invites", ["email"], :name => "index_requested_invites_on_email", :unique => true
 
   create_table "user_details", :force => true do |t|
     t.integer  "user_id",                   :null => false
@@ -44,22 +59,5 @@ ActiveRecord::Schema.define(:version => 20120525180347) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "users", :force => true do |t|
-    t.string   "primary_email"
-    t.integer  "fb_user_id"
-    t.integer  "instagram_id"
-    t.integer  "twitter_id"
-    t.integer  "flickr_id"
-    t.integer  "picasa_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "users", ["fb_user_id"], :name => "UNIQUE_FB_USER_ID", :unique => true
-  add_index "users", ["flickr_id"], :name => "UNIQUE_FLICKR_ID", :unique => true
-  add_index "users", ["instagram_id"], :name => "UNIQUE_INSTAGRAM_ID", :unique => true
-  add_index "users", ["picasa_id"], :name => "UNIQUE_PICASA_ID", :unique => true
-  add_index "users", ["twitter_id"], :name => "UNIQUE_TWITTER_ID", :unique => true
 
 end
