@@ -1,20 +1,15 @@
 class Web::UsersController < ApplicationController
   
   def twitter_connect
-    client = TwitterOAuth::Client.new(
-        :consumer_key => 'WS8hAKtAxKcvEx216Z9QA',
-        :consumer_secret => 'jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc')
 
-    request_token = client.request_token(:oauth_callback => "http://127.0.0.1:3000/twitter-cb")
+    request_token = Common.twitter_handler.request_token(:oauth_callback => "http://127.0.0.1:3000/twitter-cb")
     puts "-----request_token----#{request_token.inspect}"
     redirect_to request_token.authorize_url.to_s.sub("authorize","authenticate")
   end
 
   def twitter_callback
 
-    client = TwitterOAuth::Client.new(
-        :consumer_key => 'WS8hAKtAxKcvEx216Z9QA',
-        :consumer_secret => 'jYDHMkFsLIIF3Y3eJ2SPOPezbQ4O996lXWlIQ8cc')
+    client = Common.twitter_handler
 
     client.request_token(:oauth_callback => "http://127.0.0.1:3000/twitter-cb")
     
@@ -25,5 +20,15 @@ class Web::UsersController < ApplicationController
     )
     puts "------t/f------#{client.authorized?}----client-----#{client.inspect}-----#{client.info.inspect}"
     redirect_to "/"
+  end
+
+  def request_invite
+    result = RequestedInvite.add_request_invite(:email => params[:email], :ip_address => request.remote_ip)
+    puts "----result-----#{result.inspect}"
+    render :json => result
+  end
+
+  def invite
+    render :json => "Success"
   end
 end
