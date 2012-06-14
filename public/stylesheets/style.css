@@ -1004,7 +1004,17 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   padding: 3px 15px;
   margin-right: 10px;
 }
-
+@-webkit-keyframes move {
+    0% {
+       background-position: 0 0;
+    }
+    100% {
+       background-position: 200px 0;
+    }
+}
+.animateProgressBar{
+	-webkit-animation: move 2s linear infinite;
+}
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {
   .mainWrapper{

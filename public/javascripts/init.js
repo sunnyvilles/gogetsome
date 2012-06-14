@@ -373,7 +373,7 @@ var InvitePanel = Backbone.View.extend({
 	render : function(){
 		var that = this;
 		if($('.loginPanel').length){
-			return;
+			return null;
 		}
 		$(document).keyup(function(e) {
 			if (e.keyCode == 27) {
@@ -381,7 +381,7 @@ var InvitePanel = Backbone.View.extend({
 			}
 		});
 		$('body').prepend(this.template({}));
-		this.el = $('body .invitePanel');
+		this.el = $('#invitePanel');
 		this.el.fadeIn('fast');
 		$(function(){
 			$("label").inFieldLabels();
@@ -396,6 +396,20 @@ var InvitePanel = Backbone.View.extend({
 				that.el.remove();
 			})
 		});
+		$('form', this.el).on('submit',function(e){
+			that.submit(e,this)
+		})
+	},
+	submit : function(e,form){
+		e.preventDefault();
+		var anm = $('.change_link',this.el);
+		anm.addClass('animateProgressBar');
+		$.ajax({
+			url : $(form).attr('action'),
+			complete : function(){
+				//show saorabh's invite panel'
+			}
+		})
 	}
 });
 var LoginPanel = Backbone.View.extend({
