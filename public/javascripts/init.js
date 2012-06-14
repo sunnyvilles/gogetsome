@@ -348,6 +348,8 @@ var InvitePanel = Backbone.View.extend({
 	initialize : function(){
 		this.template = _.template(['<div id="boxes"><div id="invitePanel" class="window lightBox border5">',
       '<div id="container_demo" >',
+      '<a class="hiddenanchor" id="toregister"></a>',
+      '<a class="hiddenanchor" id="tologin"></a>',
       '<div id="wrapper">',
       '<div id="login" class="animate form">',
       '<form  action=""> ',
@@ -362,8 +364,22 @@ var InvitePanel = Backbone.View.extend({
       '</p>',
       '<p class="change_link">  ',
       'Your are about to get access for GRABOARD! :)',
+      '<a href="#toregister" class="to_register">Invited!</a>',
       '</p>',
       '</form>',
+      '</div>',
+      '<div id="register" class="animate form">',
+      '<form  action=""> ',
+      '<a href="javascript:void(0);" class="closeMe">X</a>',
+      '<h1>Badhai HO</h1>',
+      '<p>',
+      'Mil Gaya Mamu Se Milne ka access',
+      '</p>',
+      '<p class="change_link">  ',
+      'Your are about to get access for GRABOARD! :)',
+      '</p>',
+      '</form>',
+      '</div>',
       '</div>',
       '</div>',
       '</div>  ',
@@ -405,7 +421,6 @@ var LoginPanel = Backbone.View.extend({
 
 		this.template = _.template(['<div id="boxes"><div id="loginPanel" class="window lightBox border5">',
 			'<div id="container_demo" >',
-
       '<a class="hiddenanchor" id="toregister"></a>',
       '<a class="hiddenanchor" id="tologin"></a>',
       '<div id="wrapper">',
@@ -426,7 +441,6 @@ var LoginPanel = Backbone.View.extend({
 			'</div>',
 			'</div>',
 			'<div class="clear"></div>',
-      
       '<p> ',
       '<label for="username" class="uname" data-icon="u" > Your email or username </label>',
       '<input id="username" name="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>',
@@ -448,7 +462,6 @@ var LoginPanel = Backbone.View.extend({
       '</p>',
       '</form>',
       '</div>',
-
       '<div id="register" class="animate form">',
       '<form  action=""> ',
       '<a href="javascript:void(0);" class="closeMe">X</a>',
@@ -465,7 +478,6 @@ var LoginPanel = Backbone.View.extend({
       '</p>',
       '</form>',
       '</div>',
-
       '</div>',
       '</div>  ',
 			"</div><div id='mask'></div></div>"].join(""));

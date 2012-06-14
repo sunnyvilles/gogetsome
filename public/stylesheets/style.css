@@ -806,7 +806,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 .subCatLists{
   bottom: 44px;
   position: absolute;
-  width: 326px;
+  width: 362px;
   background: rgba(0, 0, 0, 0.5);
   left:0;
 }
@@ -821,7 +821,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 
 }
 .subCatLists li a{
-  width: 110px;
+  width: 128px;
   cursor: pointer;
 }
 .price .subCatLists li a{
@@ -898,7 +898,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   left:0;
   top:0;
   z-index:9000;
-  background-color:#000;
+  background-color:rgba(0,0,0,0.8);
   display:none;
   min-height:1500px;
 }
