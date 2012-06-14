@@ -352,7 +352,7 @@ var InvitePanel = Backbone.View.extend({
       '<a class="hiddenanchor" id="tologin"></a>',
       '<div id="wrapper">',
       '<div id="login" class="animate form">',
-      '<form  action=""> ',
+      '<form  action="/request-invite"> ',
       '<a href="javascript:void(0);" class="closeMe">X</a>',
       '<h1>Invite Me</h1>',
       '<p>',
@@ -364,7 +364,7 @@ var InvitePanel = Backbone.View.extend({
       '</p>',
       '<p class="change_link">  ',
       'Your are about to get access for GRABOARD! :)',
-      '<a href="#toregister" class="to_register">Invited!</a>',
+      '<a class="to_register">Invited!</a>',
       '</p>',
       '</form>',
       '</div>',
@@ -422,8 +422,16 @@ var InvitePanel = Backbone.View.extend({
 		anm.addClass('animateProgressBar');
 		$.ajax({
 			url : $(form).attr('action'),
-			complete : function(){
-				//show saorabh's invite panel'
+			data : {
+				email : $('#emailsignup',form).val()
+			},
+			success : function(resp){
+				anm.removeClass('animateProgressBar');
+				if(!resp.err_msg){
+					$('.change_link',form).html("Thank you! share this url with your friends to get an early access" + "http://graboard.com/" + resp.invitation_code);
+				}else{
+					$('.change_link',form).html(resp.err_msg[0]);
+				}
 			}
 		})
 	}
@@ -472,7 +480,7 @@ var LoginPanel = Backbone.View.extend({
       '</p>',
       '<p class="change_link">',
       'Not a member yet ?',
-      '<a href="#toregister" class="to_register">Request an Invite!</a>',
+      '<a class="to_register">Request an Invite!</a>',
       '</p>',
       '</form>',
       '</div>',
