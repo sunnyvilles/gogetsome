@@ -18,7 +18,7 @@
 	 margin: 0;
 	 padding: 0;
 	 margin: 0 auto;
-	 font-family: "Trebuchet MS","Myriad Pro",Arial,sans-serif;
+	 /*font-family: "Trebuchet MS","Myriad Pro",Arial,sans-serif;*/
 }
 
 /** fonts used for the icons **/
@@ -63,22 +63,22 @@ a.hiddenanchor{
 }
 
 #wrapper h1{
-	font-size: 48px;
+	font-size: 28px;
 	color: rgb(6, 106, 117);
 	padding: 2px 0 10px 0;
-	font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;
+	/*font-family: 'FranchiseRegular','Arial Narrow',Arial,sans-serif;*/
 	font-weight: bold;
 	text-align: center;
 }
 /** For the moment only webkit supports the background-clip:text; */
 #wrapper h1{
-    background: -webkit-repeating-linear-gradient(-45deg,
+  background: -webkit-repeating-linear-gradient(-45deg,
 	rgb(18, 83, 93) ,
 	rgb(18, 83, 93) 20px,
 	rgb(64, 111, 118) 20px,
 	rgb(64, 111, 118) 40px,
 	rgb(18, 83, 93) 40px);
-	-webkit-text-fill-color: transparent;
+	/*-webkit-text-fill-color: transparent;*/
 	-webkit-background-clip: text;
 }
 #wrapper h1:after{
@@ -235,7 +235,7 @@ p.change_link{
 	color: rgb(127, 124, 124);
 	left: 0px;
 	height: 20px;
-	width: 455px;
+	width: 460px;
 	padding: 17px 30px 20px 30px;
 	font-size: 16px	;
 	text-align: right;
@@ -273,6 +273,10 @@ p.change_link{
 	rgb(247, 247, 247) 30px
 	);
 }
+#wrapper p.change_link .link {
+	color: #dd0017;
+	font-weight: 500;
+}
 #wrapper p.change_link a {
 	display: inline-block;
 	font-weight: bold;
@@ -305,7 +309,7 @@ p.change_link{
 #login{
 	position: absolute;
 	top: 0px;
-	width: 91%;
+	width: 92%;
 	padding: 18px 6% 60px 6%;
 	margin: 0 0 35px 0;
 	background: rgb(247, 247, 247);

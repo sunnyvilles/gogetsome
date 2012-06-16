@@ -180,21 +180,22 @@ var Header = Backbone.View.extend({
 		}
 
 		$('.noAuthBox .pullBtn').click(function(){
-			this.collapsed = !this.collapsed;
+			var $noAuthBox = $('.noAuthBox');
+			$noAuthBox.attr('collapsed',$noAuthBox.attr('collapsed') === "true" ? "false" : "true");
 			var that = this;
 			$(this).parent().animate({
-				top : this.collapsed ? 10 : 60
+				top : $noAuthBox.attr('collapsed') === "true" ? 10 : 60
 			},{
 				duration : 500,
 				specialEasing :{
 					top : 'easeOutBounce'
 				},
 				complete : function(){
-					if(that.collapsed){
-						$(that).removeClass('downCircle').addClass('upCircle');
+					if($noAuthBox.attr('collapsed') === "true"){
+						$('.pullDown').show();
 
 					}else{
-						$(that).removeClass('upCircle').addClass('downCircle');
+						$('.pullDown').hide();
 					}
 				}
 			});
@@ -204,6 +205,7 @@ var Header = Backbone.View.extend({
 
 var FilterPanel = Backbone.View.extend({
 	initialize : function(config){
+		this.filters = [];
 		this.template = _.template([
 			'<div id="filterSale" class="bar">',
 			'<div class="bar-section bar-section-view">',
@@ -214,14 +216,14 @@ var FilterPanel = Backbone.View.extend({
 			'<span class="mainCatList"></span><div>All</div>',
 			'<em class="tringle"></em>',
 			'<ul class="subCatLists displayNone">',
-			'<li><a class="cat cat1" data-category="shoes"><span></span><div>Shoes</div></a></li>',
-			'<li><a class="cat cat2" data-category="home"><span></span><div>Home & Decor</div></a></li>',
-			'<li><a class="cat cat3" data-category="electronics"><span></span><div>Gadgets</div></a></li>',
-			'<li><a class="cat cat4" data-category="mobile"><span></span><div>Accessories</div></a></li>',
-			'<li><a class="cat cat5" data-category="books"><span></span><div>Books</div></a></li>',
-			'<li><a class="cat cat6" data-category="jewellery"><span></span><div>Watches</div></a></li>',
-			'<li><a class="cat cat7" data-category="apprel"><span></span><div>Apparel</div></a></li>',
-			'<li><a class="cat cat7" data-category="kids"><span></span><div>Kids</div></a></li>',
+			'<li><a class="cat cat1" data-category="1"><span></span><div>Shoes</div></a></li>',
+			'<li><a class="cat cat2" data-category="2"><span></span><div>Home & Decor</div></a></li>',
+			'<li><a class="cat cat3" data-category="3"><span></span><div>Gadgets</div></a></li>',
+			'<li><a class="cat cat4" data-category="4"><span></span><div>Accessories</div></a></li>',
+			'<li><a class="cat cat5" data-category="4"><span></span><div>Books</div></a></li>',
+			'<li><a class="cat cat6" data-category="5"><span></span><div>Watches</div></a></li>',
+			'<li><a class="cat cat7" data-category="6"><span></span><div>Apparel</div></a></li>',
+			'<li><a class="cat cat7" data-category="7"><span></span><div>Kids</div></a></li>',
 			'</ul>',
 			'</div>',
 			'</li>',
@@ -231,10 +233,10 @@ var FilterPanel = Backbone.View.extend({
 			'<div>Price</div>',
 			'<em class="tringle"></em>',
 			'<ul class="subCatLists priceList displayNone">',
-			'<li><a class="cat1" data-category="1"><span></span><div>0-50</div></a></li>',
-			'<li><a class="cat2" data-category="2"><span></span><div>50-250</div></a></li>',
-			'<li><a class="cat3" data-category="3"><span></span><div>250-1000</div></a></li>',
-			'<li><a class="cat4" data-category="4"><span></span><div>1000+</div></a></li>',
+			'<li><a class="cat1" data-category="8"><span></span><div>0-50</div></a></li>',
+			'<li><a class="cat2" data-category="9"><span></span><div>50-250</div></a></li>',
+			'<li><a class="cat3" data-category="10"><span></span><div>250-1000</div></a></li>',
+			'<li><a class="cat4" data-category="11"><span></span><div>1000+</div></a></li>',
 			'</ul>',
 			'</div>',
 			'</li>',
@@ -257,7 +259,7 @@ var FilterPanel = Backbone.View.extend({
 			that.showHide();
 		});
 		$('.subCatLists a').click(function(e){
-			that.filter(e,this);
+			that.addFilter(e,this);
 		});
 		$('.category').on('mouseover',function(){
 			$('.category .subCatLists').show();
@@ -305,20 +307,36 @@ var FilterPanel = Backbone.View.extend({
 			})
 		});
 	},
-	filter : function(event,el){
+	addFilter : function(event,el){
 		var that = this;
 		if($(el).hasClass('cat')){
+			//filter by category
 			$('.category > div').html($('div',el).html());
 			$('.category').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory category selected');
 			if(!$('.category > .remove').length){
 				$('.category > div').before('<span class="remove"></remove>');
 				$('.category > .remove').click(function(){
-					that.removeFilter(1,2,this);
+					that.removeFilter("category",this);
 				});
 			}
+			this.filters.push({
+				type : "category",
+				filterValue : $(el).attr("data-category")
+			});
 		}else{
+			//filter by price
 			$('.price > div').html($('div',el).html());
 			$('.price').removeClass().addClass($('span',el).parent().attr('class') + ' mainCategory price selected');
+			if(!$('.price > .remove').length){
+				$('.price > div').before('<span class="remove"></remove>');
+				$('.price > .remove').click(function(){
+					that.removeFilter("price",this);
+				});
+			}
+			this.filters.push({
+				type : "price",
+				filterValue : $(el).attr("data-category")
+			})
 		}
 		this.updateWall();
 		$('.mainCategory .subCatLists').hide();
@@ -332,7 +350,23 @@ var FilterPanel = Backbone.View.extend({
 	},
 	updateWall : function(){
 		var items = [];
-		for(var i = 0, len = Math.random()*20;i<len;i++){
+		var len = app.getStore().length;
+		while(len--){
+			var item = app.getStore().at(len);
+			var hasCategory = false;
+			for(var i = 0; i < this.filters.length; i++ ){
+				if(item.get("category").indexOf(this.filters[i].filterValue) !== -1){
+					hasCategory = true;
+				}
+			}
+			if(hasCategory){
+				console.log($('#' + item.get('id')));
+			}else{
+				$('#' + item.get('id')).remove();
+			}
+		}
+		$('.mainWrapper').masonry('reload');
+		/*for(var i = 0, len = Math.random()*20;i<len;i++){
 			items.push($('#'+ Math.floor(Math.random()*20)).detach());
 		}
 		$('.mainWrapper').masonry('reload');
@@ -340,7 +374,7 @@ var FilterPanel = Backbone.View.extend({
 		for( i = 0, len = items.length;i<len;i++){
 			$('.mainWrapper').append(items[i]);
 		}
-		$('.mainWrapper').masonry('reload');
+		$('.mainWrapper').masonry('reload');*/
 	}
 })
 
@@ -354,16 +388,16 @@ var InvitePanel = Backbone.View.extend({
       '<div id="login" class="animate form">',
       '<form  action="/request-invite"> ',
       '<a href="javascript:void(0);" class="closeMe">X</a>',
-      '<h1>Invite Me</h1>',
+      '<h1>Sign up for an invite to join Graboard</h1>',
       '<p>',
       '<label for="emailsignup" class="youmail" data-icon="e" > Your email</label>',
-      '<input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="mysupermail@mail.com"/> ',
+      '<input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="Email"/> ',
       '</p>',
       '<p class="login button"> ',
       '<input type="submit" value="Request an Invite!" />',
       '</p>',
       '<p class="change_link">  ',
-      'Your are about to get access for GRABOARD! :)',
+      '<!--You are about to get access for GRABOARD!--> Graboard is your personal reporter for daily design inspirations!',
       '<a class="to_register">Invited!</a>',
       '</p>',
       '</form>',
@@ -427,8 +461,9 @@ var InvitePanel = Backbone.View.extend({
 			},
 			success : function(resp){
 				anm.removeClass('animateProgressBar');
+				$('#emailsignup',form).val("");
 				if(!resp.err_msg){
-					$('.change_link',form).html("Thank you! share this url with your friends to get an early access" + "http://graboard.com/" + resp.invitation_code);
+					$('.change_link',form).html("Thank you! share this url with your friends to get an early access <span class='link'>" + "http://graboard.com/" + resp.invitation_code + "</span>");
 				}else{
 					$('.change_link',form).html(resp.err_msg[0]);
 				}
