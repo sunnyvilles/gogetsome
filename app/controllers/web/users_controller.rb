@@ -25,6 +25,7 @@ class Web::UsersController < ApplicationController
   def request_invite
     result = RequestedInvite.add_request_invite(:email => params[:email], :ip_address => request.remote_ip)
     puts "----result-----#{result.inspect}"
+     UserMailer.welcome_email(result[:requested_invite]).deliver if result[:err].blank?
     render :json => result
   end
 
