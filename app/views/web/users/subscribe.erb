@@ -1,0 +1,14 @@
+<% if flash[:error].present? %>
+  <%=flash[:error]%>
+<% elsif @requested_invite_info.blank? %>
+  Sorry. There is no subscription for this request
+<% end %>
+<% unless @dont_show %>
+  <form action="/create-user" method="post" name="subscription" id="subscription">
+    <input type="hidden" id="subscription_code" name="subscription_code" value="<%=params[:subscription_code]%>"></input>
+    <input id="password" name="password" type="password">Password</input><br/>
+    <input id="password_confirmation" name="password_confirmation" type="password">Confirm Password</input><br/>
+    <input type="checkbox" name="terms_conditions" name="terms_conditions" id="terms_conditions">Please accept terms and conditions</input><br/>
+    <input type="submit">Submit</input>
+  </form>
+<% end %>

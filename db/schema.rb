@@ -13,51 +13,44 @@
 
 ActiveRecord::Schema.define(:version => 20120614182715) do
 
-  create_table "media", :force => true do |t|
-    t.integer  "user_id",                      :default => 0,   :null => false
-    t.string   "media_type",      :limit => 0, :default => "1", :null => false
-    t.string   "service_id",      :limit => 0, :default => "1", :null => false
-    t.string   "media_url"
-    t.string   "thumb_image_url"
-    t.integer  "theme_id"
-    t.integer  "view_count",                   :default => 0,   :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-  end
-
-  add_index "media", ["user_id"], :name => "primary_index"
-
   create_table "requested_invites", :force => true do |t|
-    t.string   "email",                :limit => 80,  :null => false
-    t.string   "ip_address",                          :null => false
+    t.string   "email",                :limit => 80,                 :null => false
+    t.string   "ip_address",                                         :null => false
     t.string   "city",                 :limit => 150
     t.string   "state",                :limit => 150
     t.string   "country",              :limit => 50
     t.string   "zipcode",              :limit => 30
     t.datetime "signedup_at"
-    t.integer  "total_reminders_sent"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.integer  "total_reminders_sent",                :default => 0, :null => false
+    t.string   "subscription_code",                                  :null => false
+    t.string   "invite_code",                                        :null => false
+    t.integer  "requested_invites",                   :default => 0, :null => false
+    t.integer  "subscribed_users",                    :default => 0, :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
   end
 
-  add_index "requested_invites", ["email"], :name => "index_requested_invites_on_email", :unique => true
+  add_index "requested_invites", ["email"], :name => "UNIQUE_EMAIL", :unique => true
+  add_index "requested_invites", ["invite_code"], :name => "UNIQUE_INVITE_CODE", :unique => true
+  add_index "requested_invites", ["subscription_code"], :name => "UNIQUE_SUBSCRIPTION_CODE", :unique => true
 
-  create_table "user_details", :force => true do |t|
-    t.integer  "user_id",                   :null => false
-    t.string   "remote_ip",  :limit => 25,  :null => false
-    t.string   "city",       :limit => 200
-    t.string   "region",     :limit => 200
-    t.string   "country",    :limit => 200
-    t.string   "zipcode",    :limit => 20
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.string   "password"
+    t.string   "auth"
+    t.integer  "fb_user_id"
+    t.integer  "twitter_id"
+    t.string   "invite_code",                      :null => false
+    t.integer  "requested_invites", :default => 0, :null => false
+    t.integer  "subscribed_users",  :default => 0, :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
-  add_index "user_details", ["user_id"], :name => "UNIQUE", :unique => true
-
-  create_table "user_service_details", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+  add_index "users", ["auth"], :name => "UNIQUE_AUTH", :unique => true
+  add_index "users", ["email"], :name => "UNIQUE_EMAIL", :unique => true
+  add_index "users", ["fb_user_id"], :name => "UNIQUE_FB_USER_ID", :unique => true
+  add_index "users", ["invite_code"], :name => "UNIQUE_INVITE_CODE", :unique => true
+  add_index "users", ["twitter_id"], :name => "UNIQUE_TWITTER_ID", :unique => true
 
 end

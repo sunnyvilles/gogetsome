@@ -31,4 +31,22 @@ class Web::UsersController < ApplicationController
   def invite
     render :json => "Success"
   end
+
+  def subscribe
+    @requested_invite_info = RequestedInvite.where(:subscription_code => params[:subscription_code]).first
+    @dont_show = true if @requested_invite_info.blank?
+  end
+
+  def create_user
+    puts "---p1--#{params.inspect}"
+    result = User.create_user(params)
+    puts "------result------#{result.inspect}"
+    
+    if result[:err_msg].present?
+      flash[:error] = result[:err_msg]
+      render :action => 'subscribe' and return
+    end
+    redirect_to "/"
+  end
+
 end
