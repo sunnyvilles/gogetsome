@@ -319,9 +319,14 @@ var FilterPanel = Backbone.View.extend({
 					that.removeFilter("category",this);
 				});
 			}
+			for(var i = 0;i<this.filters.length;i++){
+				if(this.filters[i].type === "category"){
+					this.filters.splice(i,1);
+				}
+			}
 			this.filters.push({
 				type : "category",
-				filterValue : $(el).attr("data-category")
+				filterValue : parseInt($(el).attr("data-category"))
 			});
 		}else{
 			//filter by price
@@ -333,19 +338,46 @@ var FilterPanel = Backbone.View.extend({
 					that.removeFilter("price",this);
 				});
 			}
+			for(var i = 0;i<this.filters.length;i++){
+				if(this.filters[i].type === "price"){
+					this.filters.splice(i,1);
+				}
+			}
 			this.filters.push({
 				type : "price",
-				filterValue : $(el).attr("data-category")
+				filterValue : parseInt($(el).attr("data-category"))
 			})
 		}
 		this.updateWall();
 		$('.mainCategory .subCatLists').hide();
 	},
-	removeFilter : function(filterId,scope,el){
+	removeFilter : function(filterType,el){
 		$(el).remove();
-		$('.category > div').html("All");
-		$('.category').removeClass().addClass('mainCategory category');
-		$('.category .subCatLists').hide();
+		
+		if(filterType === "category"){
+			$('.category > div').html("All");
+			$('.category').removeClass().addClass('mainCategory category');
+			$('.category .subCatLists').hide();
+			
+			for(var i = 0;i<this.filters.length;i++){
+				if(this.filters[i].type === "category"){
+					this.filters.splice(i,1);
+				}
+			}
+			$('.category > .remove').remove();
+		}else if(filterType === "price"){
+
+			$('.price > div').html("Price");
+			$('.price').removeClass().addClass('mainCategory price');
+			$('.price .subCatLists').hide();
+			
+			for(var i = 0;i<this.filters.length;i++){
+				if(this.filters[i].type === "price"){
+					this.filters.splice(i,1);
+				}
+			}
+			$('.price > .remove').remove();
+		}
 		this.updateWall();
 	},
 	updateWall : function(){
@@ -353,14 +385,19 @@ var FilterPanel = Backbone.View.extend({
 		var len = app.getStore().length;
 		while(len--){
 			var item = app.getStore().at(len);
-			var hasCategory = false;
+			var hasCategory = 0;
 			for(var i = 0; i < this.filters.length; i++ ){
+				//console.log('fiter is : ' + this.filters[i].filterValue + ' and item has categories : ' + item.get("category") + ' test result is ' + (item.get("category").indexOf(this.filters[i].filterValue) !== -1));
 				if(item.get("category").indexOf(this.filters[i].filterValue) !== -1){
-					hasCategory = true;
+					hasCategory++;
 				}
 			}
-			if(hasCategory){
-				console.log($('#' + item.get('id')));
+			if(hasCategory === this.filters.length){
+				if(!$('#' + item.get('id')).length){
+					item = new PictureTile(item);
+					item.render();
+					$('.mainWrapper').append(item.el);
+				}
 			}else{
 				$('#' + item.get('id')).remove();
 			}
@@ -584,7 +621,7 @@ var LoginPanel = Backbone.View.extend({
 		});
 	},
 	loginWithTw : function(){
-		console.log('connect with twitter for email');
+		
 	},
 	destroy : function(){
 		$('.loginPanel').remove();
