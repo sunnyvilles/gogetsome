@@ -1,5 +1,22 @@
 
 //"use strict"
+$.Mason.prototype.sort = function(){
+	if(app.getSortingOrder()){
+		var sortBy = app.getSortingOrder().sortBy;
+		console.log(sortBy);
+		this.$bricks = this.$bricks.sort(function(a,b){
+			if(sortBy === "price"){
+				return parseInt($(a).attr('price') || 0) - parseInt($(b).attr('price') || 0);
+			}else if(sortBy === "popularity"){
+				return  parseInt($(b).attr('popularityIndex') || 0) - parseInt($(a).attr('popularityIndex') || 0);
+			}else{
+				return 1;
+			}
+		});
+		console.log(this.$bricks);
+	}
+  this._init( function(){} );
+};
 $.Mason.prototype.resize = function() {
 	this._getColumns();
 	this._reLayout();
@@ -22,7 +39,9 @@ $.Mason.prototype._reLayout = function( callback ) {
 		this.colYs[i] = this.offset.y + $cornerStamp.outerHeight(true);
 	}
 	// apply layout logic to all bricks
+	
 	this.layout( this.$bricks, callback );
+	
 };
 /*****************Model Definitions*******************/
 var Picture = Backbone.Model.extend({
@@ -241,9 +260,9 @@ var FilterPanel = Backbone.View.extend({
 			'</div>',
 			'</li>',
 			'</ul>',
-      '<label style="margin-top: 5px;">Filter by:</label>',
-      '<div class="filterByPrice grabIt"><a style="line-height: 19px;" href="javascript:void(0);">Price</a></div>',
-      '<div class="filterByPop grabIt"><a style="line-height: 19px;" href="javascript:void(0);">popularity</a></div>',
+      '<label style="margin-top: 5px;">Sort By:</label>',
+      '<div class="sortByPrice grabIt"><a style="line-height: 19px;" href="javascript:void(0);">Price</a></div>',
+      '<div class="sortByPop grabIt"><a style="line-height: 19px;" href="javascript:void(0);">popularity</a></div>',
 			'<div class="showhide" title="Hide"><em class="rightArrow"></em></div>',
 			'</div>',
 			'</div>'].join(''));
@@ -274,6 +293,13 @@ var FilterPanel = Backbone.View.extend({
 		$('.price').on('mouseout',function(){
 			$('.price .subCatLists').hide();
 		});
+
+		$('.sortByPrice',this.el).click(function(){
+			that.sort("price");
+		});
+		$('.sortByPop',this.el).click(function(){
+			that.sort("popularity");
+		});
 	},
 	showHide : function(){
 		if(this.collapsed){
@@ -285,7 +311,7 @@ var FilterPanel = Backbone.View.extend({
 	},
 	show : function(){
 		var that = this;
-		$('label,ul:not(.subCatLists)',this.el).show();
+		$('label,ul:not(.subCatLists),#filterSale .grabIt',this.el).show();
 		$('.showhide',that.el).css({
 			'float' : 'right'
 		});
@@ -300,7 +326,7 @@ var FilterPanel = Backbone.View.extend({
 		this.el.animate({
 			right : -740
 		},400,function(){
-			$('#filterSale label,#filterSale ul:not(.subCatLists)',this.el).hide();
+			$('#filterSale label,#filterSale ul:not(.subCatLists),#filterSale .grabIt',this.el).hide();
 			$('.showhide em',that.el).removeClass('rightArrow').addClass('leftArrow');
 			$('.showhide',that.el).css({
 				'float' : 'left'
@@ -388,13 +414,20 @@ var FilterPanel = Backbone.View.extend({
 			var hasCategory = 0;
 			for(var i = 0; i < this.filters.length; i++ ){
 				//console.log('fiter is : ' + this.filters[i].filterValue + ' and item has categories : ' + item.get("category") + ' test result is ' + (item.get("category").indexOf(this.filters[i].filterValue) !== -1));
-				if(item.get("category").indexOf(this.filters[i].filterValue) !== -1){
+				if(item.get("object").category.indexOf(this.filters[i].filterValue) !== -1){
 					hasCategory++;
 				}
 			}
 			if(hasCategory === this.filters.length){
 				if(!$('#' + item.get('id')).length){
-					item = new PictureTile(item);
+					item = new PictureTile({
+						model : item,
+						attributes : {
+							id : item.get('id'),
+							price : item.get('object').price,
+							popularityIndex : item.get('object').popularityIndex
+						}
+					});
 					item.render();
 					$('.mainWrapper').append(item.el);
 				}
@@ -403,15 +436,12 @@ var FilterPanel = Backbone.View.extend({
 			}
 		}
 		$('.mainWrapper').masonry('reload');
-		/*for(var i = 0, len = Math.random()*20;i<len;i++){
-			items.push($('#'+ Math.floor(Math.random()*20)).detach());
-		}
-		$('.mainWrapper').masonry('reload');
-
-		for( i = 0, len = items.length;i<len;i++){
-			$('.mainWrapper').append(items[i]);
-		}
-		$('.mainWrapper').masonry('reload');*/
+	},
+	sort : function(sortBy){
+		app.setSortOrder({
+			sortBy : sortBy
+		});
+		$('.mainWrapper').masonry('sort');
 	}
 })
 
@@ -676,7 +706,15 @@ var PictureWall = Backbone.View.extend({
 				}
 			});
 			for(var i=0,len=app.getStore().length;i<len;i++){
-				var item = new PictureTile(app.getStore().at(i));
+				var model = app.getStore().at(i);
+				var item = new PictureTile({
+					model : model,
+					attributes : {
+						id : model.get('id'),
+						price : model.get('object').price,
+						popularityIndex : model.get('object').popularityIndex
+					}
+				});
 				item.render();
 				$('.mainWrapper').append(item.el);
 				that.items.push(item);
@@ -710,13 +748,12 @@ var PictureWall = Backbone.View.extend({
 var PictureTile = Backbone.View.extend({
 	tagName : 'div',
 	className : 'tile',
-
 	initialize : function(config){
 		this.template = _.template([
 			'<div itemtype="javascript:void(0)" itemscope="" class="item photo">',
 			'<div class="modal-media wrapper cboxElement  view second-effect">',
 			'<a class="imgContent" href="javascript:void(0);">',
-			'<img width="240" src="<%=imageUrl%>" alt="">',
+			'<img width="240" src="<%=object.imageUrl%>" alt="">',
 			'</a>',
 
 			'<div class="mask">',
@@ -725,7 +762,7 @@ var PictureTile = Backbone.View.extend({
 			'<span class="itemNameDesc">Men Check Navy Blue Shirt</span>',
 			'<div class="priceDetails">',
 			'<div class="floatLeft">',
-			'<span class="discountedPrice red">Rs. 810 <span class="strike gray originalPrice">899</span></span>',
+			'<span class="discountedPrice red">Rs. <%=object.price%> <span class="strike gray originalPrice">899</span></span>',
 			'<div class="perOff red fontBold">(10% OFF)</div>',
 			'</div>',
 			'<div class="floatRight">',
@@ -755,7 +792,7 @@ var PictureTile = Backbone.View.extend({
 			'<div class="floatRight font12" style="margin-top: 14px;">',
 			'<span class="howMayLicks color3 floatRight">',
 			'<span class="heartIconGray floatLeft" style="margin-right: 3px"></span>',
-			'<span class="favCount floatRight">12</span>',
+			'<span class="favCount floatRight"><%=object.popularityIndex%></span>',
 			'</span>',
 			'</div>',
 
@@ -765,7 +802,7 @@ var PictureTile = Backbone.View.extend({
       '<span class="itemNameDesc"  style="display: block;font-size:12px;">Men Check Navy Blue Shirt</span>',
       '<div class="priceDetails" style="height: 25px;padding-top: 4px;">',
       '<div class="floatLeft">',
-      '<div class="perOff red fontBold" style="font-size:11px;">(10% OFF) Rs. 810 </div>',
+      '<div class="perOff red fontBold" style="font-size:11px;">(10% OFF) Rs. <%=object.price%> </div>',
       '</div>',
       '<div class="floatRight displayNone grabButton">',
       '<a class="grabIt " style="height: 10px;line-height: 8px;"target="_self" href="javascript:void(0);"><span class="left"> Grab It! </span></a>',
@@ -777,7 +814,7 @@ var PictureTile = Backbone.View.extend({
 			'</div>'
 			].join(""));
 
-		this.model = config;
+		//this.model = config;
 		return this;
 	},
 	render : function(){
@@ -892,37 +929,15 @@ $(function(){
 			},
 			showGuestContent : function(){
 
+			},
+			setSortOrder : function(sort){
+				this.sortingOrder = sort;
+			},
+			getSortingOrder : function(){
+				return this.sortingOrder;
 			}
 		};
 	})();
 
 	hub.bind('guestInit',app.showGuestContent,app);
-})
-
-/*
- ,{
-			'itemId' : '13',
-			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
-		},{
-			'itemId' : '14',
-			'imageUrl' : 'http://media-cache2.pinterest.com/upload/130393351681631158_yHNNc324_b.jpg'
-		},{
-			'itemId' : '15',
-			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
-		},{
-			'itemId' : '16',
-			'imageUrl' : 'http://media-cache2.pinterest.com/upload/130393351681631158_yHNNc324_b.jpg'
-		},{
-			'itemId' : '17',
-			'imageUrl' : 'http://media-cache1.pinterest.com/upload/194006696418196817_Pl6q6rwf_b.jpg'
-		},{
-			'itemId' : '18',
-			'imageUrl' : 'http://media-cache3.pinterest.com/upload/138204282285373226_bBCIyvJc_b.jpg'
-		},{
-			'itemId' : '19',
-			'imageUrl' : 'http://media-cache5.pinterest.com/upload/139611657168867043_LJVIuqfY_b.jpg'
-		},{
-			'itemId' : '20',
-			'imageUrl' : 'http://media-cache8.pinterest.com/upload/159314905538663633_OXKg3W1o_b.jpg'
-		}
- **/
+});

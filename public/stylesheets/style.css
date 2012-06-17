@@ -1005,16 +1005,16 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 .pullBtn:hover{
 	background-color: rgba(84, 195, 209, 1);
 }
-.filterByPrice,.filterByPop{
+.sortByPrice,.sortByPop{
   float: left;
   padding: 10px 12px;
 }
-.filterByPrice{
+.sortByPrice{
   margin-top: 8px;
   padding: 3px 15px;
   margin-right: 10px;
 }
-.filterByPop{
+.sortByPop{
   margin-top: 8px;
   padding: 3px 15px;
   margin-right: 10px;
