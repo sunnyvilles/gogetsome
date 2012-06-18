@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+site_1:
+  id: 1
+  name: 'myntra'
+  site_url: 'http://www.myntra.com/'
+  country_id: 1
+
+site_2:
+  id: 2
+  name: 'jabang'
+  site_url: 'http://www.jabong.com/'
+  country_id: 1

@@ -11,7 +11,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120614182715) do
+ActiveRecord::Schema.define(:version => 20120617191751) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name",       :limit => 50, :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "name",       :limit => 50, :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "name",              :limit => 200,                    :null => false
+    t.string   "url",               :limit => 200,                    :null => false
+    t.string   "primary_image_url", :limit => 200,                    :null => false
+    t.string   "brand",             :limit => 200,                    :null => false
+    t.integer  "discount_price"
+    t.integer  "actual_price"
+    t.integer  "category_id"
+    t.integer  "sub_category_id"
+    t.boolean  "status",                           :default => false, :null => false
+    t.integer  "views"
+    t.integer  "country_id"
+    t.integer  "site_id"
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
+  end
+
+  add_index "products", ["url"], :name => "UNIQUE_URL", :unique => true
 
   create_table "requested_invites", :force => true do |t|
     t.string   "email",                :limit => 80,                 :null => false
@@ -33,6 +64,14 @@ ActiveRecord::Schema.define(:version => 20120614182715) do
   add_index "requested_invites", ["email"], :name => "UNIQUE_EMAIL", :unique => true
   add_index "requested_invites", ["invite_code"], :name => "UNIQUE_INVITE_CODE", :unique => true
   add_index "requested_invites", ["subscription_code"], :name => "UNIQUE_SUBSCRIPTION_CODE", :unique => true
+
+  create_table "sites", :force => true do |t|
+    t.string   "name",       :limit => 50,                :null => false
+    t.string   "site_url",   :limit => 50,                :null => false
+    t.integer  "country_id",               :default => 1, :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email"

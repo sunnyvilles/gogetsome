@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.3'
 gem 'mysql2', '0.3.11'
 gem 'twitter_oauth'
-
+gem 'nokogiri'
+gem 'mechanize'
+gem 'anemone'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
