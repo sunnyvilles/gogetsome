@@ -30,7 +30,7 @@ class Web::UsersController < ApplicationController
   end
 
   def invite
-    render :json => "Success"
+    render :layout => "web/graboard"
   end
 
   def subscribe

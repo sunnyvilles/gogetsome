@@ -35,7 +35,7 @@ namespace :crontab do
             puts "----E----#{e.inspect}"
           end
         end
-        break if urls.length > 100
+        break if urls.length > 1000000
         puts "Now checking: " + product_url
         puts "Successfully checked"
       end

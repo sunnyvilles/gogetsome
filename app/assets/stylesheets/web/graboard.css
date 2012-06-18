@@ -1,4 +1,10 @@
 /*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
+ * Place all the styles related to the matching controller here.
+ * They will automatically be included in application.css.
+
+ *= require reset
+ *= require layout
+ *= require typography
+ *= require header
+ *= require footer
 */

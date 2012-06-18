@@ -867,8 +867,8 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 .category .remove,.price .remove{
 	display: inline-block;
 	float: right;
-	height: 11px;
-	width: 11px;
+	height: 22px;
+	width: 22px;
 	position: absolute;
 	left: 20px;
 	top : 16px;
