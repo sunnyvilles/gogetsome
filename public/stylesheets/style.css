@@ -464,7 +464,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 
 }
 .red{
-  color:#dd0017;
+  color:#E42F03;
 }
 .gray{
   color:#999!important;
@@ -592,7 +592,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   margin-top: 10px;
   float: left;
   margin-left: 15px;
-  color:#F38080;
+  color:#E42F03;
 }
 .noAuthBox .btn{
   margin-right: 10px;
@@ -744,7 +744,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   border-right: 1px solid #2D2D2E;
 }*/
 .bar label {
-  color: #F38080;
+  color: #E42F03;
   float: left;
   font-family: 'AllerBold',Helvetica,Arial,Sans-Serif;
   font-size: 18px;
