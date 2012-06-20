@@ -67,7 +67,21 @@ namespace :crontab do
               product.status = 1
               product.save
 
+							cat_key_words = doc.xpath('//meta[@name="keywords"]/@content').map(&:value).to_s.split(",")
+							indexed_categories = Category.where(:name => cat_key_words).index_by(&:name)
+							existing_category_ids = []
+							cat_key_words.each do |cat_key_word|
+								category = indexed_categories[cat_key_word]
+								if category.nil?
+									category = Category.create(:name => cat_key_word, :associated_products_count => 1)
+								else
+									existing_category_ids << category.id
+								end
+								
+								ProductCategory.create(:product_id => product.id, :category_id => category.id)
+							end
 
+							Category.update_all("associated_products_count = associated_products_count + 1", ["id IN (?)", existing_category_ids])
 
             rescue Exception => e
               puts "----Exception In Myra cwarling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
@@ -80,7 +94,7 @@ namespace :crontab do
       end
     rescue Exception => e
       retry if try_count < 5
-      logger.debug"-----------Exception in Myntra crwaling-----#{e.inspect}----Beacktrace--#{e.backtrace}"
+      puts"-----------Exception in Myntra crwaling-----#{e.inspect}----Beacktrace--#{e.backtrace}"
     end
 
     puts urls.inspect
