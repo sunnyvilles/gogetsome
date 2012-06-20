@@ -29,8 +29,44 @@ namespace :crontab do
         product_url = page.url.to_s
         if /[0-9]{1,10}+\/buy/.match(product_url)
           urls << product_url
+          doc = page.doc
+          
           begin
-            Product.create(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
+            product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
+            # Product name
+            doc.css('h1.product-title').each do |name|
+              puts "----ul------#{name.inner_html}"
+              product.name = name.inner_html
+            end
+
+            # Product Image URL
+            doc.css('img#finalimage').each do |img|
+              puts "----ul------#{img['src']}"
+              product.primary_image_url = img['src']
+            end
+
+            # Product Brand
+            doc.css('div.pdp-brand-logo a').each do |title|
+              puts "----ul------#{title['title']}"
+              product.brand = title['title']
+            end
+
+            # Discount Price
+            doc.css('span.dprice').each do |dprice|
+              puts "----ul------#{dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i}"
+              product.discount_price = dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i
+            end
+
+            # Actual Product Brand
+            doc.css('div.pdp-sploff b').each do |aprice|
+              puts "----ul------#{aprice.inner_html.gsub("%","")}"
+              product.actual_price = aprice.inner_html.gsub("%","")
+            end
+            product.status = 1
+            product.save
+
+
+
           rescue Exception => e
             puts "----E----#{e.inspect}"
           end
