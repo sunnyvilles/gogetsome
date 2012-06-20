@@ -261,7 +261,7 @@ var FilterPanel = Backbone.View.extend({
 			'</li>',
 			'</ul>',
       '<label style="margin-top: 5px;">Sort By:</label>',
-      '<div class="sortByPrice grabIt"><a style="line-height: 19px;" href="javascript:void(0);">Price</a></div>',
+      '<div class="sortByPrice grabIt"><a class="a_demo_four" href="#"> Click me!</a></div>',
       '<div class="sortByPop grabIt"><a style="line-height: 19px;" href="javascript:void(0);">popularity</a></div>',
 			'<div class="showhide" title="Hide"><em class="rightArrow"></em></div>',
 			'</div>',
