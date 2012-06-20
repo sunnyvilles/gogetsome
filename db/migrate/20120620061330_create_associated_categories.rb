@@ -3,6 +3,7 @@ class CreateAssociatedCategories < ActiveRecord::Migration
     create_table :associated_categories do |t|
       t.integer :parent_category_id, :null => false
       t.integer :child_category_id, :null => false
+			t.integer :associated_products_count, :null => false, default=>0
       t.timestamps
     end
 
