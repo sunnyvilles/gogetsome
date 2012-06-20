@@ -205,7 +205,9 @@ a:hover{
 /*  color:#0685B1;*/
   color:#E42F03;
 }
-
+.item .wrapper .typeInfo .itemNameDesc{
+	width: 230px;
+}
 .item .wrapper .typeInfo a,.item .wrapper .typeInfo span{
   color: #58676C;
 }
