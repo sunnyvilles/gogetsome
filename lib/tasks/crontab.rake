@@ -23,58 +23,64 @@ namespace :crontab do
     puts "----Started the cron for crawling myntra products"
     require 'anemone'
     myntra_info = Site.where(:name => "myntra").first
-    urls = []
-    Anemone.crawl("http://www.myntra.com/") do |anemone|
-      anemone.on_every_page do |page|
-        product_url = page.url.to_s
-        if /[0-9]{1,10}+\/buy/.match(product_url)
-          urls << product_url
-          doc = page.doc
-          
-          begin
-            product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
-            # Product name
-            doc.css('h1.product-title').each do |name|
-              puts "----ul------#{name.inner_html}"
-              product.name = name.inner_html
+    urls, try_count = [], 0
+    begin
+      try_count += 1
+      Anemone.crawl("http://www.myntra.com/") do |anemone|
+        anemone.on_every_page do |page|
+          product_url = page.url.to_s
+          if /[0-9]{1,10}+\/buy/.match(product_url)
+            urls << product_url
+            doc = page.doc
+
+            begin
+              product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
+              # Product name
+              doc.css('h1.product-title').each do |name|
+                  puts "----ul------#{name.inner_html}"
+                product.name = name.inner_html
+              end
+
+              # Product Image URL
+              doc.css('img#finalimage').each do |img|
+                puts "----ul------#{img['src']}"
+                product.primary_image_url = img['src']
+              end
+
+              # Product Brand
+              doc.css('div.pdp-brand-logo a').each do |title|
+                puts "----ul------#{title['title']}"
+                product.brand = title['title']
+              end
+
+              # Discount Price
+              doc.css('span.dprice').each do |dprice|
+                puts "----ul------#{dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i}"
+                product.discount_price = dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i
+              end
+
+              # Actual Product Brand
+              doc.css('div.pdp-sploff b').each do |aprice|
+                puts "----ul------#{aprice.inner_html.gsub("%","")}"
+                product.actual_price = aprice.inner_html.gsub("%","")
+              end
+              product.status = 1
+              product.save
+
+
+
+            rescue Exception => e
+              puts "----Exception In Myra cwarling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
             end
-
-            # Product Image URL
-            doc.css('img#finalimage').each do |img|
-              puts "----ul------#{img['src']}"
-              product.primary_image_url = img['src']
-            end
-
-            # Product Brand
-            doc.css('div.pdp-brand-logo a').each do |title|
-              puts "----ul------#{title['title']}"
-              product.brand = title['title']
-            end
-
-            # Discount Price
-            doc.css('span.dprice').each do |dprice|
-              puts "----ul------#{dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i}"
-              product.discount_price = dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i
-            end
-
-            # Actual Product Brand
-            doc.css('div.pdp-sploff b').each do |aprice|
-              puts "----ul------#{aprice.inner_html.gsub("%","")}"
-              product.actual_price = aprice.inner_html.gsub("%","")
-            end
-            product.status = 1
-            product.save
-
-
-
-          rescue Exception => e
-            puts "----E----#{e.inspect}"
           end
+          break if urls.length > 100
+          puts "Now checking: " + product_url
+          puts "Successfully checked"
         end
-        break if urls.length > 100
-        puts "Now checking: " + product_url
-        puts "Successfully checked"
       end
+    rescue Exception => e
+      retry if try_count < 5
+      logger.debug"-----------Exception in Myntra crwaling-----#{e.inspect}----Beacktrace--#{e.backtrace}"
     end
 
     puts urls.inspect
@@ -89,7 +95,7 @@ namespace :crontab do
       require 'nokogiri'
       require 'open-uri'
       doc = nil
-      doc = Nokogiri::HTML(open(product.url))
+      doc = Nokogiri::HTML(open("http://www.myntra.com/Sports-Shoes/Adidas/Adidas-Men-TRX-HG-Blue-Sports-Shoes/34849/buy"))
 
       # Product name
       doc.css('h1.product-title').each do |name|

@@ -12,6 +12,6 @@ site_1:
 
 site_2:
   id: 2
-  name: 'jabang'
+  name: 'jabong'
   site_url: 'http://www.jabong.com/'
   country_id: 1
