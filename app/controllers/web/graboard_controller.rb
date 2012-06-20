@@ -4,8 +4,11 @@ class Web::GraboardController < ApplicationController
     
   end
 	def get_data
-		products = Product.where("name is not null").limit(20).all
 		indexed_sites = Site.all.index_by(&:id)
-		render :json => {:products => Product.where("name is not null").limit(20).all, :indexed_sites => indexed_sites}
+		products = Product.where("name is not null").limit(20).all
+		#product_ids = []
+		#products.each{|product| product_ids.push(product.id)}
+		#categories = ProductCategories.where("product_id is in ", )
+		render :json => {:products => products, :indexed_sites => indexed_sites}
 	end
 end
