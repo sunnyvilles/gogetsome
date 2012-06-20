@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120617191751) do
+ActiveRecord::Schema.define(:version => 20120620061330) do
+
+  create_table "associated_categories", :force => true do |t|
+    t.integer  "parent_category_id", :null => false
+    t.integer  "child_category_id",  :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "associated_categories", ["child_category_id"], :name => "index_associated_categories_on_child_category_id"
+  add_index "associated_categories", ["parent_category_id", "child_category_id"], :name => "UNIQUE_CAT_ASSOC", :unique => true
+  add_index "associated_categories", ["parent_category_id"], :name => "index_associated_categories_on_parent_category_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name",       :limit => 50, :null => false
@@ -19,17 +30,29 @@ ActiveRecord::Schema.define(:version => 20120617191751) do
     t.datetime "updated_at",               :null => false
   end
 
+  add_index "categories", ["name"], :name => "index_categories_on_name"
+
   create_table "countries", :force => true do |t|
     t.string   "name",       :limit => 50, :null => false
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
 
+  create_table "product_categories", :force => true do |t|
+    t.integer  "product_id",  :null => false
+    t.integer  "category_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "product_categories", ["category_id"], :name => "index_product_categories_on_category_id"
+  add_index "product_categories", ["product_id"], :name => "index_product_categories_on_product_id"
+
   create_table "products", :force => true do |t|
-    t.string   "name",              :limit => 200,                    :null => false
+    t.string   "name",              :limit => 200
     t.string   "url",               :limit => 200,                    :null => false
-    t.string   "primary_image_url", :limit => 200,                    :null => false
-    t.string   "brand",             :limit => 200,                    :null => false
+    t.string   "primary_image_url", :limit => 200
+    t.string   "brand",             :limit => 200
     t.integer  "discount_price"
     t.integer  "actual_price"
     t.integer  "category_id"
