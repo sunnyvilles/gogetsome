@@ -77,6 +77,8 @@ namespace :crontab do
                 doc.css('img#finalimage').each do |img|
                   puts "----ul------#{img['src']}"
                   product.primary_image_url = img['src']
+                  product.primary_image_width = img['width']
+                  product.primary_image_height = img['height']
                 end
 
                 # Product Brand
