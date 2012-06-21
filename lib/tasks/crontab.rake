@@ -57,15 +57,15 @@ namespace :crontab do
                 end
 
                 # Discount Price
-                doc.css("span.strike").each do |price|
-                  puts "----Discount Price------#{price.inner_html}"
-                  product.discount_price = price.inner_html.gsub(",","").to_i
+                doc.css("div.mk-zoom-hide h3").each do |price|
+                  puts "----Actual Product Price------#{price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i}"
+                  product.discount_price = price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i
                 end
 
                 # Actual Product Price
-                doc.css("div.mk-zoom-hide h3").each do |price|
-                  puts "----Actual Product Price------#{price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i}"
-                  product.actual_price = price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i
+                doc.css("span.strike").each do |price|
+                  puts "----Discount Price------#{price.inner_html}"
+                  product.actual_price = price.inner_html.gsub(",","").to_i
                 end
               else
                 doc.css('h1.product-title').each do |name|
@@ -94,9 +94,9 @@ namespace :crontab do
                 end
 
                 # Actual Product Brand
-                doc.css('div.pdp-sploff b').each do |aprice|
-                  puts "----ul------#{aprice.inner_html.gsub("%","")}"
-                  product.actual_price = aprice.inner_html.gsub("%","")
+                doc.css("span.oprice").each do |aprice|
+                  puts "----ul------#{aprice.inner_html.gsub(",","")}"
+                  product.actual_price = aprice.inner_html.gsub(",","").to_i
                 end
               end
               product.status = 1
