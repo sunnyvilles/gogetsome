@@ -1066,6 +1066,26 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	box-shadow: inset 0px 1px 0px #052756, 0px 1px 0px #60c9f0;
 }
 
+.sortByPrice .ascending{
+	-moz-transition: -moz-transform 0.25s ease-in-out;
+  -webkit-transition: -webkit-transform 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out;
+
+	-moz-transform:rotate(-90deg);
+	-webkit-transform:rotate(-90deg);
+	transform:rotate(-90deg);
+}
+
+.sortByPrice .descending{
+	-moz-transition: -moz-transform 0.25s ease-in-out;
+  -webkit-transition: -webkit-transform 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out;
+
+	-moz-transform:rotate(90deg);
+	-webkit-transform:rotate(90deg);
+	transform:rotate(90deg);
+}
+
 .a_demo_four:active::before {
 	top:55%;
 	margin-top:-12px;
