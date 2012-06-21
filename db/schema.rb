@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620061330) do
+ActiveRecord::Schema.define(:version => 20120621163626) do
 
   create_table "associated_categories", :force => true do |t|
-    t.integer  "parent_category_id", :null => false
-    t.integer  "child_category_id",  :null => false
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.integer  "parent_category_id",                       :null => false
+    t.integer  "child_category_id",                        :null => false
+    t.integer  "associated_products_count", :default => 0, :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "associated_categories", ["child_category_id"], :name => "index_associated_categories_on_child_category_id"
@@ -25,9 +26,10 @@ ActiveRecord::Schema.define(:version => 20120620061330) do
   add_index "associated_categories", ["parent_category_id"], :name => "index_associated_categories_on_parent_category_id"
 
   create_table "categories", :force => true do |t|
-    t.string   "name",       :limit => 50, :null => false
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
+    t.string   "name",                      :limit => 50,                :null => false
+    t.integer  "associated_products_count",               :default => 0, :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
   end
 
   add_index "categories", ["name"], :name => "index_categories_on_name"
@@ -48,21 +50,32 @@ ActiveRecord::Schema.define(:version => 20120620061330) do
   add_index "product_categories", ["category_id"], :name => "index_product_categories_on_category_id"
   add_index "product_categories", ["product_id"], :name => "index_product_categories_on_product_id"
 
+  create_table "product_views", :force => true do |t|
+    t.integer  "product_id", :null => false
+    t.string   "ip_address"
+    t.integer  "site_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "products", :force => true do |t|
-    t.string   "name",              :limit => 200
-    t.string   "url",               :limit => 200,                    :null => false
-    t.string   "primary_image_url", :limit => 200
-    t.string   "brand",             :limit => 200
+    t.string   "name",                 :limit => 200
+    t.string   "url",                  :limit => 200,                    :null => false
+    t.string   "primary_image_url",    :limit => 200
+    t.string   "image_url_1",          :limit => 200
+    t.string   "image_url_2",          :limit => 200
+    t.string   "image_url_3",          :limit => 200
+    t.string   "brand",                :limit => 200
+    t.integer  "primary_image_width"
+    t.integer  "primary_image_height"
     t.integer  "discount_price"
     t.integer  "actual_price"
-    t.integer  "category_id"
-    t.integer  "sub_category_id"
-    t.boolean  "status",                           :default => false, :null => false
+    t.boolean  "status",                              :default => false, :null => false
     t.integer  "views"
     t.integer  "country_id"
     t.integer  "site_id"
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
   end
 
   add_index "products", ["url"], :name => "UNIQUE_URL", :unique => true
