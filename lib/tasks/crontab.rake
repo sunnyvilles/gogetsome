@@ -117,7 +117,7 @@ namespace :crontab do
 							Category.update_all("associated_products_count = associated_products_count + 1", ["id IN (?)", existing_category_ids])
 
             rescue Exception => e
-              puts "----Exception In Myra cwarling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
+              puts "----Exception In Jabong crawling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
             end
           end
           break if urls.length > 100
