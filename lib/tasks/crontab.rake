@@ -37,34 +37,65 @@ namespace :crontab do
               product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
               # Product name
               doc.css("div.mk-zoom-hide h1").each do |name|
-                  puts "----ul------#{name.inner_html}"
+                  puts "----Product name------#{name.inner_html}"
                 product.name = name.inner_html
               end
+              if product.name.present?
 
-              # Product Image URL
-              doc.css("div.mk-product-large-image a img").each do |img|
-                puts "----ul------#{img['src']}------#{img['width']}-----#{img['height']}"
-                product.primary_image_url = img['src']
-                product.primary_image_width = img['width']
-                product.primary_image_height = img['height']
-              end
+                # Product Image URL
+                doc.css("div.mk-product-large-image a img").each do |img|
+                  puts "----Product Image URL------#{img['src']}------#{img['width']}-----#{img['height']}"
+                  product.primary_image_url = img['src']
+                  product.primary_image_width = img['width']
+                  product.primary_image_height = img['height']
+                end
 
-              # Product Brand
-              doc.css("li.mk-brand-logo a").each do |brand|
-                puts "----ul------#{brand['title']}"
-                product.brand = brand['title']
-              end
+                # Product Brand
+                doc.css("li.mk-brand-logo a").each do |brand|
+                  puts "----Product Brand------#{brand['title']}"
+                  product.brand = brand['title']
+                end
 
-              # Discount Price
-              doc.css("span.strike").each do |price|
-                puts "----ul------#{price.inner_html}"
-                product.discount_price = price.inner_html
-              end
+                # Discount Price
+                doc.css("span.strike").each do |price|
+                  puts "----Discount Price------#{price.inner_html}"
+                  product.discount_price = price.inner_html.gsub(",","").to_i
+                end
 
-              # Actual Product Price
-              doc.css("div.mk-zoom-hide h3").each do |price|
-                puts "----ul------#{price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.sub(",","").to_i}"
-                product.actual_price = price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.sub(",","").to_i
+                # Actual Product Price
+                doc.css("div.mk-zoom-hide h3").each do |price|
+                  puts "----Actual Product Price------#{price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i}"
+                  product.actual_price = price.inner_html.split("Rs.")[1].gsub("\t","").split("<span")[0].strip.gsub(",","").to_i
+                end
+              else
+                doc.css('h1.product-title').each do |name|
+                    puts "----ul------#{name.inner_html}"
+                  product.name = name.inner_html
+                end
+
+                # Product Image URL
+                doc.css('img#finalimage').each do |img|
+                  puts "----ul------#{img['src']}"
+                  product.primary_image_url = img['src']
+                end
+
+                # Product Brand
+                doc.css('div.pdp-brand-logo a').each do |title|
+                  puts "----ul------#{title['title']}"
+                  product.brand = title['title']
+                end
+
+                # Discount Price
+                doc.css('span.dprice').each do |dprice|
+                  puts "----ul------#{dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i}"
+                  product.discount_price = dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i
+                end
+
+                # Actual Product Brand
+                doc.css('div.pdp-sploff b').each do |aprice|
+                  puts "----ul------#{aprice.inner_html.gsub("%","")}"
+                  product.actual_price = aprice.inner_html.gsub("%","")
+                end
               end
               product.status = 1
               product.save
@@ -173,7 +204,7 @@ namespace :crontab do
               puts "----Exception In Jabong crwaling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
             end
           end
-          break if urls.length > 100
+          break if urls.length > 100000
           puts "Now checking: " + product_url
           puts "Successfully checked"
         end
