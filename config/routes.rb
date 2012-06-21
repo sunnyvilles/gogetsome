@@ -18,6 +18,7 @@ Picshub::Application.routes.draw do
 	match '/invite' => "web/users#invite"
   match '/subscribe/:subscription_code' => "web/users#subscribe"
   match '/create-user' => "web/users#create_user"
+  match '/rh' => "web/graboard#redirect_handler#"
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

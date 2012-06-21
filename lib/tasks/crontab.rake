@@ -36,38 +36,38 @@ namespace :crontab do
             begin
               product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
               # Product name
-              doc.css('h1.product-title').each do |name|
+              doc.css("span[property='gr:name']").each do |name|
                   puts "----ul------#{name.inner_html}"
                 product.name = name.inner_html
               end
 
               # Product Image URL
-              doc.css('img#finalimage').each do |img|
+              doc.css('img#prdImage').each do |img|
                 puts "----ul------#{img['src']}"
                 product.primary_image_url = img['src']
               end
 
               # Product Brand
-              doc.css('div.pdp-brand-logo a').each do |title|
-                puts "----ul------#{title['title']}"
-                product.brand = title['title']
+              doc.css("span[property='gr:BusinessEntity']").each do |brand|
+                puts "----ul------#{brand.inner_html}"
+                product.brand = brand.inner_html
               end
 
               # Discount Price
-              doc.css('span.dprice').each do |dprice|
-                puts "----ul------#{dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i}"
-                product.discount_price = dprice.inner_html.split("</span>")[1].gsub(",","").strip.to_i
+              doc.css("span[property='gr:hasCurrencyValue']").each do |price|
+                puts "----ul------#{price.inner_html}"
+                product.discount_price = price.inner_html
               end
 
               # Actual Product Brand
-              doc.css('div.pdp-sploff b').each do |aprice|
-                puts "----ul------#{aprice.inner_html.gsub("%","")}"
-                product.actual_price = aprice.inner_html.gsub("%","")
+              doc.css("span[property='gr:hasCurrencyValue']").each do |price|
+                puts "----ul------#{price.inner_html}"
+                product.actual_price = price.inner_htm
               end
               product.status = 1
               product.save
 
-							cat_key_words = doc.xpath('//meta[@name="keywords"]/@content').map(&:value).to_s.split(",")
+							cat_key_words = doc.xpath('//meta[@name="keywords"]/@content').map(&:value)[0].to_s.split(",")
 							indexed_categories = Category.where(:name => cat_key_words).index_by(&:name)
 							existing_category_ids = []
 							cat_key_words.each do |cat_key_word|
@@ -153,7 +153,7 @@ namespace :crontab do
               product.status = 1
               product.save
 
-							cat_key_words = doc.xpath('//meta[@name="keywords"]/@content').map(&:value).to_s.split(",")
+							cat_key_words = doc.xpath('//meta[@name="keywords"]/@content').map(&:value)[0].to_s.split(",")
 							indexed_categories = Category.where(:name => cat_key_words).index_by(&:name)
 							existing_category_ids = []
 							cat_key_words.each do |cat_key_word|
