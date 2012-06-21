@@ -1066,7 +1066,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	box-shadow: inset 0px 1px 0px #052756, 0px 1px 0px #60c9f0;
 }
 
-.sortByPrice .ascending:before{
+.grabIt .ascending:before{
 	-moz-transition: -moz-transform 0.25s ease-in-out;
   -webkit-transition: -webkit-transform 0.25s ease-in-out;
   transition: transform 0.25s ease-in-out;
@@ -1076,7 +1076,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	transform:rotate(-90deg);
 }
 
-.sortByPrice .descending:before{
+.grabIt .descending:before{
 	-moz-transition: -moz-transform 0.25s ease-in-out;
   -webkit-transition: -webkit-transform 0.25s ease-in-out;
   transition: transform 0.25s ease-in-out;
