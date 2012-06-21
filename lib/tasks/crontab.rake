@@ -146,7 +146,7 @@ namespace :crontab do
               # Actual Product Brand
               doc.css("span[property='gr:hasCurrencyValue']").each do |price|
                 puts "----ul------#{price.inner_html}"
-                product.actual_price = price.inner_htm
+                product.actual_price = price.inner_html
               end
               product.status = 1
               product.save
@@ -168,7 +168,7 @@ namespace :crontab do
 							Category.update_all("associated_products_count = associated_products_count + 1", ["id IN (?)", existing_category_ids])
 
             rescue Exception => e
-              puts "----Exception In Myra cwarling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
+              puts "----Exception In Jabong crwaling Internal loop----#{e.inspect}-------Backtrace---#{e.backtrace}"
             end
           end
           break if urls.length > 100
