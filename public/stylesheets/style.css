@@ -1045,7 +1045,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 }
 
 
-.a_demo_four::before {
+.a_demo_four:before {
 	background-image:url(../images/right_arrow.png);
 	background-repeat:no-repeat;
 	background-position:center center;
@@ -1066,7 +1066,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	box-shadow: inset 0px 1px 0px #052756, 0px 1px 0px #60c9f0;
 }
 
-.sortByPrice .ascending{
+.sortByPrice .ascending:before{
 	-moz-transition: -moz-transform 0.25s ease-in-out;
   -webkit-transition: -webkit-transform 0.25s ease-in-out;
   transition: transform 0.25s ease-in-out;
@@ -1076,7 +1076,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	transform:rotate(-90deg);
 }
 
-.sortByPrice .descending{
+.sortByPrice .descending:before{
 	-moz-transition: -moz-transform 0.25s ease-in-out;
   -webkit-transition: -webkit-transform 0.25s ease-in-out;
   transition: transform 0.25s ease-in-out;
@@ -1086,7 +1086,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	transform:rotate(90deg);
 }
 
-.a_demo_four:active::before {
+.a_demo_four:active:before {
 	top:55%;
 	margin-top:-12px;
 	-webkit-box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
