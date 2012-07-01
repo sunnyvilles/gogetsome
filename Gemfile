@@ -6,6 +6,8 @@ gem 'twitter_oauth'
 gem 'nokogiri'
 gem 'mechanize'
 gem 'anemone'
+gem 'redis'
+gem 'memcached'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

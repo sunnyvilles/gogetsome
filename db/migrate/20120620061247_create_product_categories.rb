@@ -3,6 +3,9 @@ class CreateProductCategories < ActiveRecord::Migration
     create_table :product_categories do |t|
       t.integer :product_id, :null => false
       t.integer :category_id, :null => false
+      t.integer :priority, :null => false, :default => 1
+      t.integer :price, :null => false, :default => 0
+      t.integer :discount_percentage, :null => false, :default => 0
       t.timestamps
     end
 

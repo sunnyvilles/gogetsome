@@ -12,6 +12,8 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :primary_image_height
       t.integer :discount_price
       t.integer :actual_price
+      t.integer :discount_percentage, :null => false, :default => 0
+      t.integer :priority, :null => false, :default => 1
       t.column :status, "tinyint(1)", :null => false, :default => 0
       t.integer :views
       t.integer :country_id

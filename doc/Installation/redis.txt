@@ -1,0 +1,55 @@
+**** SETUP Redis Machine:
+--------------------------
+	> yum install lynx svn
+  > yum install gcc*
+  > cd /usr/local/src/
+  > wget http://redis.googlecode.com/files/redis-2.4.15.tar.gz
+			NOTE: download latest version of redis from http://code.google.com/p/redis/
+	> tar -xzvf redis-2.4.15.tar.gz
+	> cd redis-2.4.15/
+	> make
+	> ln -s /usr/local/src/redis-2.4.15/redis-server /usr/bin/redis-server
+	> mkdir /mnt/redis
+	> touch /mnt/redis/redis.pid
+	> touch /mnt/redis/redis.log
+	> vi /usr/local/src/redis-2.4.15/redis.conf # To change configuration options
+			- daemonize no
+			+ daemonize yes
+			#- logfile stdout
+			#+ logfile /mnt/redis/redis.log
+			- port 6379
+			+ port 9000
+			- pidfile /var/run/redis.pid
+			+ pidfile /mnt/redis/redis.pid
+			- dir ./
+			+ dir /mnt/redis/
+      - requirepass somePassword
+      + requirepass strong password #md5(!@#fab200m#@!) on production
+	> vi /etc/init.d/init-redis-server # copy "doc/setup/configs/init-redis-server"
+	> chmod 755 /etc/init.d/init-redis-server
+	> cd /usr/local/src/
+	> wget http://developer.axis.com/download/distribution/apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
+	> tar zxvf apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
+	> cd apps/sys-utils/start-stop-daemon-IR1_9_18-2/
+	> gcc start-stop-daemon.c -o start-stop-daemon
+
+
+	> cp start-stop-daemon /usr/sbin
+	> /sbin/service --add init-redis-server
+	> /sbin/chkconfig --level 0123456 init-redis-server on
+	> /etc/init.d/init-redis-server (start|stop|restart) # for safer side use "http://code.google.com/p/redis/wiki/ShutdownCommand" using -> telnet 127.0.0.1 9000
+
+
+
+
+Installation
+-----http://reistiago.wordpress.com/2011/07/23/installing-on-redis-mac-os-x/
+
+Super info regarding the Redis and maintenance
+----http://redis.io/topics/quickstart
+
+https://github.com/antirez/redis
+
+Just check http://loganleger.com/redis-resque-mac-os for resque
+
+
