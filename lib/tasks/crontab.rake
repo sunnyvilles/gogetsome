@@ -599,7 +599,3 @@ namespace :crontab do
 #    end
 #  end
 end
-
-Product.where("id > 0").all.each do |pro|
-  ProductCategory.update_all(["price = ?", pro.discount_price], ["product_id = ?", pro.id]) if pro.discount_price.to_i > 0
-end

@@ -36,7 +36,7 @@ Picshub::Application.configure do
   config.assets.debug = true
 
   #Enable memcache classes by defining the memcached options
-  #config.memcached_object = Memcached.new(['127.0.0.1:11111'], { :Server_failure_limit => 2, :retry_timeout => 3600, :Poll_timeout => 1})
+  config.memcached_object = Memcached.new(['127.0.0.1:11111'], { :Server_failure_limit => 2, :retry_timeout => 3600, :Poll_timeout => 1})
 
   # Memcached prefix
   config.memcache_prefix = 'd_'

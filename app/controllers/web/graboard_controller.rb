@@ -1,11 +1,7 @@
 class Web::GraboardController < ApplicationController
 
-  def index
-    
-  end
-  
 	def get_data
-		products = Product.where("name is not null").all
+		products = Product.get_products({:category_id => 0, :start_range => 0, :end_range => 10000, :order_by => 'discount_price', :order_type => 'ASC'})[:products]
 		categories = ProductCategory.where("product_id in (?)", products.collect(&:id))
 		indexed_sites = Site.all.index_by(&:id)
 		render :json => {:products => products, :indexed_sites => indexed_sites, :categories => categories}

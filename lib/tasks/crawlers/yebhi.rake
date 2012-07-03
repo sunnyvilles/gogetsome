@@ -90,7 +90,7 @@ namespace :yebhi do
                 end
 
                 # Product Discount Percentage
-                if product.actual_price > 0
+                if product.actual_price.to_i > 0
                   product.discount_percentage = ((product.actual_price.to_f-product.discount_price.to_f)*100.00/product.actual_price.to_f).round
                 end
                 
@@ -125,10 +125,6 @@ namespace :yebhi do
           if current_page_product_count < 6
             current_page_product_count = 0
             puts "------came into break"
-            break
-          end
-          # Temp condition to restrict the products
-          if start_index > 300
             break
           end
         end

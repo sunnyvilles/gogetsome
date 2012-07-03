@@ -89,7 +89,7 @@ namespace :jabong do
                 end
 
                 # Product Discount Percentage
-                if product.actual_price > 0
+                if product.actual_price.to_i > 0
                   product.discount_percentage = ((product.actual_price.to_f-product.discount_price.to_f)*100.00/product.actual_price.to_f).round
                 end
 
@@ -117,9 +117,6 @@ namespace :jabong do
           if current_page_product_count < 3
             current_page_product_count = 0
             puts "------came into break"
-            break
-          end
-          if current_page > 15
             break
           end
           current_page += 1
