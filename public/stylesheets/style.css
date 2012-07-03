@@ -524,6 +524,8 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	border: 1px dotted black;
 }
 .cboxElement a.imgContent img{
+	height: 320px;
+	width: 240px;
   border-bottom: 3px solid #000;
   outline: none;
   display: block;
@@ -827,7 +829,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 .subCatLists{
   bottom: 44px;
   position: absolute;
-  width: 362px;
+  width: 181px;
   background: rgba(0, 0, 0, 0.5);
   left:0;
 }
