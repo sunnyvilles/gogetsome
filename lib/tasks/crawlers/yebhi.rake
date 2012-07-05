@@ -43,9 +43,9 @@ namespace :yebhi do
               current_page_product_count += 1
 
               puts "-----incremented the current_page_product_count #{start_index}"
-              product_url = link["href"]
-              puts "----started -----#{"http://www.yebhi.com"+product_url}"
-              doc = Nokogiri::HTML(open("http://www.yebhi.com"+product_url)) rescue nil
+              product_url = "http://www.yebhi.com"+link["href"]
+              puts "----started -----#{product_url}"
+              doc = Nokogiri::HTML(open(product_url)) rescue nil
               next if doc.nil?
               start_index += 1
               associate_categories = false
@@ -53,7 +53,7 @@ namespace :yebhi do
               product = Product.where(:url => product_url).first
               if product.nil?
                 associate_categories = true
-                product = Product.create(:url => product_url, :site_id => yebhi_info.id, :country_id => yebhi_info.country_id)
+                product = Product.new(:url => product_url, :site_id => yebhi_info.id, :country_id => yebhi_info.country_id)
               end
 
               begin
@@ -118,7 +118,11 @@ namespace :yebhi do
                   puts "----Exception in calculating the categories---#{e.inspect}"
                 end
                 ProductCategory.create_update_product_categories(:product_id => product.id,
-                                                                 :categories => categories)
+                                                                 :categories => categories,
+                                                                 :priority => product.priority,
+                                                                 :discount_price => product.discount_price,
+                                                                 :discount_percentage => product.discount_percentage
+                                                               )
               end
             end
           end

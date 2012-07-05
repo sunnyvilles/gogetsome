@@ -127,6 +127,7 @@ namespace :craftsvilla do
         end
       end
     rescue Exception => e
+      if /nodename nor servname provided/.match(e.to_s)
       puts "----Exception in craftsvilla Outer loop -----#{e.inspect}-----#{e.backtrace}"
       try_count += 1
       retry if try_count < 4
