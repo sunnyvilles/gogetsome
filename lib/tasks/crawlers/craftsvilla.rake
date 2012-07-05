@@ -26,13 +26,15 @@ namespace :craftsvilla do
 
     start_time, try_count = Time.now, 1
     puts "----Started the cron for getting complete info of each product in jabong----Start Time-------#{start_time}"
-    
+
     begin
       require 'nokogiri'
       require 'open-uri'
       doc = nil
       craftsvilla_info = Site.where(:name => "craftsvilla").first
-      level_1_urls_hash.each do |level_1_url, categories|
+      level_1_urls_hash.each do |level_1_url_hash|
+        level_1_url = level_1_url_hash[:url]
+        categories = level_1_url_hash[:category]
         puts "----level_1_url----#{level_1_url}"
         current_page, start_index = 1, 1
         while(true)
@@ -54,7 +56,7 @@ namespace :craftsvilla do
               product = Product.where(:url => product_url).first
               if product.nil?
                 associate_categories = true
-                product = Product.create(:url => product_url, :site_id => craftsvilla_info.id, :country_id => craftsvilla_info.country_id)
+                product = Product.new(:url => product_url, :site_id => craftsvilla_info.id, :country_id => craftsvilla_info.country_id)
               end
 
               begin
@@ -114,7 +116,11 @@ namespace :craftsvilla do
 
               if associate_categories
                 ProductCategory.create_update_product_categories(:product_id => product.id,
-                                                                 :categories => categories)
+                                                                 :categories => categories,
+                                                                 :priority => product.priority,
+                                                                 :discount_price => product.discount_price,
+                                                                 :discount_percentage => product.discount_percentage
+                                                               )
               end
             end
           end
@@ -128,6 +134,8 @@ namespace :craftsvilla do
       end
     rescue Exception => e
       if /nodename nor servname provided/.match(e.to_s)
+        sleep(100)
+      end
       puts "----Exception in craftsvilla Outer loop -----#{e.inspect}-----#{e.backtrace}"
       try_count += 1
       retry if try_count < 4
