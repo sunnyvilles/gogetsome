@@ -26,3 +26,9 @@ class Category < ActiveRecord::Base
     return categories
   end
 end
+
+
+
+#CREATE USER "graboard"@"localhost" IDENTIFIED BY "graboard12!@" ;
+#GRANT ALL PRIVILEGES ON *.* TO "graboard"@"localhost" WITH GRANT OPTION;
+#FLUSH PRIVILEGES;

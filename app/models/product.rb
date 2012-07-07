@@ -16,6 +16,11 @@ class Product < ActiveRecord::Base
       else
         product_ids = Product.live_products
       end
+      if params[:price_filter].present?
+        price_filter = GlobalConstant::PRICE_FILTER[params[:price_filter]]
+        params[:start_range] = price_filter[:start_price]
+        params[:end_range] = price_filter[:end_price]
+      end
       if params[:start_range].present?
         product_ids = product_ids.where("discount_price >= ?", params[:start_range].to_f)
       elsif params[:end_range].present?
