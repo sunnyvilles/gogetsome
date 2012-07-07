@@ -1,11 +1,14 @@
 class Web::GraboardController < ApplicationController
 
+  def index
+    @sort_categories = Category.get_categories_for_sort
+    @price_filter = GlobalConstant::PRICE_FILTER
+  end
+
 	def get_data
 		products = Product.get_products({:category_id => 0, :start_range => 0, :end_range => 10000, :order_by => 'discount_price', :order_type => 'ASC'})[:products]
 		categories = ProductCategory.where("product_id in (?)", products.collect(&:id))
 		indexed_sites = Site.all.index_by(&:id)
-    sort_categories = Category.get_categories_for_sort
-    price_filter = GlobalConstant::PRICE_FILTER
 		render :json => {:products => products, :indexed_sites => indexed_sites, :categories => categories}
 	end
 
