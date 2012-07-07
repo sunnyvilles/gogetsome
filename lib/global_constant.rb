@@ -13,9 +13,9 @@ module GlobalConstant
   PRODUCTS_PER_EACH_PAGE = 40
 
   # Root url
-  MEMCACHE_PREFIX = Picshub::Application.config.memcache_prefix.freeze
+  MEMCACHE_PREFIX = "d_"#Picshub::Application.config.memcache_prefix.freeze
   # set the memcached object
-  MemcachedObject = Picshub::Application.config.memcached_object.freeze if !["test"].include?(Rails.env)
+  
 
   # Pages per level for Index page
   INDEX_PRODUCTS_PAGES_PER_LEVEL = 4

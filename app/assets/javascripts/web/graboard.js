@@ -8,5 +8,6 @@
 //= require grabModal
 //= require jquery-ui-1.8.20.custom/js/jquery-ui-1.8.20.custom.min
 //= require jquery.infieldlabel
+//= require jquery.infinitescroll
 //= require board/init
 

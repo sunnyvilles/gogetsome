@@ -15,11 +15,9 @@ class Web::GraboardController < ApplicationController
     product = Product.where(:url => params[:rd_url]).first
 
     redirect_to :root if product.nil?
-
-    if ProductView.create(:product_id => product.id, :site_id => product.site_id, :ip_address => request.remote_ip)
-      redirect_to (params[:rd_url].index("?") ? params[:rd_url] + "&gref=1" : params[:rd_url] + "?gref=")
-    else
-      
+			if ProductView.create(:product_id => product.id, :site_id => product.site_id, :ip_address => request.remote_ip)
+				redirect_to (params[:rd_url].index("?") ? params[:rd_url] + "&gref=1" : params[:rd_url] + "?gref=")
+			else
     end
   end
 
