@@ -34,7 +34,7 @@ namespace :myntra do
       product = Product.where(:url => product_url).first
       if product.nil?
         associate_categories = true
-        product = Product.create(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
+        product = Product.new(:url => product_url, :site_id => myntra_info.id, :country_id => myntra_info.country_id)
       end
 
       begin
@@ -121,7 +121,10 @@ namespace :myntra do
       if associate_categories
         ProductCategory.create_update_product_categories(:product_id => product.id,
                                                          :categories => doc.xpath('//meta[@name="keyword"]/@content').map(&:value)[0].to_s.split(","),
-                                                         :priority => product.priority)
+                                                         :priority => product.priority,
+                                                         :discount_price => product.discount_price,
+                                                         :discount_percentage => product.discount_percentage
+                                                       )
       end
     end
   end

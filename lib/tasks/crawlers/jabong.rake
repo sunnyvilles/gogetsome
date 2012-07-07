@@ -45,7 +45,7 @@ namespace :jabong do
               product = Product.where(:url => product_url).first
               if product.nil?
                 associate_categories = true
-                product = Product.create(:url => product_url, :site_id => jabong_info.id, :country_id => jabong_info.country_id)
+                product = Product.new(:url => product_url, :site_id => jabong_info.id, :country_id => jabong_info.country_id)
               end
 
               begin
@@ -64,7 +64,7 @@ namespace :jabong do
                 end
 
                 # Product Secondary Images
-                doc.css("ul#productMoreImagesList li a img").each_with_index do |img, index|
+                doc.css("ul#productMoreImagesList li a img")[0..2].each_with_index do |img, index|
                   product["image_url_#{index+1}"] = img['src']
                 end
 
@@ -106,11 +106,14 @@ namespace :jabong do
               if associate_categories
                 categories = []
                 doc.css("li.prs a").each do |breadcrum|
-                  categories << breadcrum.inner_html if breadcrum != "Home"
+                  categories << breadcrum.inner_html if breadcrum.inner_html != "Home"
                 end
                 ProductCategory.create_update_product_categories(:product_id => product.id,
                                                                  :categories => categories,
-                                                                 :priority => product.priority)
+                                                                 :priority => product.priority,
+                                                                 :discount_price => product.discount_price,
+                                                                 :discount_percentage => product.discount_percentage
+                                                               )
               end
             end
           end

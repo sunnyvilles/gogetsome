@@ -41,7 +41,7 @@ namespace :firstcry do
               product = Product.where(:url => product_url).first
               if product.nil?
                 associate_categories = true
-                product = Product.create(:url => product_url, :site_id => firstcry_info.id, :country_id => firstcry_info.country_id)
+                product = Product.new(:url => product_url, :site_id => firstcry_info.id, :country_id => firstcry_info.country_id)
               end
 
               begin
@@ -88,7 +88,11 @@ namespace :firstcry do
                   categories << category.inner_html.gsub("&gt;", "")
                 end
                 ProductCategory.create_update_product_categories(:product_id => product.id,
-                                                                 :categories => categories)
+                                                                 :categories => categories,
+                                                                 :priority => product.priority,
+                                                                 :discount_price => product.discount_price,
+                                                                 :discount_percentage => product.discount_percentage
+                                                               )
               end
 
             end

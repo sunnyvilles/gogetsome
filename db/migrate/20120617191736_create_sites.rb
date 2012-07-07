@@ -3,6 +3,7 @@ class CreateSites < ActiveRecord::Migration
     create_table :sites do |t|
       t.string :name, :limit => 50 , :null => false
       t.string :site_url, :limit => 50 , :null => false
+      t.string :logo, :limit => 250 , :null => true
       t.integer :country_id, :null => false, :default => 1
       t.timestamps
     end

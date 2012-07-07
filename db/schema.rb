@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20120621163626) do
   end
 
   add_index "product_categories", ["category_id"], :name => "index_product_categories_on_category_id"
+  add_index "product_categories", ["product_id", "category_id"], :name => "UNIQUE_INDEX", :unique => true
   add_index "product_categories", ["product_id"], :name => "index_product_categories_on_product_id"
 
   create_table "product_views", :force => true do |t|
@@ -107,11 +108,12 @@ ActiveRecord::Schema.define(:version => 20120621163626) do
   add_index "requested_invites", ["subscription_code"], :name => "UNIQUE_SUBSCRIPTION_CODE", :unique => true
 
   create_table "sites", :force => true do |t|
-    t.string   "name",       :limit => 50,                :null => false
-    t.string   "site_url",   :limit => 50,                :null => false
-    t.integer  "country_id",               :default => 1, :null => false
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.string   "name",       :limit => 50,                 :null => false
+    t.string   "site_url",   :limit => 50,                 :null => false
+    t.string   "logo",       :limit => 250,                :null => false
+    t.integer  "country_id",                :default => 1, :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "users", :force => true do |t|

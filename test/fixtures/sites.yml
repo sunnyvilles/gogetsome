@@ -8,29 +8,34 @@ site_1:
   id: 1
   name: 'myntra'
   site_url: 'http://www.myntra.com/'
+  logo: ''
   country_id: 1
 
 site_2:
   id: 2
   name: 'jabong'
   site_url: 'http://www.jabong.com/'
+  logo: ''
   country_id: 1
 
 site_3:
   id: 3
   name: 'yebhi'
   site_url: 'http://www.yebhi.com/'
+  logo: ''
   country_id: 1
 
 site_4:
   id: 4
   name: "craftsvilla"
   site_url: "http://www.craftsvilla.com/"
+  logo: 'http://www.craftsvilla.com/favicon.ico'
   country_id: 1
 
 site_5:
   id: 5
   name: "firstcry"
   site_url: "http://www.firstcry.com/"
+  logo: 'http://cdn.firstcry.com/brainbees/images/FC_favicon_01.ico'
   country_id: 1
 

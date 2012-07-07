@@ -22,5 +22,16 @@ module GlobalConstant
 
   # Products per each level
   PRODUCTS_PER_LEVEL_FOR_MEMCACHE = PRODUCTS_PER_EACH_PAGE*INDEX_PRODUCTS_PAGES_PER_LEVEL
+
+  # Main category list
+  MAIN_CATEGORY_LIST = ["Men", "Women", "Kids", "Sports", "Home & Living"]
+
+  PRICE_FILTER = {1 => {:start_price => 0, :end_price => 499},
+                  2 => {:start_price => 500, :end_price => 999},
+                  3 => {:start_price => 1000, :end_price => 1999},
+                  4 => {:start_price => 20000}
+                 }
+
+  SUB_CATEGORIES_PER_CATEGORY = 10
   
 end
