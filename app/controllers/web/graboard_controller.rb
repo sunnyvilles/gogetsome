@@ -1,12 +1,7 @@
 class Web::GraboardController < ApplicationController
 
 	def get_data
-<<<<<<< HEAD
 		products = Product.get_products({:category_id => 0, :start_range => 0, :end_range => 10000, :order_by => 'discount_price', :order_type => 'ASC'})[:products]
-=======
-		products = Product.limit(20).where("discount_price is not null and actual_price is not null").all
-		#products = products.limit(20)
->>>>>>> integration
 		categories = ProductCategory.where("product_id in (?)", products.collect(&:id))
 		indexed_sites = Site.all.index_by(&:id)
     sort_categories = Category.get_categories_for_sort
