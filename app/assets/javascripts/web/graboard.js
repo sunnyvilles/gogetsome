@@ -10,5 +10,4 @@
 //= require jquery.infieldlabel
 //= require jquery.infinitescroll
 //= require board/init
-//= require board/invite
 
