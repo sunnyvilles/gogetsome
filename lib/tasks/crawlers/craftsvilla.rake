@@ -4,7 +4,7 @@ namespace :craftsvilla do
         crontab: 15 3 * * * cd /mnt/graboard/current && rake RAILS_ENV=development craftsvilla:crawl_craftsvilla_products_urls_for_complete_info >> log/crawl_craftsvilla_products_urls_for_complete_info.log"
   task :crawl_craftsvilla_products_urls_for_complete_info => :environment do
 
-    level_1_urls_hash = [{:url => "http://www.craftsvilla.com/jewellery-jewelry.html", :category => ["Jewellery"]},
+    level_1_urls = [{:url => "http://www.craftsvilla.com/jewellery-jewelry.html", :category => ["Jewellery"]},
                     {:url => "http://www.craftsvilla.com/sarees-sari.html", :category => ["Sarees"]},
                     {:url => "http://www.craftsvilla.com/bags.html", :category => ["Bags"]},
                     {:url => "http://www.craftsvilla.com/home-decor-products.html", :category => ["Home Decor"]},
@@ -32,7 +32,10 @@ namespace :craftsvilla do
       require 'open-uri'
       doc = nil
       craftsvilla_info = Site.where(:name => "craftsvilla").first
-      level_1_urls_hash.each do |level_1_url, categories|
+      level_1_urls.each do |level_1_url_hash|
+        level_1_url = level_1_url_hash[:url]
+        categories = level_1_url_hash[:category]
+
         puts "----level_1_url----#{level_1_url}"
         current_page, start_index = 1, 1
         while(true)

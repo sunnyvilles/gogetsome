@@ -41,10 +41,13 @@ ActiveRecord::Schema.define(:version => 20120621163626) do
   end
 
   create_table "product_categories", :force => true do |t|
-    t.integer  "product_id",  :null => false
-    t.integer  "category_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "product_id",                         :null => false
+    t.integer  "category_id",                        :null => false
+    t.integer  "priority",            :default => 1, :null => false
+    t.integer  "discount_price",      :default => 0, :null => false
+    t.integer  "discount_percentage", :default => 0, :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   add_index "product_categories", ["category_id"], :name => "index_product_categories_on_category_id"
@@ -70,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20120621163626) do
     t.integer  "primary_image_height"
     t.integer  "discount_price"
     t.integer  "actual_price"
+    t.integer  "discount_percentage",                 :default => 0,     :null => false
+    t.integer  "priority",                            :default => 1,     :null => false
     t.boolean  "status",                              :default => false, :null => false
     t.integer  "views"
     t.integer  "country_id"

@@ -16,7 +16,7 @@ class ProductCategory < ActiveRecord::Base
     params[:categories].each do |cat_key_word|
       category = indexed_categories[cat_key_word]
       if category.nil?
-        category = Category.create(:name => cat_key_word, :associated_products_count => 1)
+        category = Category.create(:name => cat_key_word.downcase, :associated_products_count => 1)
       else
         existing_category_ids << category.id
       end
