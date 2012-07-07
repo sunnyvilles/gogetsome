@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20120621163626) do
   create_table "sites", :force => true do |t|
     t.string   "name",       :limit => 50,                 :null => false
     t.string   "site_url",   :limit => 50,                 :null => false
-    t.string   "logo",       :limit => 250,                :null => false
+    t.string   "logo",       :limit => 250
     t.integer  "country_id",                :default => 1, :null => false
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
