@@ -571,6 +571,8 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   text-align: center;
   vertical-align: middle;
   width: 100%;
+	position: relative;
+	top: 140px;
 }
 .noAuthBox{
   margin: 0 0 10px 0;
