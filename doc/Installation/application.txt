@@ -1,0 +1,20 @@
+** CREATE fabulisdeployer ACCOUNT
+----------------------------------
+cmd> sudo adduser graboardhandler
+cmd> su graboarddeployer
+cmd> ssh-keygen -t dsa
+cmd> chown -R graboarddeployer.users /home/graboarddeployer/.ssh
+cmd> chmod -R go-rwx /home/graboarddeployer/.ssh
+cmd> chmod 700 /home/graboarddeployer/.ssh
+cmd> chmod 600 /home/graboarddeployer/.ssh/authorized_keys
+cmd> exit
+cmd> passwd -l graboarddeployer
+
+
+
+** Install rvm
+--------------
+cmd> sudo apt-get install build-essential git-core
+cmd> sudo apt-get update
+cmd> bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
+cmd> source /home/ubuntu/.rvm/scripts/rvm
