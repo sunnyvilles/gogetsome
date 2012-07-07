@@ -1,20 +1,216 @@
-** CREATE fabulisdeployer ACCOUNT
+> /sbin/chkconfig --level 0123456 mysqld off
+> /sbin/chkconfig --level 0123456 httpd off
+> /sbin/chkconfig --level 0123456 sendmail on
+
+** CREATE graboardhandler ACCOUNT
 ----------------------------------
-cmd> sudo adduser graboardhandler
-cmd> su graboarddeployer
-cmd> ssh-keygen -t dsa
-cmd> chown -R graboarddeployer.users /home/graboarddeployer/.ssh
-cmd> chmod -R go-rwx /home/graboarddeployer/.ssh
-cmd> chmod 700 /home/graboarddeployer/.ssh
-cmd> chmod 600 /home/graboarddeployer/.ssh/authorized_keys
-cmd> exit
-cmd> passwd -l graboarddeployer
+	> /usr/sbin/adduser graboardhandler -g users (NOTE: add public private keys for this user)
+	> su graboardhandler
+	> ssh-keygen -t dsa
+		NOTE: Overwrite users existing keys in "/home/graboardhandler/.ssh/" from from "doc/keys/graboardhandler/"
+
+	> chown -R graboardhandler.users /home/graboardhandler/.ssh
+	> chmod -R go-rwx /home/graboardhandler/.ssh
+	> chmod 700 /home/graboardhandler/.ssh
+	> chmod 600 /home/graboardhandler/.ssh/authorized_keys
+	> exit
+	> passwd -l graboardhandler
 
 
 
-** Install rvm
---------------
-cmd> sudo apt-get install build-essential git-core
-cmd> sudo apt-get update
-cmd> bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)
-cmd> source /home/ubuntu/.rvm/scripts/rvm
+
+** Upgrade ruby if required.
+	> yum erase ruby
+	> yum install -y gcc-c++ readline readline-devel ncurses ncurses-devel zlib zlib-devel openssl openssl-devel java
+	> cd /usr/local/src
+	> wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.bz2
+	> tar xzvf ruby-1.9.3-p194.tar.bz2
+	> cd ruby-1.9.3-p194
+	> ./configure
+	> make
+	> make install
+        > cd /usr/bin
+        > ln -s /usr/local/bin/ruby
+        > ln -s /usr/local/bin/gem
+        > ln -s /usr/local/bin/rake
+
+> yum install curl-devel*
+> gem install passenger -v=3.0.5 --no-ri --no-rdoc
+> yum install mysql* libxml*
+> yum install libxslt* svn
+> gem install capistrano -v=2.5.20 --no-ri --no-rdoc
+> gem install capistrano-ext -v=1.2.1 --no-ri --no-rdoc
+> gem install mechanize -v=1.0.0 --no-ri --no-rdoc
+> gem install htmlentities -v=4.3.0 --no-ri --no-rdoc
+> gem install newrelic_rpm -v=3.2.0.1 --no-ri --no-rdoc
+> gem install rpm_contrib -v=2.1.6 --no-ri --no-rdoc
+
+** install passenger nginx module
+	> cd /usr/local/src
+	> wget http://nginx.org/download/nginx-1.2.2.tar.gz
+	> tar -xzvf nginx-1.2.2.tar.gz
+
+	* Install phusion passanger using phusion installer.
+		> passenger-install-nginx-module
+				* Choose option to install nginx manually. (option 2)
+				* Please specify the directory:   /usr/local/src/nginx-1.2.2
+				* Please specify a prefix directory [/opt/nginx]:  /usr/local/nginx
+				* Extra arguments to pass to configure script: --sbin-path=/usr/local/sbin --with-http_gzip_static_module --with-http_ssl_module
+
+	* Generate test SSL certificates (with passphrase: roo123!@#)
+			> cd /usr/local/nginx/conf
+			> openssl genrsa -des3 -out server.key 1024
+			> openssl req -new -key server.key -out server.csr
+			> cp server.key server.key.org
+			> openssl rsa -in server.key.org -out server.key
+			> openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+	> vi /usr/local/nginx/conf/nginx.conf ##copy the content from "doc/setup/configs/app-nginx.conf"##
+		CHANGES IN THE FILE:
+			> server_name  glistr.com;
+			> rails_env staging;
+			> passenger_pre_start http://glistr.com:80/;
+	> vi /etc/init.d/nginx ##copy the content from "doc/setup/configs/init-script-nginx"##
+	> chmod 755 /etc/init.d/nginx
+	> cd /usr/local/src
+	> wget http://developer.axis.com/download/distribution/apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
+	> tar zxvf apps-sys-utils-start-stop-daemon-IR1_9_18-2.tar.gz
+	> cd apps/sys-utils/start-stop-daemon-IR1_9_18-2/
+	> gcc start-stop-daemon.c -o start-stop-daemon
+	> cp start-stop-daemon /usr/sbin
+	> /sbin/chkconfig --add nginx
+	> /sbin/chkconfig --level 0123456 nginx on
+	> visudo
+			fabulisdeployer  ALL = NOPASSWD: /etc/init.d/nginx restart, /etc/init.d/nginx start, /etc/init.d/nginx stop
+	> mkdir /mnt/nginx
+	> mkdir /mnt/nginx/logs
+	> touch /mnt/nginx/logs/error.log
+	> touch /mnt/nginx/logs/nginx.pid
+	> chmod 755 -R /mnt/nginx/
+	> /etc/init.d/nginx restart
+
+
+
+** TO CREATE NEW USER WITH PUBLIC PRIVATE KEYS PLEASE REFER "doc/setup/public-private-keys.txt": ##### NOTE: PLEASE STORE ALL PUB/PRIVATE KEYS IN "doc/public private keys/". Use existing keys on all the servers
+** TO SETUP NEW GEOIP PLEASE REFER "doc/setup/geo-ip-installation.txt":
+** TO SETUP NEW Resque PLEASE REFER "doc/setup/resque-installation.txt"
+** TO SETUP Capistrano deployer PLEASE REFER "doc/setup/deployer.txt"
+** TO SETUP Imagemagick and rmagick PLEASE REFER "doc/setup/ImageMagick.txt"
+
+
+** INSTALL MEMCACHED
+	> cd /usr/local/src
+	> wget http://www.monkey.org/~provos/libevent-1.4.13-stable.tar.gz
+	> tar -xzvf libevent-1.4.13-stable.tar.gz
+	> cd libevent-1.4.13-stable
+	> ./configure
+	> make
+	> make install
+	> cd /usr/local/src
+	> wget http://memcached.googlecode.com/files/memcached-1.4.5.tar.gz
+	> tar -xzvf memcached-1.4.5.tar.gz
+	> cd memcached-1.4.5
+	> ./configure
+	> make
+	> make install
+	> vi /etc/ld.so.conf
+			/usr/local/lib
+	> /sbin/ldconfig
+	> updatedb
+	> yum install cyrus-sasl-devel
+	> gem install memcached -v=1.2.2 --no-ri --no-rdoc
+			app1 => memcached -d -m 512 -l 10.84.78.204 -p 11111 -u fabulisdeployer
+			app2 => memcached -d -m 512 -l 10.194.223.63 -p 11111 -u fabulisdeployer
+			app3 => memcached -d -m 512 -l 10.78.245.196 -p 11111 -u fabulisdeployer
+			resque => memcached -d -m 512 -l 10.84.70.79 -p 11111 -u fabulisdeployer (removed this instance from config file)
+			image uploader => memcached -d -m 512 -l 10.84.122.202 -p 11111 -u fabulisdeployer
+
+4) SET LOGROTATE:
+----------------------------------
+> vi /etc/logrotate.d/app-fab
+"/mnt/fab/shared/log/production.log" {
+  # rotate the files daily
+  daily
+  # Save the last 14 days worth of logs before deleting
+  rotate 14
+  # missing file is not an error case - just ignore.
+  missingok
+  # this is important for the logs
+  copytruncate
+}
+
+> vi /etc/logrotate.d/app-lb
+"/usr/local/nginx/logs/access.log" {
+  # rotate the files daily
+  daily
+  # Save the last 14 days worth of logs before deleting
+  rotate 14
+  # missing file is not an error case - just ignore.
+  missingok
+  # this is important for the logs
+  copytruncate
+}
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+*** IMPORTANT:: Add the public IP address to sailthru settings. Sailthru has three accounts now. Make sure that it is added to production(FAB).
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+=========================XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX==============================================
+
+Passenger monitering commands
+===============================================================================================
+passenger-status --verbos
+passenger-memory-stats
+
+
+
+
+### Nginx changes
+
+1. Add the new server internal ip addresses in load balancernginx file -->  "/usr/local/nginx/conf/nginx.conf"
+
+EX:
+
+upstream fab-staging {
+                server 10.84.67.227;
+                server 10.245.19.83;
+                server 10.196.206.123;
+                server 10.194.37.187;
+                server 10.195.126.235;
+        }
+
+
+2. On deployer machine execute the following cmds
+ > svn update .
+ > cap staging/production deploy:setup
+ > cap staging/production deploy:check
+
+### Steps to add new servers to newrelic
+
+Step 1:
+cmd > sudo rpm -Uvh http://yum.newrelic.com/pub/newrelic/el5/i386/newrelic-repo-5-3.noarch.rpm
+
+Step 2:
+cmd > sudo yum install newrelic-sysmond
+
+Step 3:
+cmd > sudo nrsysmond-config --set license_key=9c0491e454e9dbfb21e06d4b3a6f09435848dabe
+
+Step 4:
+Open nrsysmond.cfg and specify hostname
+
+cmd > sudo vim /etc/newrelic/nrsysmond.cfg
+    hostname=staging-node-js
+
+Step 5:
+cmd > sudo /etc/init.d/newrelic-sysmond start
