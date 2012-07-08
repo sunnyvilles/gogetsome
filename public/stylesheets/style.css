@@ -388,7 +388,6 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   height: 11px;
   line-height: 11px;
   padding: 10px 0;
-  position: absolute;
   width: 100%;
   z-index: 9;
   -webkit-box-shadow:0 -3px 7px 0 rgba(0, 0, 0, 0.3);
@@ -1101,6 +1100,10 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	-moz-box-shadow: inset 0px 1px 0px #84C3D1, 0px 3px 0px #0e3871, 0px 6px 3px #84C3D1;
 	-o-box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
 	box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
+}
+
+#header{
+	height: 70px;
 }
 /*MEDIA QURIES*/
 @media screen and (max-width:1600px) {

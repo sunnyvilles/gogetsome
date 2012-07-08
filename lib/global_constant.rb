@@ -10,7 +10,7 @@ module GlobalConstant
   PRODUCTS_PER_EACH_LEVEL = 3
 
   # Number of products per page
-  PRODUCTS_PER_EACH_PAGE = 40
+  PRODUCTS_PER_EACH_PAGE = 20
 
   # Root url
   MEMCACHE_PREFIX = "d_"#Picshub::Application.config.memcache_prefix.freeze
