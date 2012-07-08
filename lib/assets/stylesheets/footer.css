@@ -16,7 +16,6 @@ root {
 }
 
 #footer{
-  display: none;
   background: none repeat scroll 0 0 #222222;
   border-top: 1px solid #D9E1E5;
   bottom: 0;
@@ -25,7 +24,6 @@ root {
   height: 11px;
   line-height: 11px;
   padding: 10px 0;
-  position: absolute;
   width: 100%;
   z-index: 9;
   -webkit-box-shadow:0 -3px 7px 0 rgba(0, 0, 0, 0.3);
