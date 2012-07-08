@@ -16,9 +16,18 @@ root {
 }
 
 .inviteWraper{
-  padding-top: 15px;
+  margin: 0 auto;
+  width: 980px;
+  border: 1px dotted #131313;
 }
-#inviteTabs {
+.headingWrapper {
+  font-size: 24px;
+  min-height: 40px;
+  padding: 13px 15px 2px 15px;
+  background: white;
+}
+
+#inviteTabs,#shareInviteTabs {
   overflow: hidden;
   width: 100%;
   margin: 0;
@@ -26,12 +35,13 @@ root {
   list-style: none;
 }
 
-#inviteTabs li {
+#inviteTabs li,#shareInviteTabs li {
   float: left;
   margin: 0 -15px 0 0;
+  border-bottom: 2px solid #3d3d3d;
 }
 
-#inviteTabs a {
+#inviteTabs a,#shareInviteTabs a {
   float: left;
   position: relative;
   padding: 0 40px;
@@ -47,18 +57,18 @@ root {
   filter: alpha(opacity=30);
 }
 
-#inviteTabs a:hover,
-#inviteTabs a:focus {
-  border-bottom-color: #2ac7e1;
+#inviteTabs a:hover,#shareInviteTabs a:hover,
+#inviteTabs a:focus , #shareInviteTabs a:focus{
+  border-bottom-color: #84C3D1;
   opacity: 1;
   filter: alpha(opacity=100);
 }
 
-#inviteTabs a:focus {
+#inviteTabs a:focus, #shareInviteTabs a:focus {
   outline: 0;
 }
 
-#inviteTabs #current {
+#inviteTabs #current, #shareInviteTabs #current {
   z-index: 3;
   border-bottom-color: #3d3d3d;
   opacity: 1;
@@ -66,14 +76,50 @@ root {
 }
 
 /* ----------- */
-#inviteContent {
-  border-top: 2px solid #3d3d3d;
-  padding: 2em;
+#inviteContent, #recInviteContent {
+
+  padding:2em 2em 2em 0;
   /*height: 220px;*/
 }
 
-inviteContent h2,
-inviteContent h3,
-inviteContent p {
+#inviteContent h2,
+#inviteContent h3,
+#inviteContent p,
+#recInviteContent h2,
+#recInviteContent h3,
+#recInviteContent p {
   margin: 0 0 15px 0;
+}
+.shareWithIvite{
+
+  background: #fff;
+  overflow: hidden;
+}
+.invitedPplStatus{
+  width: 460px;
+  padding: 13px 15px 2px 15px;
+  height: 300px;
+  background: #fff;
+}
+.invitedPplUsingShareLink{
+  width: 460px;
+  padding: 13px 15px 2px 15px;
+  height: 300px;
+  background: #F2F2F0;
+}
+.inviteStatusBlk,.inviteUsingShareLinks{
+  padding-top: 20px;
+}
+.moreInvitationWrap{
+  background: #fff;
+  border-top: 1px dotted #131313;
+}
+.moreInvitation{
+  padding: 13px 15px 2px 15px;
+}
+.moreWithTabs{
+  padding-top: 20px;
+}
+.logoColor{
+  color: #84C3D1!important;
 }

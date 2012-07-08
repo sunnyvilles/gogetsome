@@ -1,0 +1,260 @@
+/* 
+    Document   : common
+    Created on : Jun 14, 2012, 9:48:04 AM
+    Author     : saorabhkumar
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body{
+  background:#f2f2f0;
+  font-size:12px;
+  min-width:960px;
+  margin:0;
+  padding:0;
+  color:#47565E;
+
+}
+
+a {
+  -moz-transition:color 0.3s ease-out;
+  -webkit-transition:color 0.3s ease-out;
+  -o-transition:color 0.3s ease-out;
+  -ms-transition:color 0.3s ease-out;
+  transition:color 0.3s ease-out;
+}
+a{
+  text-decoration: none;
+}
+.clear:after {
+  clear: both;
+}
+.displayNone{
+  display: none;
+}
+.clear:before, .clear:after {
+  content: " ";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.floatLeft{
+  float: left;
+}
+.floatRight{
+  float: right;
+}
+.dB{
+  display: block;
+}
+.dIB{
+  display: block;
+}
+.font11{
+  font-size: 11px;
+}
+.font12{
+  font-size: 12px;
+}
+.font22{
+  font-size: 22px;
+}
+.color9{
+  color: #999;
+}
+.color3{
+  color: #333;
+}
+.alignCenter{margin: 0 auto;display: block;text-align: center;}
+.alignLeft, .alignRight{margin: 0;display: block}
+.alignLeft{text-align: left}
+.alignRight{text-align: right}
+.hide,.displayNone{
+  display: none
+}
+.show,.dB{
+  display: block
+}
+.textHide{
+  display: block;
+  text-indent: -99999px
+}
+.boldText{
+  font-weight: bold;
+  font-style:normal;
+}
+.overflowHidden {
+  overflow:hidden
+}
+.vAm{
+  vertical-align: middle;
+}
+.vAt{
+  vertical-align: top;
+}
+.vAb{
+  vertical-align: bottom;
+}
+.margin0{
+  margin: 0;
+}
+.marginRight5{margin-right: 5px}
+.marginRight7{margin-right: 7px}
+.marginLeft5{margin-left: 5px}
+.marginTop5{margin-top: 5px}
+.marginBottom5{margin-bottom: 5px}
+.marginBottom3{margin-bottom: 3px}
+.marginBottom9{margin-bottom: 9px}
+.dottedBorder {border: 1px dotted #606060;}
+.borderR5, .round5{
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.noBorder {border: 0 none!important}
+.mAuto{
+  margin: 0 auto;
+}
+.poRel{position: relative}
+.poAbs{position: absolute}
+.poFix{position: fixed}
+.font36{
+  font-size: 36px;
+}
+.font22{
+  font-size: 22px;
+}
+.font21{
+  font-size: 21px;
+}
+.font20{
+  font-size: 20px;
+}
+.font30{
+  font-size: 30px;
+}
+.font40{
+  font-size: 40px;
+}
+.font24{
+  font-size: 24px;
+}
+.font12{
+  font-size: 12px;
+}
+.color333{
+  color: #333;
+}
+.colorFFF{
+  color: #FFF;
+}
+.colorCCC{
+  color: #CCC;
+}
+.color777{
+  color: #777;
+}
+.color000{
+  color: #000;
+}
+.colorDD00{
+  color:#dd0017;
+}
+.fontB{
+  font-weight: bold;
+}
+.fontFamG{
+  font-family: Georgia,"Times New Roman",Times,serif;
+}
+.fontFamA{
+  font-family: Arial;
+}
+.fontIt{
+  font-style: italic;
+}
+.fontNr{
+  font-style: normal;
+}
+.color666{
+  color: #666;
+}
+.font13{
+  font-size: 13px;
+}
+.font28{
+  font-size: 28px;
+}
+.font16{
+  font-size: 16px;
+}
+.font14{
+  font-size: 14px;
+}
+.font18{
+  font-size: 18px;
+}
+.font17{
+  font-size: 17px;
+}
+.font11{
+  font-size: 11px;
+}
+.color999{
+  color: #999;
+}
+.border2, .round2{
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+.border5, .round5{
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+.border7, .round7{
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+}
+.border7, .round9{
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.hide{
+	display: none;
+}
+a:hover{
+/*  color:#0685B1;*/
+  color:#E42F03;
+}
+.headingTitle {
+height: 30px;
+line-height: 30px;
+letter-spacing: -0.05em;
+font-size: 24px;
+padding-bottom: 10px;
+}
+.redText {
+color: #DD0017;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+}
+.fontSN{
+  font-style: normal;
+}
+.fontLtr{
+  font-weight: lighter;
+}

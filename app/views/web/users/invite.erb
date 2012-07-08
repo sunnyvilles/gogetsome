@@ -1,23 +1,78 @@
+<div style="height: 50px;"></div>
 <div class="inviteWraper">
-  <ul id="inviteTabs">
-    <li><a href="#" name="#email">Email</a></li>
-    <li><a href="#" name="#facebook">Facebook</a></li>
-  </ul>
-  <div id="inviteContent">
-    <div id="email">
-      <h2>Lorem ipsum sit amet</h2>
-      <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus id, dapibus non quam.</p>
-      <p>Suspendisse ac libero mauris. Cras lacinia porttitor urna, vitae molestie libero posuere et. Mauris turpis tortor, mollis non vulputate sit amet, rhoncus vitae purus.</p>
-      <h3>Pellentesque habitant</h3>
-      <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
-    </div>
-    <div id="facebook">
-      <h2>Vivamus fringilla suscipit justo</h2>
-      <p>Aenean dui nulla, egestas sit amet auctor vitae, facilisis id odio. Donec dictum gravida feugiat.</p>
-      <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras pretium elit et erat condimentum et volutpat lorem vehicula</p>
+  <div class="headingWrapper overflowHidden" style="border-bottom: 1px dotted #131313;">
+    <span class="headingTitle color000 floatLeft"><em class="redText logoColor">Invite</em> Friends</span>
+  </div>
 
-      <p>Morbi tincidunt pharetra orci commodo molestie. Praesent ut leo nec dolor tempor eleifend.</p>
+  <div class="shareWithIvite">
+    <div class="floatLeft invitedPplStatus">
+      <span class="headingTitle color000 dB" style="width: 100%;border-bottom: 1px dotted #131313;">My<em class="redText logoColor"> Invites</em> </span>
+      <div class="clear"></div>
+      <div class="inviteStatusBlk">
+      <ul id="shareInviteTabs">
+      <li><a href="#" name="#openInvites">Open Invites</a></li>
+      <li><a href="#" name="#registered">Registered</a></li>
+    </ul>
+    <div id="recInviteContent">
+      <div id="openInvites">
+        <h2 class="color333 dB">You do not have any open invites. You can send out invites and earn referral credits by simply following the steps listed above.</h2>
+      </div>
+      <div id="registered">
+        <h2>Vivamus fringilla suscipit justo</h2>
+        <p>Aenean dui nulla, egestas sit amet auctor vitae, facilisis id odio. Donec dictum gravida feugiat.</p>
+        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras pretium elit et erat condimentum et volutpat lorem vehicula</p>
+
+        <p>Morbi tincidunt pharetra orci commodo molestie. Praesent ut leo nec dolor tempor eleifend.</p>
+      </div>
+    </div>
+    </div>
+    </div>
+    
+    
+    <div class="floatRight invitedPplUsingShareLink">
+      <span class="headingTitle color000 dB" style="width: 100%;border-bottom: 1px dotted #131313;">Your Special<em class="redText logoColor"> Invite Link</em> </span>
+      <div class="inviteUsingShareLinks">
+        
+        <p>
+          <label for="passwordsignup" class="youpasswd poRel" data-icon="p"><span class="font13 color666" style="padding:10px 0px;">Copy paste the URL below into <em class="fontB fontSN">Twitter</em>,<em class="fontB fontSN"> Facebook</em> or in an <em class="fontB fontSN">Email</em></span></label>
+          <input type="text" readonly="readonly" name="share_url" style="width:305px;height:15px;" autocomplete="off" class="inviteFriInput" id="share_url" value="http://graboard.com/70uqpm"/>
+          <span id="iconWrapper" class="marginLeft5">Share <a target="_blank" href="http://twitter.com/intent/tweet?text=Shop with me on @graboard - everyday design. Use special link: http://graboard.com/70uqpm-t&amp;via=Graboard" id="twitIcon" class="marginLeft5"><img class="vAm" alt="Share on Twitter"   title="Share on Twitter"  src="/images/twitter.png"/></a> <a href="javascript:void(0);" onclick="fabObj.invite().facebookSharePriority('invite-fb');" id="fbIcon" class="marginLeft5"><img  class="vAm" alt="Share on Facebook"  title="Share on Facebook"  src="/images/facebook.png"/></a></span>
+        </p>
+          <span class="font13 color333 dB" style="padding: 25px 0 3px 0;">
+            <span class="fontB">
+              3
+            </span> people have joined from your special invite link.</span>
+          <span class="font11 color666 dB marginTop5">Tip: Share your invite link on Twitter &amp; Facebook to earn even more credits.</span>
+      </div>
+      
     </div>
   </div>
+  <div class="clear"></div>
+  <div class="moreInvitationWrap">
+    <div class="moreInvitation">
+    <div class="font22 color333" style="padding:13px 15px 10px 0;border-bottom: 1px dotted #131313;"><em class="redText logoColor">Invite</em> More People</div>
+    <div class="moreWithTabs" style="height: 300px;padding-bottom: 20px;">
+      <ul id="inviteTabs">
+      <li><a href="#" name="#email">Email</a></li>
+      <li><a href="#" name="#facebook">Facebook</a></li>
+    </ul>
+    <div id="inviteContent">
+      <div id="email">
+        <label for="emailsignup" class="youmail poRel color666" data-icon="e" > Add friends' email addresses</label>
+        <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="Enter email addresses separated by commas"/>
+      </div>
+      <div id="facebook">
+        <h2>Vivamus fringilla suscipit justo</h2>
+        <p>Aenean dui nulla, egestas sit amet auctor vitae, facilisis id odio. Donec dictum gravida feugiat.</p>
+        <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras pretium elit et erat condimentum et volutpat lorem vehicula</p>
+
+        <p>Morbi tincidunt pharetra orci commodo molestie. Praesent ut leo nec dolor tempor eleifend.</p>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+
+  
 </div>
 

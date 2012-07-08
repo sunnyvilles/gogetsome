@@ -856,7 +856,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
   width: 100px;
 }
 .mainCategory:hover .subCatLists{
-  
+
 }
 .mainCategory:hover,.mainCategory.selected,.price.selected{
   background-color: #1E1E1E;
@@ -1047,7 +1047,7 @@ ul.navigationLinks li:hover .morphing-glowing .image-wrap{
 	-webkit-animation: move 2s linear infinite;
 }
 .a_demo_four {
-	
+
 	position:relative;
 }
 

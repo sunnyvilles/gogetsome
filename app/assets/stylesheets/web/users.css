@@ -5,7 +5,9 @@
  *= require reset
  *= require layout
  *= require typography
+ *= require common
  *= require header
  *= require footer
  *= require invite/invite
+ *= require loginForm
 */
