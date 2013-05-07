@@ -8,7 +8,7 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'anemone'
 gem 'redis'
-gem 'memcached'
+gem 'memcached' , '1.4.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
