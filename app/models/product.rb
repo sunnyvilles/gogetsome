@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
       
       puts "-----product_ids----#{product_ids.inspect}"
 
-      Common.set_memcached(memcache_key, product_ids, 60.minutes.to_i, true)
+      #Common.set_memcached(memcache_key, product_ids, 60.minutes.to_i, true)
     end
     
     current_page_product_ids = product_ids[(((params[:page]%GlobalConstant::INDEX_PRODUCTS_PAGES_PER_LEVEL)-1)*GlobalConstant::PRODUCTS_PER_EACH_PAGE)..(((params[:page]%GlobalConstant::INDEX_PRODUCTS_PAGES_PER_LEVEL))*GlobalConstant::PRODUCTS_PER_EACH_PAGE)-1]

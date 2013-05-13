@@ -21,7 +21,7 @@ class Category < ActiveRecord::Base
         end
       end
       categories = {:filter_categories => filter_categories, :associated_categories => associated_categories}
-      Common.set_memcached(memcache_key, categories, 60.minutes.to_i, true)
+      #Common.set_memcached(memcache_key, categories, 60.minutes.to_i, true)
     end
     return categories
   end
