@@ -13,7 +13,6 @@ gem 'nokogiri'
 gem 'mechanize'
 gem 'anemone'
 gem 'redis'
-gem 'heroku'
 #gem 'memcached' , '1.4.2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
