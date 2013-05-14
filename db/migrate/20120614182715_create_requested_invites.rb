@@ -16,7 +16,7 @@ class CreateRequestedInvites < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :requested_invites, :email, :unique => true, :name => "UNIQUE_EMAIL"
+    add_index :requested_invites, :email, :unique => true, :name => "UNIQUE_EMAILri"
     add_index :requested_invites, :subscription_code, :unique => true, :name => "UNIQUE_SUBSCRIPTION_CODE"
     add_index :requested_invites, :invite_code, :unique => true, :name => "UNIQUE_INVITE_CODE"
   end
