@@ -4,8 +4,8 @@ class CreateUsers < ActiveRecord::Migration
       t.column :email, :string
       t.column :password, :string
       t.column :auth, :string
-      t.column :fb_user_id, 
-      t.column :twitter_id, 
+      t.column :fb_user_id, :integer, :limit => 8
+      t.column :twitter_id, :integer, :limit => 8
       t.string :invite_code, :null => false
       t.integer :requested_invites, :default => 0, :null => false
       t.integer :subscribed_users, :default => 0, :null => false
