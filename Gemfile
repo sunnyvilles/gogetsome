@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
-gem 'pg'
-#gem 'mysql2', '0.3.11'
+group :development, :test do
+  gem 'mysql2', '0.3.11'
+end
+group :production do
+  gem 'pg'
+end
 gem 'twitter_oauth'
 gem 'nokogiri'
 gem 'mechanize'
